@@ -64,29 +64,29 @@ module.exports = function(grunt) {
       },
       gruntfile: {
         files: ['Gruntfile.js']
-      }
-    },
-    livereload: {
-      files: [
-        '<%= yeoman.app %>/views/{,*//*}*.{html,jade}',
-        '{.tmp,<%= yeoman.app %>}/styles/{,*//*}*.css',
-        '{.tmp,<%= yeoman.app %>}/scripts/{,*//*}*.js',
-        '<%= yeoman.app %>/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}',
-      ],
+      },
+      livereload: {
+        files: [
+          '<%= yeoman.app %>/views/{,*//*}*.{html,jade}',
+          '{.tmp,<%= yeoman.app %>}/styles/{,*//*}*.css',
+          '{.tmp,<%= yeoman.app %>}/scripts/{,*//*}*.js',
+          '<%= yeoman.app %>/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}',
+        ],
 
-      options: {
-        livereload: true
-      }
-    },
-    express: {
-      files: [
-        'server.js',
-        'lib/**/*.{js,json}'
-      ],
-      tasks: ['newer:jshint:server', 'express:dev', 'wait'],
-      options: {
-        livereload: true,
-        nospawn: true //Without this option specified express won't be reloaded
+        options: {
+          livereload: true
+        }
+      },
+      express: {
+        files: [
+          'server.js',
+          'lib/**/*.{js,json}'
+        ],
+        tasks: ['newer:jshint:server', 'express:dev', 'wait'],
+        options: {
+          livereload: true,
+          nospawn: true //Without this option specified express won't be reloaded
+        }
       }
     },
 
