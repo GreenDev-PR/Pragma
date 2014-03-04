@@ -1,12 +1,3 @@
-/*
-  Docs at http://http://simpleweatherjs.com
-
-  Look inspired by http://www.degreees.com/
-  Used for demo purposes.
-
-  Weather icon font from http://fonts.artill.de/collection/artill-weather-icons
-*/
-
 @font-face {
     font-family: 'weather';
     src: url('https://dl.dropboxusercontent.com/u/2086809/weatherfont/artill_clean_icons-webfont.eot');
