@@ -20,14 +20,14 @@ angular.module('pragmaApp', [
     templateUrl: 'partials/login.html',
     bodyClass: 'pragma'
   }).when('/signup-researcher', {
-    templateUrl: 'partials/signup-researcher.html',
+    templateUrl: 'partials/signupResearcher.html',
     bodyClass: 'pragma'
   }).when('/signup-farmer', {
-    templateUrl: 'partials/signup-farmer.html',
+    templateUrl: 'partials/signupFarmer.html',
     controller: 'signupFarmerCtrl',
     bodyClass: 'pragma'
   }).when('/farmer-overview', {
-    templateUrl: 'partials/farmer-overview.html',
+    templateUrl: 'partials/farmerOverview.html',
     controller: 'FarmerOverviewCtrl',
     bodyClass: 'pragma'
   })
@@ -36,7 +36,6 @@ angular.module('pragmaApp', [
   });
 }).run(function() {
       // animation for landing page sections
-      // 
       console.log('running ');
       $('a[href^="#"]').click(function() {
         $('html, body').animate({
@@ -44,13 +43,14 @@ angular.module('pragmaApp', [
         }, 700);
         return false;
       });
+      
     })
 .run(['$location', '$rootScope', function($location, $rootScope) {
-  console.log('running 2');
 
   $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
     if (current.$$route) {
       $rootScope.bodyClass = current.$$route.bodyClass;
     }
   });
+
 }]);
