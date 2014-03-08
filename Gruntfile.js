@@ -379,7 +379,28 @@ module.exports = function(grunt) {
         options: {
           reporter: 'spec'
         },
-        src: ['test/server/**/*.js']
+        src: [
+          '!test/server/seedDatabase.js',
+          '!test/server/helper.js',
+          '!test/server/seedData/**',
+          'test/server/**/*.js'
+        ]
+      }
+    },
+    execute: {
+      seedDB: {
+        options: {
+          module: true
+        },
+        src: ['test/server/setupDatabase.js']
+      }
+    },
+    env : {
+      dev : {
+        NODE_ENV : 'development',
+      },
+      test : {
+        NODE_ENV : 'test',
       }
     }
   });
@@ -422,7 +443,7 @@ module.exports = function(grunt) {
     grunt.task.run(['serve']);
   });
 
-  grunt.registerTask('testServer', ['mochaTest']);
+  grunt.registerTask('testServer', ['env:test', 'execute:seedDB', 'mochaTest']);
 
   grunt.registerTask('test', [
     'clean:server',
