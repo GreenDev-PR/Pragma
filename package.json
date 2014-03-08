@@ -9,7 +9,7 @@
     "passport-local": "latest",
     "ejs": "~0.8.4",
     "pg": "~2.11.1",
-    "pgpromise": "~0.1.1"
+    "sequelize": "~1.7.0",
   },
   "devDependencies": {
     "grunt": "~0.4.1",
@@ -56,7 +56,9 @@
     "grunt-githooks": "~0.3.1",
     "mocha": "~1.17.1",
     "supertest": "~0.9.0",
-    "grunt-mocha-test": "~0.9.3"
+    "grunt-mocha-test": "~0.9.3",
+    "grunt-execute": "~0.1.5",
+    "grunt-env": "~0.4.1"
   },
   "engines": {
     "node": ">=0.10.0"
