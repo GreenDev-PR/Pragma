@@ -445,13 +445,15 @@ module.exports = function(grunt) {
 
   grunt.registerTask('testServer', ['env:test', 'execute:seedDB', 'mochaTest']);
 
-  grunt.registerTask('test', [
+  grunt.registerTask('testClient', [
+    'env:test',
     'clean:server',
     'concurrent:test',
     'autoprefixer',
-    'karma',
-    'testServer'
+    'karma'
   ]);
+
+  grunt.registerTask('test', ['testServer', 'testClient']);
 
   grunt.registerTask('build', [
     'clean:dist',
