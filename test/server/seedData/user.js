@@ -2,6 +2,9 @@
 
 var factory = require('rosie').Factory;
 
+var names = ['Victor', 'Miguel', 'Jose'];
+var lastNames = ['Rosario', 'Doe', 'Doer'];
+
 factory.define('user')
 .sequence('id')
 .sequence('email', function(i) {
@@ -11,10 +14,10 @@ factory.define('user')
   return 'lookma_difficult_pwd' + i;
 })
 .sequence('name', function(i) {
-  return 'Name' + i;
+  return names[i % names.length];
 })
 .sequence('lastName', function(i) {
-  return 'Last' + i;
+  return lastNames[i % lastNames.length];
 })
 .sequence('organization', function(i) {
   return 'Organization' + i;
