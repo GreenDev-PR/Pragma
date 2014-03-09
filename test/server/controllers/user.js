@@ -2,7 +2,8 @@
 
 var request = require('supertest'),
 helper = require('../helper.js'),
-seed = require('../seedData/seedData.js').data,
+seed = require('../seedData'),
+seedData = seed.data,
 app = require('../../../server');
 
 describe('User controller', function () {
@@ -13,7 +14,7 @@ describe('User controller', function () {
       .get('/api/users/1')
       .expect('Content-Type', /json/)
       .expect(200)
-      .end(helper.isBodyEqual(seed.users[0], done));
+      .end(helper.isBodyEqual(seedData.users[0], done));
     });
 
     it('should get a user with userId 6', function (done) {
@@ -21,14 +22,15 @@ describe('User controller', function () {
       .get('/api/users/6')
       .expect('Content-Type', /json/)
       .expect(200)
-      .end(helper.isBodyEqual(seed.users[5], done));
+      .end(helper.isBodyEqual(seedData.users[5], done));
     });
 
     it('should return 404 for a not found user', function(done) {
       request(app)
-      .get('/api/users/' + seed.users.length + 1)
+      .get('/api/users/' + seedData.users.length + 1)
       .expect('Content-Type', /json/)
       .expect(404, done);
     });
   });
+
 });

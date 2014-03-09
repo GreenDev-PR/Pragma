@@ -3,7 +3,7 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 var db = require('../../lib/models');
-var seed = require('./seedData/seedData');
+var seed = require('./seedData');
 
 module.exports = function(grunt, options, async) {
   var done = async();
