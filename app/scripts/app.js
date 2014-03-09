@@ -6,7 +6,7 @@ angular.module('pragmaApp', [
   'ngSanitize',
   'ngRoute',
   'google-maps'
-  ])
+])
 .config(function($routeProvider) {
   $routeProvider
   .when('/', {
@@ -43,11 +43,11 @@ angular.module('pragmaApp', [
         }, 700);
         return false;
       });
-      
+
     })
 .run(['$location', '$rootScope', function($location, $rootScope) {
 
-  $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
+  $rootScope.$on('$routeChangeSuccess', function (event, current) {
     if (current.$$route) {
       $rootScope.bodyClass = current.$$route.bodyClass;
     }
