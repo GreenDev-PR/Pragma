@@ -428,6 +428,7 @@ module.exports = function(grunt) {
 
     grunt.task.run([
       'githooks:all',
+      'execute:seedDB',
       'clean:server',
       'bower-install',
       'concurrent:server',
