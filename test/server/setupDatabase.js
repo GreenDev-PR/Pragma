@@ -5,6 +5,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 var db = require('../../lib/models');
 var seed = require('./seedData');
 var _ = require('lodash');
+var bcrypt = require('bcrypt');
 
 
 module.exports = function(grunt, options, async) {
@@ -21,6 +22,7 @@ module.exports = function(grunt, options, async) {
     var userData = seed.data.users;
     userData = userData.map(function(user) {
       var clone = _.cloneDeep(user);
+      clone.password = bcrypt.hashSync(user.password, 8);
       delete clone.id;
       return clone;
     });
