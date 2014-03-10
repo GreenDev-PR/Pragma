@@ -15,7 +15,7 @@ describe('User controller', function () {
       .get('/api/users/1')
       .expect('Content-Type', /json/)
       .expect(200)
-      .end(helper.isBodyEqual(seedData.users[0], done));
+      .end(helper.isBodyEqual(seedData.getUser(0), done));
     });
 
     it('should get a user with userId 6', function (done) {
@@ -23,7 +23,7 @@ describe('User controller', function () {
       .get('/api/users/6')
       .expect('Content-Type', /json/)
       .expect(200)
-      .end(helper.isBodyEqual(seedData.users[5], done));
+      .end(helper.isBodyEqual(seedData.getUser(5), done));
     });
 
     it('should return 404 for a not found user', function(done) {
@@ -31,6 +31,21 @@ describe('User controller', function () {
       .get('/api/users/' + seedData.users.length + 1)
       .expect('Content-Type', /json/)
       .expect(404, done);
+    });
+
+    it('should not return the user\'s password', function (done) {
+      request(app)
+      .get('/api/users/1')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end(function(err, res) {
+        if(err) {
+          done(err);
+        } else {
+          expect(res.body).not.to.have.property('password');
+          done();
+        }
+      });
     });
   });
 
@@ -79,6 +94,42 @@ describe('User controller', function () {
             done();
           }
         });
+      });
+    });
+
+    describe('with a valid user object sent', function() {
+      it('should create a user, disregard the given id and respond with a 201', function (done) {
+        var expectedId = seedData.users.length + 1;
+        var newUser = seed.factory.build('user');
+        newUser.id = 30;
+        post.send(newUser)
+        .expect('Content-Type', /json/)
+        .expect(201)
+        .end(function(err) {
+          if(err) {
+            done(err);
+          } else {
+            request(app).get('/api/users/' + expectedId)
+            .expect(200, done);
+          }
+        });
+
+      });
+
+      it('should not create a user with an existing same email', function(done) {
+        var existingEmailUser = seed.factory.build('user', {email: seedData.users[0].email, userType: 'researcher'});
+        post.send(existingEmailUser)
+        .expect(400)
+        .end(function(err, res) {
+          if(err) {
+            done(err);
+          } else {
+            expect(res.body.message).to.match(/exist/);
+            console.log(res.body);
+            done();
+          }
+        });
+
       });
     });
   });
