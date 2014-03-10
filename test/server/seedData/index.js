@@ -2,6 +2,7 @@
 
 var fs = require('fs');
 var factory = require('rosie').Factory;
+var _ = require('lodash');
 
 fs.readdirSync(__dirname).forEach(function(file) {
   console.log(file);
@@ -18,7 +19,12 @@ exports.data = {
     }
 
     return users;
-  }())
+  }()),
+  getUser: function(index) {
+    var user = _.cloneDeep(this.users[index]);
+    delete user.password;
+    return user;
+  }
 };
 
 exports.factory = factory;
