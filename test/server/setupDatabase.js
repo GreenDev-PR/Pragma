@@ -13,8 +13,11 @@ module.exports = function(grunt, options, async) {
 
   grunt.log.ok('Starting database setup');
 
-  db.sequelize.authenticate().then(function() {
+  var promise = db.sequelize.authenticate().then(function() {
     return db.sequelize.sync({force: true});
+  }, function(err) {
+    grunt.log.error('Authentication', err);
+    grunt.fail.fatal(err);
   }).then(function() {
     grunt.log.ok('Database tables created.');
 
@@ -28,14 +31,14 @@ module.exports = function(grunt, options, async) {
     });
 
     return db.User.bulkCreate(userData);
-  }, function(err) {
-    grunt.log.error('Authentication', err);
-    grunt.fail.fatal(err);
   }).then(function() {
-    grunt.log.ok('Inserted users seed data');
-    done();
-  }, function(err) {
+    return db.GoesVariable.bulkCreate(seed.data.goesVariables);
+  });
+
+  promise.error(function(err) {
     grunt.fail.fatal(err);
   });
+
+  promise.finally(done);
 
 };
