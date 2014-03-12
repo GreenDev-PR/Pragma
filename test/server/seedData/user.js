@@ -1,6 +1,7 @@
 'use strict';
 
 var factory = require('rosie').Factory;
+var _ = require('lodash');
 
 var names = ['Victor', 'Miguel', 'Jose'];
 var lastNames = ['Rosario', 'Doe', 'Doer'];
@@ -31,3 +32,19 @@ factory.define('user')
 .sequence('farmLongitude', function(i) {
   return i % 2 > 0 ? -66.453767 : null;
 });
+
+
+exports.users = (function() {
+  var users =  [];
+  for(var i= 0; i < 10; i++) {
+    users.push(factory.build('user'));
+  }
+
+  return users;
+}());
+
+exports.getUser = function(index) {
+  var user = _.cloneDeep(this.users[index]);
+  delete user.password;
+  return user;
+};
