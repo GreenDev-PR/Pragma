@@ -39,21 +39,3 @@ exports.goesVariables = [
   {'variableName':'surface_resistance','description':'Bulk surface resistance (s/m) is the resistance to the vapor flux from the crop canopy and is influenced by net radiation, soil heat flux and soil moisture. In this study, aerodynamic resistance is estimated using the equation of Ortega-Farías and Fuentes (1998).'},
   {'variableName':'wind_speed','description':'Daily average wind speed (m/s) derived from eight values of 3-hr wind speeds obtained from the National Weather Service\'s National Digital Forecast Database.  '}
 ];
-
-// exports.goesVariables = (function() {
-//     var variableNames = [
-//       'rainfall','runoff','aquifer_recharge',
-//       'soil_moisture','actual_ET','reference_ET',
-//       'crop_coefficient','crop_stress_coefficient',
-//       'wind_speed','solar_radiation','net_radiation',
-//       'average_air_temperature','minimum_air_temperature','maximum_air_temperature',
-//       'effective_surface_temperature','saturated_vapor_pressure','actual_vapor_pressure',
-//       'relative_humidity','surface_resistance','aerodynamic_resistance',
-//       'latent_heat_flux','sensible_heat_flux','non_transient_variables',
-//       'soil_saturation','bowen_ratio'
-//     ];
-
-//     return variableNames.map(function(variableName) {
-//       return {variableName: variableName};
-//     });
-//   })();

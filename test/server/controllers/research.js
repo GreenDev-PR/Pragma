@@ -31,4 +31,3 @@ describe('Research controller', function () {
     it('should bring the map data for a specified time range and location');
   });
 });
-
