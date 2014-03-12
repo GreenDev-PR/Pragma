@@ -14,6 +14,9 @@ var express = require('express'),
 // Application Config
 var config = require('./lib/config/config');
 
+// Load custom errors
+require('./lib/config/errors');
+
 // Passport Configuration
 var passport = require('./lib/config/passport');
 

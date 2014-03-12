@@ -10,7 +10,8 @@
     "ejs": "~0.8.4",
     "pg": "~2.11.1",
     "sequelize": "~1.7.0",
-    "bcrypt": "~0.7.7"
+    "bcrypt": "~0.7.7",
+    "errors": "~0.1.0"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
