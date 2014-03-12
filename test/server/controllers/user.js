@@ -76,7 +76,7 @@ describe('User controller', function () {
             done(err);
           } else {
             var body = res.body;
-            expect(body.error).to.contain.keys(['email', 'userType']);
+            expect(body.explanation).to.contain.keys(['email', 'userType']);
             done();
           }
         });
@@ -90,7 +90,7 @@ describe('User controller', function () {
             done(err);
           } else {
             var body = res.body;
-            expect(body.error).to.contain.keys(['farmerCoordinates']);
+            expect(body.explanation).to.contain.keys(['farmerCoordinates']);
             done();
           }
         });
