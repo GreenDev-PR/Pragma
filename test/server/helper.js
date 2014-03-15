@@ -2,16 +2,24 @@
 
 var _ = require('lodash');
 var util = require('util');
+var moment = require('moment');
 
 /**
  * Removes sequelize timestamps from the object.
  * @param  {Object} obj Object to remove timestamps
  * @return {Object}
  */
-var filterSequelize = function(obj){
-  delete obj.createdAt;
-  delete obj.updatedAt;
-  return obj;
+ var filterSequelize = function(object){
+  if(_.isArray(object)) {
+    _.forEach(object, function(obj) {
+      delete obj.createdAt;
+      delete obj.updatedAt;
+    });
+  } else {
+    delete object.createdAt;
+    delete object.updatedAt;
+  }
+  return object;
 };
 
 function error(msg, expected, actual) {
@@ -34,15 +42,35 @@ exports.isBodyEqual = function(expected, done) {
       done(err);
     } else {
       var body = res.body;
+      filterSequelize(body);
 
+      if(_.isEqual(expected, body)) {
+        done();
+      } else {
+        var a = util.inspect(expected);
+        var b = util.inspect(body);
+        done(error('expected ' + a + 'got ' + b, a, b));
+      }
+    }
+  };
+};
+
+exports.isGoesBodyEqual = function(expected, done) {
+  return function(err, res) {
+    if(err) {
+      done(err);
+    } else {
+      var body = res.body;
+      filterSequelize(body);
       if(_.isArray(body)) {
         _.forEach(body, function(obj) {
-          filterSequelize(obj);
+          obj.dataDate = moment(obj).toString();
         });
       } else {
-        body = filterSequelize(body);
+        body.dataDate = moment(body.dataDate).toString();
       }
 
+      expected.dataDate = moment(expected.dataDate).toString();
       if(_.isEqual(expected, body)) {
         done();
       } else {
