@@ -33,6 +33,8 @@ module.exports = function(grunt, options, async) {
     return db.User.bulkCreate(userData);
   }).then(function() {
     return db.GoesVariable.bulkCreate(seed.data.goesVariables);
+  }).then(function() {
+    return db.GoesMap.bulkCreate(seed.data.goesMaps);
   });
 
   promise.error(function(err) {
