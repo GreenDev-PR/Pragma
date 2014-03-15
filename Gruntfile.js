@@ -371,7 +371,7 @@ module.exports = function(grunt) {
     },
     githooks: {
       all: {
-        'pre-commit': 'jshint test'
+        'pre-commit': 'jshint'
       }
     },
     mochaTest: {
