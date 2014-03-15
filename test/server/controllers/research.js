@@ -1,6 +1,5 @@
 'use strict';
 var request = require('supertest'),
-expect = require('chai').expect,
 helper = require('../helper.js'),
 seed = require('../seedData'),
 seedData = seed.data,
@@ -48,8 +47,93 @@ describe('Research controller', function () {
       });
     });
 
-    describe('with a time range specified', function () {
-      it('should bring the maps for a specified time range');
+    describe('with just the startDate specified', function () {
+      it('should bring the maps from the given start date until today', function(done) {
+        request(app).get(getMapEndpoint('rainfall') + '?startDate=2014-01-01')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(helper.isGoesBodyEqual(seedData.goesMaps, done));
+      });
+
+      it('should bring half the maps when the date is "2014-01-15"', function(done) {
+        request(app).get(getMapEndpoint('rainfall') + '?startDate=2014-01-15')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(helper.isGoesBodyEqual(seedData.goesMaps.slice(14), done));
+      });
+
+      it('should only bring the last one, since its the last date', function (done) {
+        request(app).get(getMapEndpoint('rainfall') + '?startDate=2014-01-31')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(helper.isGoesBodyEqual([_.last(seedData.goesMaps)], done));
+      });
+
+      describe('invalidly', function () {
+        it('passing 13 as the month should return a 400', function (done) {
+          request(app).get(getMapEndpoint('rainfall') + '?startDate=2014-13-15')
+          .expect('Content-Type', /json/)
+          .expect(400, done);
+        });
+
+        it('passing a name should still return a 400', function (done) {
+          request(app).get(getMapEndpoint('rainfall') + '?startDate=ImNotvalid')
+          .expect('Content-Type', /json/)
+          .expect(400, done);
+        });
+      });
+    });
+
+    describe('with both startDate and endDate specified', function () {
+      describe('with just the startDate being invalid', function() {
+        it('passing 13 as the month should return a 400', function (done) {
+          request(app).get(getMapEndpoint('rainfall') + '?startDate=2014-13-15&endDate=2014-05-01')
+          .expect('Content-Type', /json/)
+          .expect(400, done);
+        });
+
+        it('passing a name should still return a 400', function (done) {
+          request(app).get(getMapEndpoint('rainfall') + '?startDate=ImNotvalid&endDate=2014-05-01')
+          .expect('Content-Type', /json/)
+          .expect(400, done);
+        });
+      });
+
+      describe('with just the endDate being invalid', function() {
+        it('passing 13 as the month should return a 400', function (done) {
+          request(app).get(getMapEndpoint('rainfall') + '?startDate=2014-01-15&endDate=2014-13-01')
+          .expect('Content-Type', /json/)
+          .expect(400, done);
+        });
+
+        it('passing a name should still return a 400', function (done) {
+          request(app).get(getMapEndpoint('rainfall') + '?startDate=2014-01-15&endDate=ImNotvalid')
+          .expect('Content-Type', /json/)
+          .expect(400, done);
+        });
+      });
+
+      describe('with both dates being valid', function() {
+        it('should bring the first half of the maps', function (done) {
+          request(app).get(getMapEndpoint('rainfall') + '?startDate=2014-01-01&endDate=2014-01-15')
+          .expect('Content-Type', /json/)
+          .expect(200)
+          .end(helper.isGoesBodyEqual(seedData.goesMaps.slice(0, 15), done));
+        });
+
+        it('should bring the second half of the maps', function (done) {
+          request(app).get(getMapEndpoint('rainfall') + '?startDate=2014-01-15&endDate=2014-01-31')
+          .expect('Content-Type', /json/)
+          .expect(200)
+          .end(helper.isGoesBodyEqual(seedData.goesMaps.slice(14), done));
+        });
+
+        it('should return a 404 if there is no data in the timerange', function(done) {
+          request(app).get(getMapEndpoint('rainfall') + '?startDate=2014-04-15&endDate=2014-01-31')
+          .expect('Content-Type', /json/)
+          .expect(404, done);
+        });
+      });
     });
   });
 });

@@ -9,7 +9,7 @@ var moment = require('moment');
  * @param  {Object} obj Object to remove timestamps
  * @return {Object}
  */
- var filterSequelize = function(object){
+var filterSequelize = function(object){
   if(_.isArray(object)) {
     _.forEach(object, function(obj) {
       delete obj.createdAt;
@@ -20,6 +20,16 @@ var moment = require('moment');
     delete object.updatedAt;
   }
   return object;
+};
+
+var transformDataDate = function(object) {
+  if(_.isArray(object)) {
+    _.forEach(object, function(obj) {
+      obj.dataDate = moment(obj.dataDate).toString();
+    });
+  } else {
+    object.dataDate = moment(object.dataDate).toString();
+  }
 };
 
 function error(msg, expected, actual) {
@@ -62,15 +72,10 @@ exports.isGoesBodyEqual = function(expected, done) {
     } else {
       var body = res.body;
       filterSequelize(body);
-      if(_.isArray(body)) {
-        _.forEach(body, function(obj) {
-          obj.dataDate = moment(obj).toString();
-        });
-      } else {
-        body.dataDate = moment(body.dataDate).toString();
-      }
+      transformDataDate(body);
 
-      expected.dataDate = moment(expected.dataDate).toString();
+      transformDataDate(expected);
+
       if(_.isEqual(expected, body)) {
         done();
       } else {
@@ -81,3 +86,5 @@ exports.isGoesBodyEqual = function(expected, done) {
     }
   };
 };
+
+
