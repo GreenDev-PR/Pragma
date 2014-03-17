@@ -32,6 +32,12 @@ var transformDataDate = function(object) {
   }
 };
 
+var transformSequelizeAndDataDate = function(body, expected) {
+  filterSequelize(body);
+  transformDataDate(body);
+  transformDataDate(expected);
+};
+
 function error(msg, expected, actual) {
   var err = new Error(msg);
   err.expected = expected;
@@ -41,18 +47,16 @@ function error(msg, expected, actual) {
 }
 
 /**
- * Compares the body of the response with the expected body.
- * It removes the sequelize timestamps from the response body.
- * @param  {Object}   expected Expected body.
- * @param  {Function} done     done callback
+ * Transform both the body and expected objects using the passed transform function and compares for equality.
  */
-exports.isBodyEqual = function(expected, done) {
+var transformAndCompare = function(expected, done, transform) {
   return function(err, res) {
     if(err) {
       done(err);
     } else {
       var body = res.body;
-      filterSequelize(body);
+
+      transform(body, expected);
 
       if(_.isEqual(expected, body)) {
         done();
@@ -65,26 +69,18 @@ exports.isBodyEqual = function(expected, done) {
   };
 };
 
+/**
+ * Compares the body of the response with the expected body.
+ * It removes the sequelize timestamps from the response body.
+ * @param  {Object}   expected Expected body.
+ * @param  {Function} done     done callback
+ */
+exports.isBodyEqual = function(expected, done) {
+  return transformAndCompare(expected, done, filterSequelize);
+};
+
 exports.isGoesBodyEqual = function(expected, done) {
-  return function(err, res) {
-    if(err) {
-      done(err);
-    } else {
-      var body = res.body;
-      filterSequelize(body);
-      transformDataDate(body);
-
-      transformDataDate(expected);
-
-      if(_.isEqual(expected, body)) {
-        done();
-      } else {
-        var a = util.inspect(expected);
-        var b = util.inspect(body);
-        done(error('expected ' + a + 'got ' + b, a, b));
-      }
-    }
-  };
+  return transformAndCompare(expected, done, transformSequelizeAndDataDate);
 };
 
 
