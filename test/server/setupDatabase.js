@@ -3,7 +3,7 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 var db = require('../../lib/models');
-var seed = require('./seedData');
+var seedData = require('./seedData').data;
 var _ = require('lodash');
 var bcrypt = require('bcrypt');
 
@@ -23,7 +23,7 @@ module.exports = function(grunt, options, async) {
     grunt.log.ok('Database tables created.');
 
     // allow postgres to increment id
-    var userData = seed.data.users;
+    var userData = seedData.users;
     userData = userData.map(function(user) {
       var clone = _.cloneDeep(user);
       clone.password = bcrypt.hashSync(user.password, 8);
@@ -34,13 +34,16 @@ module.exports = function(grunt, options, async) {
     return db.User.bulkCreate(userData);
   })
   .then(function() {
-    return db.GoesVariable.bulkCreate(seed.data.goesVariables);
+    return db.GoesVariable.bulkCreate(seedData.goesVariables);
   })
   .then(function() {
-    return db.GoesMap.bulkCreate(seed.data.goesMaps);
+    return db.GoesMap.bulkCreate(seedData.goesMaps);
   })
   .then(function() {
-    return db.GoesData.bulkCreate(seed.data.goesData);
+    return db.GoesData.bulkCreate(seedData.goesData);
+  })
+  .then(function() {
+    return db.CropType.bulkCreate(seedData.cropTypes);
   });
 
   promise.error(function(err) {
