@@ -44,6 +44,9 @@ module.exports = function(grunt, options, async) {
   })
   .then(function() {
     return db.CropType.bulkCreate(seedData.cropTypes);
+  })
+  .then(function() {
+    return db.DefaultCropData.bulkCreate(seedData.defaultCropData);
   });
 
   promise.error(function(err) {
