@@ -84,6 +84,12 @@ describe('Research controller', function () {
         .end(helper.isGoesBodyEqual(seedData.goesMaps, done));
       });
 
+      it('should return an empty array for data in the future', function (done) {
+        request(app).get(getMapEndpoint('rainfall') + '?startDate=2050-01-01')
+        .expect('Content-Type', /json/)
+        .expect(200, [], done);
+      });
+
       it('should bring half the maps when the date is "2014-01-15"', function(done) {
         request(app).get(getMapEndpoint('rainfall') + '?startDate=2014-01-15')
         .expect('Content-Type', /json/)
@@ -157,10 +163,16 @@ describe('Research controller', function () {
           .end(helper.isGoesBodyEqual(seedData.goesMaps.slice(14), done));
         });
 
-        it('should return a 404 if there is no data in the timerange', function(done) {
+        it('should return an empty array when the time bounds are inverted', function(done) {
           request(app).get(getMapEndpoint('rainfall') + '?startDate=2014-04-15&endDate=2014-01-31')
           .expect('Content-Type', /json/)
-          .expect(404, done);
+          .expect(200, [], done);
+        });
+
+        it('should return an empty array when there is no data in the time range', function(done) {
+          request(app).get(getMapEndpoint('rainfall') + '?startDate=2014-02-15&endDate=2014-03-31')
+          .expect('Content-Type', /json/)
+          .expect(200, [], done);
         });
       });
     });
