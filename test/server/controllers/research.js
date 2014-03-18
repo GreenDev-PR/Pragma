@@ -12,6 +12,10 @@ function getMapEndpoint(variableName) {
   return '/api/research/variables/' + variableName + '/map';
 }
 
+function getDataEndpoint(variableName) {
+  return '/api/research/variables/' + variableName + '/data';
+}
+
 describe('Research controller', function () {
   describe('getVariables', function () {
     it('should be able to bring all the variables', function (done) {
@@ -20,11 +24,36 @@ describe('Research controller', function () {
     });
   });
 
-  describe.skip('getDataForVariable', function() {
-    it('should bring the latest data');
-    it('should bring the latest data for a given latitude and longitude');
-    it('should bring the data for a specified time range');
-    it('should bring the data for a specified time range and location');
+  describe('getDataForVariable', function() {
+    var options = seedData.goesDataOptions;
+    var goesData = seedData.goesData;
+
+    describe('with no optional query parameters passed', function () {
+      it('should bring the latest data for the whole map', function(done) {
+        request(app).get(getDataEndpoint('rainfall'))
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(helper.isGoesDataBodyEqual(seedData.goesData.slice(options.rowsPerDay * (options.days - 1)), done));
+      });
+
+      it('should respond with a 404 for a not supported variable', function(done) {
+        request(app).get(getDataEndpoint('notAvariable'))
+        .expect('Content-Type', /json/)
+        .expect(404, done);
+      });
+    });
+
+    describe('with a time range specified', function () {
+      it('should bring the data for a specified time range');
+    });
+
+    describe('with coordinates specified', function () {
+      it('should bring the latest data for a given latitude and longitude');
+    });
+
+    describe('with both a timerange and coordinates specified', function () {
+      it('should bring the data for a specified time range and location');
+    });
     it('should be able to bring the data in csv format');
   });
 

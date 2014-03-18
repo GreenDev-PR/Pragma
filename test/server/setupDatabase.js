@@ -18,7 +18,8 @@ module.exports = function(grunt, options, async) {
   }, function(err) {
     grunt.log.error('Authentication', err);
     grunt.fail.fatal(err);
-  }).then(function() {
+  })
+  .then(function() {
     grunt.log.ok('Database tables created.');
 
     // allow postgres to increment id
@@ -31,10 +32,15 @@ module.exports = function(grunt, options, async) {
     });
 
     return db.User.bulkCreate(userData);
-  }).then(function() {
+  })
+  .then(function() {
     return db.GoesVariable.bulkCreate(seed.data.goesVariables);
-  }).then(function() {
+  })
+  .then(function() {
     return db.GoesMap.bulkCreate(seed.data.goesMaps);
+  })
+  .then(function() {
+    return db.GoesData.bulkCreate(seed.data.goesData);
   });
 
   promise.error(function(err) {

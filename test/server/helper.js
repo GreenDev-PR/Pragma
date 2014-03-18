@@ -83,4 +83,17 @@ exports.isGoesBodyEqual = function(expected, done) {
   return transformAndCompare(expected, done, transformSequelizeAndDataDate);
 };
 
+exports.isGoesDataBodyEqual = function(expected, done) {
+  return transformAndCompare(expected, done, function(body, expected) {
+    transformSequelizeAndDataDate(body, expected);
+    filterSequelize(expected);
+    if(_.isArray(body)) {
+      _.forEach(body, function(obj) {
+        delete obj.id;
+      });
+    } else {
+      delete body.id;
+    }
+  });
+};
 
