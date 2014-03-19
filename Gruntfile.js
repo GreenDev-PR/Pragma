@@ -402,6 +402,13 @@ module.exports = function(grunt) {
       test : {
         NODE_ENV : 'test',
       }
+    },
+    exec: {
+      createDb: {
+        cmd: function() {
+          return 'psql -U postgres -f database/schema_' + process.env.NODE_ENV +'.sql';
+        }
+      }
     }
   });
 
@@ -428,7 +435,7 @@ module.exports = function(grunt) {
 
     grunt.task.run([
       'githooks:all',
-      'execute:seedDB',
+      'createDb',
       'clean:server',
       'bower-install',
       'concurrent:server',
@@ -439,12 +446,14 @@ module.exports = function(grunt) {
     ]);
   });
 
+  grunt.registerTask('createDb', ['exec:createDb', 'execute:seedDB']);
+
   grunt.registerTask('server', function() {
     grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
     grunt.task.run(['serve']);
   });
 
-  grunt.registerTask('testServer', ['env:test', 'execute:seedDB', 'mochaTest']);
+  grunt.registerTask('testServer', ['env:test', 'createDb', 'mochaTest']);
 
   grunt.registerTask('testClient', [
     'env:test',

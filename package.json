@@ -66,7 +66,8 @@
     "rosie": "~0.2.0",
     "chai": "~1.9.0",
     "supertest-session": "0.0.1",
-    "Faker": "~0.7.0"
+    "Faker": "~0.7.0",
+    "grunt-exec": "~0.4.5"
   },
   "engines": {
     "node": ">=0.10.0"

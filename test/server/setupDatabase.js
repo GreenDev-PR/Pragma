@@ -13,15 +13,8 @@ module.exports = function(grunt, options, async) {
 
   grunt.log.ok('Starting database setup');
 
-  var promise = db.sequelize.authenticate().then(function() {
-    return db.sequelize.sync({force: true});
-  }, function(err) {
-    grunt.log.error('Authentication', err);
-    grunt.fail.fatal(err);
-  })
+  var promise = db.sequelize.authenticate()
   .then(function() {
-    grunt.log.ok('Database tables created.');
-
     // allow postgres to increment id
     var userData = seedData.users;
     userData = userData.map(function(user) {
