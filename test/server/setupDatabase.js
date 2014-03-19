@@ -40,6 +40,9 @@ module.exports = function(grunt, options, async) {
   })
   .then(function() {
     return db.DefaultCropData.bulkCreate(seedData.defaultCropData);
+  })
+  .then(function() {
+    return db.CropSession.bulkCreate(seedData.cropSessions);
   });
 
   promise.error(function(err) {
