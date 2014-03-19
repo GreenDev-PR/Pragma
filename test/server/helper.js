@@ -38,6 +38,17 @@ var transformSequelizeAndDataDate = function(body, expected) {
   transformDataDate(expected);
 };
 
+var transformSequelizeAndId = function(body) {
+  filterSequelize(body);
+  if(_.isArray(body)) {
+    _.forEach(body, function(obj) {
+      delete obj.id;
+    });
+  } else {
+    delete body.id;
+  }
+};
+
 function error(msg, expected, actual) {
   var err = new Error(msg);
   err.expected = expected;
@@ -95,5 +106,9 @@ exports.isGoesDataBodyEqual = function(expected, done) {
       delete body.id;
     }
   });
+};
+
+exports.isEqualWithoutIdAndTimestamps = function(expected, done) {
+  return transformAndCompare(expected, done, transformSequelizeAndId);
 };
 
