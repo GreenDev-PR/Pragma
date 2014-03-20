@@ -9,7 +9,7 @@ var randomInt = function() {
 };
 
 var randomFloat = function() {
-  return _.random(0, 2, true);
+  return _.random(0, 2, false);
 };
 
 factory.define('CropSession')

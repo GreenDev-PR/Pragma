@@ -1,7 +1,6 @@
 'use strict';
 
 var request = require('supertest'),
-expect = require('chai').expect,
 helper = require('../helper.js'),
 seed = require('../seedData'),
 seedData = seed.data,
@@ -130,6 +129,33 @@ describe('User controller', function () {
           }
         });
 
+      });
+    });
+  });
+
+  describe('crop sessions', function() {
+
+    describe('get', function() {
+      it('should bring all the crop sessions for a user', function(done) {
+        request(app).get('/api/users/1/cropSessions')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(helper.isEqualWithoutIdAndTimestamps([seedData.cropSessions[0]], done));
+      });
+    });
+
+    describe('find', function() {
+      it('should bring a users specific crop session', function(done) {
+        request(app).get('/api/users/1/cropSessions/1')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(helper.isEqualWithoutIdAndTimestamps(seedData.cropSessions[0], done));
+      });
+
+      it('should respond with 404 with an id not registered to a user', function(done) {
+        request(app).get('/api/users/1/cropSessions/2')
+        .expect('Content-Type', /json/)
+        .expect(404, done);
       });
     });
   });
