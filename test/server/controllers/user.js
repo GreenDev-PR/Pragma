@@ -1,6 +1,7 @@
 'use strict';
 
 var request = require('supertest'),
+expect = require('chai').expect,
 helper = require('../helper.js'),
 seed = require('../seedData'),
 seedData = seed.data,
