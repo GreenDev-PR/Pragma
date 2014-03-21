@@ -5,6 +5,7 @@ expect = require('chai').expect,
 helper = require('../helper.js'),
 seed = require('../seedData'),
 seedData = seed.data,
+_ = require('lodash'),
 app = require('../../../server');
 
 describe('User controller', function () {
@@ -157,6 +158,39 @@ describe('User controller', function () {
         request(app).get('/api/users/1/cropSessions/2')
         .expect('Content-Type', /json/)
         .expect(404, done);
+      });
+    });
+
+    describe('create', function() {
+      it('should create the crop session', function(done) {
+        var newCropSession = seed.factory.build('CropSession', {userId: 1});
+
+        request(app).post('/api/users/1/cropSessions')
+        .send(newCropSession)
+        .expect('Content-Type', /json/)
+        .expect(201)
+        .end(helper.isEqualWithoutIdAndTimestamps(newCropSession, done));
+      });
+
+      it('should always use the userId in the url', function(done) {
+        var newCropSession = seed.factory.build('CropSession', {userId: 3000});
+        var withRealId = _.clone(newCropSession);
+        withRealId.userId = 1;
+        request(app).post('/api/users/1/cropSessions')
+        .send(newCropSession)
+        .expect('Content-Type', /json/)
+        .expect(201)
+        .end(helper.isEqualWithoutIdAndTimestamps(withRealId, done));
+      });
+
+      describe('with invalid attributes', function() {
+        it('should respond with a 400', function(done) {
+          var invalidCropSession = seed.factory.build('CropSession', {userId: 1, kcMid: 'Not a number'});
+          request(app).post('/api/users/1/cropSessions')
+          .send(invalidCropSession)
+          .expect('Content-Type', /json/)
+          .expect(400, done);
+        });
       });
     });
   });
