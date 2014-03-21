@@ -43,6 +43,9 @@ module.exports = function(grunt, options, async) {
   })
   .then(function() {
     return db.CropSession.bulkCreate(seedData.cropSessions);
+  })
+  .then(function() {
+    return db.IrrigationEvent.bulkCreate(seedData.irrigationEvents);
   });
 
   promise.error(function(err) {
