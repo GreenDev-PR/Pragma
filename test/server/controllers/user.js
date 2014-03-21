@@ -193,5 +193,39 @@ describe('User controller', function () {
         });
       });
     });
+
+    describe('irrigation event', function() {
+      describe('get', function() {
+        it('should return all the irrigation events', function(done) {
+          request(app).get('/api/users/1/cropSessions/1/irrigationEvents')
+          .expect('Content-Type', /json/)
+          .expect(200)
+          .end(helper.isEqualWithoutIdAndTimestamps([seedData.irrigationEvents[0]], done));
+        });
+      });
+
+      describe('create', function() {
+        it('should create the irrigation event', function(done) {
+          var newIrrigationEvent = seed.factory.build('IrrigationEvent', {cropSessionId: 1});
+
+          request(app).post('/api/users/1/cropSessions/1/irrigationEvents')
+          .send(newIrrigationEvent)
+          .expect('Content-Type', /json/)
+          .expect(201)
+          .end(helper.isEqualWithoutIdAndTimestamps(newIrrigationEvent, done));
+        });
+
+        it('should always use the cropSessionId in the url', function(done) {
+          var newIrrigationEvent = seed.factory.build('IrrigationEvent', {cropSessionId: 3000});
+          var withRealId = _.clone(newIrrigationEvent);
+          withRealId.cropSessionId = 1;
+          request(app).post('/api/users/1/cropSessions/1/irrigationEvents')
+          .send(newIrrigationEvent)
+          .expect('Content-Type', /json/)
+          .expect(201)
+          .end(helper.isEqualWithoutIdAndTimestamps(withRealId, done));
+        });
+      });
+    });
   });
 });
