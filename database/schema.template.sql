@@ -1,12 +1,12 @@
 
 --
--- Name: pragma_test; Type: DATABASE; Schema: -; Owner: -
+-- Name: ${ databaseName }; Type: DATABASE; Schema: -; Owner: -
 --
 
-DROP DATABASE IF EXISTS pragma_test;
-CREATE DATABASE pragma_test;
+DROP DATABASE IF EXISTS ${ databaseName };
+CREATE DATABASE ${ databaseName };
 
-\connect pragma_test
+\connect ${ databaseName }
 
 drop schema public cascade;
 create schema public;

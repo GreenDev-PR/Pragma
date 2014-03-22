@@ -1,6 +1,9 @@
 // Generated on 2014-02-27 using generator-angular-fullstack 1.2.7
 'use strict';
 
+var fs = require('fs');
+var _ = require('lodash');
+
 // # Globbing
 // for performance reasons we're only matching one level down:
 // 'test/spec/{,*/}*.js'
@@ -406,7 +409,14 @@ module.exports = function(grunt) {
     exec: {
       createDb: {
         cmd: function() {
-          return 'psql -U postgres -f database/schema_' + process.env.NODE_ENV +'.sql';
+          var template = fs.readFileSync(__dirname + '/database/schema.template.sql');
+
+          var databaseName = 'pragma_' + process.env.NODE_ENV;
+          var result = _.template(template, {'databaseName': databaseName});
+
+          fs.writeFileSync(__dirname + '/database/schema.sql', result);
+
+          return 'psql -U postgres -f database/schema.sql';
         }
       }
     }
