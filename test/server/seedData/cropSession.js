@@ -22,6 +22,7 @@ factory.define('CropSession')
 .sequence('cropTypeId', function(i) {
   return i % 47;
 })
+.attr('area', randomInt)
 .attr('startDate', function() { return moment().toString(); })
 .attr('initialStageLength', randomInt)
 .attr('developmentStageLength', randomInt)

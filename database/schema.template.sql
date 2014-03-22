@@ -62,6 +62,7 @@ CREATE TABLE cropsessions (
     userid integer NOT NULL REFERENCES Users(id),
     cropname character varying(255) NOT NULL,
     croptypeid integer REFERENCES CropTypes(id),
+    area integer NOT NULL,
     startdate timestamp with time zone NOT NULL,
     initialstagelength integer NOT NULL,
     developmentstagelength integer NOT NULL,
