@@ -3,8 +3,8 @@
 -- Name: pragma_development; Type: DATABASE; Schema: -; Owner: -
 --
 
--- DROP DATABASE pragma_development;
-CREATE DATABASE IF NOT EXISTS pragma_development;
+DROP DATABASE IF EXISTS pragma_development;
+CREATE DATABASE pragma_development;
 
 \connect pragma_development
 
