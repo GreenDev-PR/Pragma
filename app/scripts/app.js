@@ -4,57 +4,63 @@ angular.module('pragmaApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
-  'ngRoute',
+  'ui.router',
   'google-maps',
   'restangular'
 ])
-.config(function($routeProvider) {
-  $routeProvider
-  .when('/', {
+.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
+  $locationProvider.html5Mode(true);
+
+  $stateProvider
+  .state('login', {
+    url: '/login',
+    templateUrl: 'partials/login.html',
+    bodyClass: 'pragma'
+  })
+  .state('showcase', {
+    url: '/',
     templateUrl: 'partials/projectPages.html',
     controller: 'ProjectPagesCtrl'
   })
-  .when('/landingPage', {
+  .state('landingPage', {
+    url: '/landinPage',
     templateUrl: 'partials/landing.html',
     bodyClass: 'landing-page'
-  }).when('/login', {
-    templateUrl: 'partials/login.html',
-    bodyClass: 'pragma'
-  }).when('/signup-researcher', {
-    templateUrl: 'partials/signupResearcher.html',
-    bodyClass: 'pragma'
-  }).when('/signup-farmer', {
+  })
+  .state('signup-farmer', {
+    url: '/signup-farmer',
     templateUrl: 'partials/signupFarmer.html',
     controller: 'signupFarmerCtrl',
     bodyClass: 'pragma'
-  }).when('/farmer-overview', {
+  })
+  .state('signup-researcher', {
+    url:'/signup-researcher',
+    templateUrl: 'partials/signupResearcher.html',
+    bodyClass: 'pragma'
+  })
+  .state('dashboard', {
+    url: '/dashboard',
+    abstract: true,
+    templateUrl: 'partials/dashboard.html',
+    controller: 'DashboardCtrl',
+    bodyClass: 'pragma'
+  })
+  .state('dashboard.overview',  {
+    url: '/overview',
     templateUrl: 'partials/farmerOverview.html',
     controller: 'FarmerOverviewCtrl',
     bodyClass: 'pragma'
-  })
-  .otherwise({
-    redirectTo: '/'
   });
+
+  $urlRouterProvider.otherwise('/');
 })
 .config(function(RestangularProvider) {
   RestangularProvider.setBaseUrl('/api');
 })
-.run(function() {
-  // animation for landing page sections
-  console.log('running ');
-  $('a[href^="#"]').click(function() {
-    $('html, body').animate({
-      scrollTop: $($(this).attr('href')).offset().top
-    }, 700);
-    return false;
-  });
-})
 .run(['$location', '$rootScope', function($location, $rootScope) {
 
-  $rootScope.$on('$routeChangeSuccess', function (event, current) {
-    if (current.$$route) {
-      $rootScope.bodyClass = current.$$route.bodyClass;
-    }
+  $rootScope.$on('$stateChangeSuccess', function (event, current) {
+    $rootScope.bodyClass = current.bodyClass;
   });
 
 }]);
