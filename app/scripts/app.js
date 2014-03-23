@@ -57,16 +57,6 @@ angular.module('pragmaApp', [
 .config(function(RestangularProvider) {
   RestangularProvider.setBaseUrl('/api');
 })
-.run(function() {
-  // animation for landing page sections
-  console.log('running ');
-  $('a[href^="#"]').click(function() {
-    $('html, body').animate({
-      scrollTop: $($(this).attr('href')).offset().top
-    }, 700);
-    return false;
-  });
-})
 .run(['$location', '$rootScope', function($location, $rootScope) {
 
   $rootScope.$on('$stateChangeSuccess', function (event, current) {
