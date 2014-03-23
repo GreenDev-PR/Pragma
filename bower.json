@@ -15,10 +15,14 @@
     "metisMenu": "*",
     "simpleWeather": "~2.6.0",
     "font-awesome": "~4.0.3",
-    "restangular": "~1.3.1"
+    "restangular": "~1.3.1",
+    "angular-ui-router": "~0.2.10"
   },
   "devDependencies": {
     "angular-mocks": "1.2.11",
     "angular-scenario": "1.2.11"
+  },
+  "resolutions": {
+    "angular": "1.2.15"
   }
 }

@@ -1,7 +1,7 @@
 <div class="container">
   <div class="jumbotron">
     <div ng-repeat="link in links">
-      <a ng-href="#/{{link.href}}">{{link.name}}</a>
+      <a  ui-sref="{{link.sref}}">{{link.name}}</a>
     </div>
   </div>
 </div>

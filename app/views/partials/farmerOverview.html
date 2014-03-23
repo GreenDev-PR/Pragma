@@ -1,136 +1,60 @@
-<div id="wrapper">
-
-    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="index.html">Pragma</a>
-
-        </div>
-        <!-- /.navbar-header -->
-
-        <ul class="nav navbar-top-links navbar-right hidden-xs">
-            <li><a href="#login"><i class="fa fa-user fa-fw"></i>Profile</a></li>
-            <li><a href="#login"><i class="fa fa-times-circle-o fa-fw"></i>Logout</a></li>            
-        </ul>
-
-        <!-- /.navbar-top-links -->
-
-    </nav>
-    <!-- /.navbar-static-top -->
-
-
-    <!-- Menu bar start-->
-    <nav class="navbar-default navbar-static-side" role="navigation">
-        <div class="sidebar-collapse">
-            <ul class="nav" id="side-menu">
-                <li class="hidden-lg hidden-md hidden-sm" ><a href="#login"><i class="fa fa-user fa-fw"></i>Profile</a></li>
-                <li class="hidden-lg hidden-md hidden-sm"><a href="#login"><i class="fa fa-times-circle-o fa-fw"></i>Logout</a></li>            
-                <li>
-                    <a href="index.html"><i class="fa fa-globe fa-fw"></i> Overview</a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-leaf fa-fw"></i> Crop Sessions<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="#">Platano</a>
-                        </li>
-                        <li>
-                            <a href="#">Calabaza</a>
-                        </li>
-                        <li>
-                            <a href="#">Cilantrillo</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="index.html"><i class="fa fa-flask fa-fw"></i> Research</a>
-                </li>
-
-            </ul>
-            <!-- /#side-menu -->
-        </div>
-        <!-- /.sidebar-collapse -->
-    </nav>
-    <!-- /.navbar-static-side -->
-    <!-- Menu bar finish-->
-
-    <div id="page-wrapper">
-
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">Overview</h1>
-            </div>
-            <!-- /.col-lg-12 -->
-        </div>
-
-        <!-- /.row -->
-        <div class="row">
-            <div class="col-lg-5">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <i class="fa fa-sun-o fa-fw"></i>Today's Weather
-                    </div>
-                    <!-- /.panel-heading -->
-                    <!-- <h1>Weather widget placeholder</h1> -->
-                    <div class="panel-body weather-spacing">
-                        <weather location="location"></weather>
-                    </div>
-                </div>
-                <!-- /.panel -->
-            </div>
-            <!--/ .col-lg-6 -->  
-
-
-            <div class="col-lg-7">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <i class="fa fa-cloud fa-fw"></i> Rainfall
-                    </div>
-                    <!-- /.panel-heading -->
-                    <div class="panel-body">
-                        <!-- <h1>Rain widget placeholder</h1>                    -->
-                        <google-map center='map.center' draggable="true"zoom='map.zoom' id="signup-map">
-                            <layer type="WeatherLayer" namespace="weather" show="true" options="map.weatherLayer"></layer>
-                            <layer type="CloudLayer" namespace="weather" show="true"></layer>
-                        </google-map>        
-
-                </div>
-            </div>
-            <!-- /.panel -->
-        </div>
-        <!--/ .col-lg-6 -->  
-
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Overview</h1>
     </div>
-    <!-- /.row -->
+    <!-- /.col-lg-12 -->
+</div>
 
-    <div class="row">
-        <div class="col-lg-12">
-          <div class="panel panel-default">
+<!-- /.row -->
+<div class="row">
+    <div class="col-lg-5">
+        <div class="panel panel-default">
             <div class="panel-heading">
-                <i class="fa fa-map-marker fa-fw"></i>Rainfall Map
+                <i class="fa fa-sun-o fa-fw"></i>Today's Weather
+            </div>
+            <!-- /.panel-heading -->
+            <!-- <h1>Weather widget placeholder</h1> -->
+            <div class="panel-body weather-spacing">
+                <weather location="location"></weather>
+            </div>
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!--/ .col-lg-6 -->
+
+
+    <div class="col-lg-7">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-cloud fa-fw"></i> Rainfall
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
-<!--                     <div class="row">
-                        <div class="col-md-8 col-md-offset-2">
-                            <img class="img-responsive" src="http://academic.uprm.edu/hdc/GOES-PRWEB_RESULTS/rainfall/rainfall20140212.jpg" alt="Rainfall map image">
-
-                        </div>
-                    </div> -->
-                    <google-map center='map.center' zoom='map.zoom' id="signup-map"></google-map>        
-                </div>
+                <!-- <h1>Rain widget placeholder</h1>                    -->
+                <google-map center='map.center' draggable="true"zoom='map.zoom' id="signup-map">
+                    <layer type="WeatherLayer" namespace="weather" show="true" options="map.weatherLayer"></layer>
+                    <layer type="CloudLayer" namespace="weather" show="true"></layer>
+                </google-map>
             </div>
-            <!-- /.col-lg-12 -->
         </div>
-
-    </div>
-    <!-- /#page-wrapper -->
-
+    <!-- /.panel -->
+</div>
+<!--/ .col-lg-6 -->
 
 </div>
-    <!-- /#wrapper -->
+<!-- /.row -->
+
+<div class="row">
+    <div class="col-lg-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+            <i class="fa fa-map-marker fa-fw"></i>Rainfall Map
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+            <google-map center='map.center' zoom='map.zoom' id="signup-map"></google-map>
+        </div>
+    </div>
+</div>
+
+</div>
