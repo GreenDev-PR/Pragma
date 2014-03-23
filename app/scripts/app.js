@@ -22,6 +22,11 @@ angular.module('pragmaApp', [
     templateUrl: 'partials/projectPages.html',
     controller: 'ProjectPagesCtrl'
   })
+  .state('landingPage', {
+    url: '/landinPage',
+    templateUrl: 'partials/landing.html',
+    bodyClass: 'landing-page'
+  })
   .state('signup-farmer', {
     url: '/signup-farmer',
     templateUrl: 'partials/signupFarmer.html',
