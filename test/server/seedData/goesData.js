@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var moment = require('moment');
+var locationMapper = require('../../../lib/helpers/locationMapper');
 
 var startMoment = moment('2014-01-01');
 var endMoment = moment('2014-01-03');
@@ -23,7 +24,9 @@ function createData(variableName, dataDate) {
         matrixColumn: column,
         dataValue: _.random(0, 10),
         dataDate: dataDate,
-        createdAt: createdAt
+        createdAt: createdAt,
+        latitude: locationMapper.getLatitude(row),
+        longitude: locationMapper.getLongitude(column)
       });
     }
   }
