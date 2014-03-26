@@ -12,8 +12,13 @@ angular.module('pragmaApp')
       getDataFor: function(variableName) {
         return variables.one(variableName).getList('data');
       },
-      getMapsFor: function(variableName) {
-        return variables.one(variableName).getList('map');
+      getMapsFor: function(variableName, startDate, endDate) {
+        var queryParams = {};
+        if(startDate) {
+          queryParams.startDate = startDate;
+          queryParams.endDate = endDate;
+        }
+        return variables.one(variableName).getList('map', {startDate: startDate, endDate: endDate});
       }
     };
   });
