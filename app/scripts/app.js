@@ -54,6 +54,9 @@ angular.module('pragmaApp', [
 .config(function(RestangularProvider) {
   RestangularProvider.setBaseUrl('/api');
 })
+.config(function ($httpProvider) {
+  $httpProvider.interceptors.push('AuthInterceptor');
+})
 .run(['$location', '$rootScope', function($location, $rootScope) {
 
   $rootScope.$on('$stateChangeSuccess', function (event, current) {
