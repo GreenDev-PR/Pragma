@@ -1,19 +1,15 @@
 'use strict';
 
 angular.module('pragmaApp')
-  .factory('User', function ($resource) {
-    return $resource('/api/users/:id', {
-      id: '@id'
-    }, { //parameters default
-      update: {
-        method: 'PUT',
-        params: {}
-      },
-      get: {
-        method: 'GET',
-        params: {
-          id:'me'
-        }
-      }
-	  });
-  });
+.service('User', function (Restangular) {
+  var user = Restangular.all('users');
+
+  this.create = function(user) {
+    return user.post(user);
+  };
+
+  this.getMe = function() {
+    return user.get('me');
+  };
+
+});
