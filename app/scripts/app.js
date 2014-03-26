@@ -15,41 +15,38 @@ angular.module('pragmaApp', [
   .state('login', {
     url: '/login',
     templateUrl: 'partials/login.html',
+    controller: 'LoginCtrl',
     bodyClass: 'pragma'
   })
   .state('showcase', {
-    url: '/',
+    url: '/showcase',
     templateUrl: 'partials/projectPages.html',
     controller: 'ProjectPagesCtrl'
   })
   .state('landingPage', {
-    url: '/landinPage',
+    url: '/',
     templateUrl: 'partials/landing.html',
     bodyClass: 'landing-page'
   })
   .state('signup-farmer', {
     url: '/signup-farmer',
     templateUrl: 'partials/signupFarmer.html',
-    controller: 'signupFarmerCtrl',
-    bodyClass: 'pragma'
+    controller: 'signupFarmerCtrl'
   })
   .state('signup-researcher', {
     url:'/signup-researcher',
-    templateUrl: 'partials/signupResearcher.html',
-    bodyClass: 'pragma'
+    templateUrl: 'partials/signupResearcher.html'
   })
   .state('dashboard', {
     url: '/dashboard',
     abstract: true,
     templateUrl: 'partials/dashboard.html',
-    controller: 'DashboardCtrl',
-    bodyClass: 'pragma'
+    controller: 'DashboardCtrl'
   })
   .state('dashboard.overview',  {
     url: '/overview',
     templateUrl: 'partials/farmerOverview.html',
-    controller: 'FarmerOverviewCtrl',
-    bodyClass: 'pragma'
+    controller: 'FarmerOverviewCtrl'
   });
 
   $urlRouterProvider.otherwise('/');
@@ -57,10 +54,13 @@ angular.module('pragmaApp', [
 .config(function(RestangularProvider) {
   RestangularProvider.setBaseUrl('/api');
 })
+.config(function ($httpProvider) {
+  $httpProvider.interceptors.push('AuthInterceptor');
+})
 .run(['$location', '$rootScope', function($location, $rootScope) {
 
   $rootScope.$on('$stateChangeSuccess', function (event, current) {
-    $rootScope.bodyClass = current.bodyClass;
+    $rootScope.bodyClass = current.bodyClass || 'pragma';
   });
 
 }]);
