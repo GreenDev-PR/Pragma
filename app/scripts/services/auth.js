@@ -1,111 +1,57 @@
 'use strict';
 
 angular.module('pragmaApp')
-  .factory('Auth', function Auth($location, $rootScope, Session, User, $cookieStore) {
-    
-    // Get currentUser from cookie
-    $rootScope.currentUser = $cookieStore.get('user') || null;
-    $cookieStore.remove('user');
+.factory('Auth', function Auth($location, $rootScope, Session, AUTH_EVENTS, USER_ROLES) {
 
-    return {
+  return {
+    /**
+     * Authenticate user
+     *
+     * @param  {Object}   user     - login info
+     * @return {Promise}
+     */
+    login: function(user) {
+      return Session.login(user).then(function(user) {
+        $rootScope.$broadcast(AUTH_EVENTS.loginSuccess, user);
+        return user;
+      })
+      .catch(function(err) {
+        $rootScope.$broadcast(AUTH_EVENTS.loginFailed, err);
+        throw err;
+      });
+    },
 
-      /**
-       * Authenticate user
-       * 
-       * @param  {Object}   user     - login info
-       * @param  {Function} callback - optional
-       * @return {Promise}            
-       */
-      login: function(user, callback) {
-        var cb = callback || angular.noop;
+    /**
+     * Unauthenticate user
+     * @return {Promise}
+     */
+    logout: function() {
+      return Session.logout().then(function() {
+        $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
+        return true;
+      })
+      .catch(function(err) {
+        $rootScope.$broadcast(AUTH_EVENTS.logoutFailed, err);
+        return err;
+      });
+    },
 
-        return Session.save({
-          email: user.email,
-          password: user.password
-        }, function(user) {
-          $rootScope.currentUser = user;
-          return cb();
-        }, function(err) {
-          return cb(err);
-        }).$promise;
-      },
+    /**
+     * Simple check to see if a user is logged in
+     *
+     * @return {Boolean}
+     */
+    isAuthenticated: function() {
+      return !!Session.user;
+    },
 
-      /**
-       * Unauthenticate user
-       * 
-       * @param  {Function} callback - optional
-       * @return {Promise}           
-       */
-      logout: function(callback) {
-        var cb = callback || angular.noop;
+    isAuthorized: function(authorizedRoles) {
+      if(!angular.isArray(authorizedRoles)) {
+        authorizedRoles = [authorizedRoles];
+      }
 
-        return Session.delete(function() {
-            $rootScope.currentUser = null;
-            return cb();
-          },
-          function(err) {
-            return cb(err);
-          }).$promise;
-      },
-
-      /**
-       * Create a new user
-       * 
-       * @param  {Object}   user     - user info
-       * @param  {Function} callback - optional
-       * @return {Promise}            
-       */
-      createUser: function(user, callback) {
-        var cb = callback || angular.noop;
-
-        return User.save(user,
-          function(user) {
-            $rootScope.currentUser = user;
-            return cb(user);
-          },
-          function(err) {
-            return cb(err);
-          }).$promise;
-      },
-
-      /**
-       * Change password
-       * 
-       * @param  {String}   oldPassword 
-       * @param  {String}   newPassword 
-       * @param  {Function} callback    - optional
-       * @return {Promise}              
-       */
-      changePassword: function(oldPassword, newPassword, callback) {
-        var cb = callback || angular.noop;
-
-        return User.update({
-          oldPassword: oldPassword,
-          newPassword: newPassword
-        }, function(user) {
-          return cb(user);
-        }, function(err) {
-          return cb(err);
-        }).$promise;
-      },
-
-      /**
-       * Gets all available info on authenticated user
-       * 
-       * @return {Object} user
-       */
-      currentUser: function() {
-        return User.get();
-      },
-
-      /**
-       * Simple check to see if a user is logged in
-       * 
-       * @return {Boolean}
-       */
-      isLoggedIn: function() {
-        var user = $rootScope.currentUser;
-        return !!user;
-      },
-    };
-  });
+      return (this.isAuthenticated() &&
+          authorizedRoles.indexOf(Session.user.userType || USER_ROLES.guest) !== -1);
+    }
+  };
+});
