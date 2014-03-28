@@ -33,7 +33,7 @@
                 <li>
                     <a ui-sref="dashboard.overview"><i class="fa fa-globe fa-fw"></i>Overview</a>
                 </li>
-                <li>
+                <li ng-if="isFarmer()">
                     <a href="#"><i class="fa fa-leaf fa-fw"></i> Crop Sessions<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>

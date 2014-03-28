@@ -1,28 +1,51 @@
-// 'use strict';
+'use strict';
 
-// describe('Controller: DashboardCtrl', function () {
+describe('Controller: DashboardCtrl', function () {
 
-//   // load the controller's module
-//   beforeEach(module('pragmaApp'));
+  // load the controller's module
+  beforeEach(module('pragmaApp'));
 
-//   var DashboardCtrl,
-//     scope,
-//     $httpBackend;
+  var farmerCredentials = {email: 'f@f.com', password: 'ff'};
+  var researcherCredentials = {email: 'r@r.com', password: 'rr'};
+  var DashboardCtrl,
+    scope,
+    Auth,
+    $httpBackend;
 
-//   // Initialize the controller and a mock scope
-//   beforeEach(inject(function (_$httpBackend_, $controller, $rootScope) {
-//     $httpBackend = _$httpBackend_;
-//     $httpBackend.expectGET('/api/awesomeThings')
-//       .respond(['HTML5 Boilerplate', 'AngularJS', 'Karma', 'Express']);
-//     scope = $rootScope.$new();
-//     DashboardCtrl = $controller('DashboardCtrl', {
-//       $scope: scope
-//     });
-//   }));
+  // Initialize the controller and a mock scope
+  beforeEach(inject(function (_$httpBackend_, $controller, $rootScope, _Auth_) {
+    $httpBackend = _$httpBackend_;
+    Auth = _Auth_;
 
-//   it('should attach a list of awesomeThings to the scope', function () {
-//     expect(scope.awesomeThings).toBeUndefined();
-//     $httpBackend.flush();
-//     expect(scope.awesomeThings.length).toBe(4);
-//   });
-// });
+    $httpBackend.whenPOST('/api/session', farmerCredentials)
+    .respond({id:1, name: 'Victor', userType: 'farmer'});
+
+    $httpBackend.whenPOST('/api/session', researcherCredentials)
+    .respond({id:1, name: 'Victor', userType: 'researcher'});
+
+    scope = $rootScope.$new();
+    DashboardCtrl = $controller('DashboardCtrl', {
+      $scope: scope
+    });
+  }));
+
+  it('should say that the user is a farmer', function () {
+    Auth.login(farmerCredentials).then(function() {
+      expect(scope.isFarmer()).toBe(true);
+    });
+
+    $httpBackend.flush();
+  });
+
+  it('should not be a farmer when the user is a researcher', function() {
+    Auth.login(researcherCredentials).then(function() {
+      expect(scope.isFarmer()).toBe(false);
+    });
+
+    $httpBackend.flush();
+  });
+
+  it('should not be a farmer when its not logged in', function() {
+    expect(scope.isFarmer()).toBe(false);
+  });
+});
