@@ -11,17 +11,19 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'http://maps.googleapis.com/maps/api/js?sensor=false&libraries=weather,visualization',
       'app/bower_components/underscore/underscore.js',
       'app/bower_components/angular/angular.js',
       'app/bower_components/angular-mocks/angular-mocks.js',
       'app/bower_components/angular-resource/angular-resource.js',
       'app/bower_components/angular-cookies/angular-cookies.js',
       'app/bower_components/angular-sanitize/angular-sanitize.js',
-      // 'app/bower_components/angular-google-maps/dist/angular-google-maps.js',
+      'app/bower_components/restangular/dist/restangular.js',
       'app/bower_components/angular-ui-router/release/angular-ui-router.js',
+      'app/bower_components/angular-google-maps/dist/angular-google-maps.js',
       'app/scripts/*.js',
       'app/scripts/**/*.js',
-      'test/mock/**/*.js',
+      // 'test/mock/**/*.js',
       'test/spec/**/*.js'
     ],
 
@@ -49,6 +51,8 @@ module.exports = function(config) {
     // - PhantomJS
     // - IE (only Windows)
     browsers: ['PhantomJS'],
+
+    captureTimeout: 10000,
 
 
     // Continuous Integration mode
