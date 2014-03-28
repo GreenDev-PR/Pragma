@@ -2,7 +2,6 @@
 
 angular.module('pragmaApp')
 .factory('Auth', function Auth($location, $rootScope, Session, AUTH_EVENTS, USER_ROLES) {
-
   return {
     /**
      * Authenticate user
@@ -17,7 +16,7 @@ angular.module('pragmaApp')
       })
       .catch(function(err) {
         $rootScope.$broadcast(AUTH_EVENTS.loginFailed, err);
-        throw err;
+        return err;
       });
     },
 
@@ -36,13 +35,17 @@ angular.module('pragmaApp')
       });
     },
 
+    getUserRole: function() {
+      return (Session.user.userType || USER_ROLES.guest);
+    },
+
     /**
      * Simple check to see if a user is logged in
      *
      * @return {Boolean}
      */
     isAuthenticated: function() {
-      return !!Session.user;
+      return !!Session.user.id;
     },
 
     isAuthorized: function(authorizedRoles) {
@@ -50,8 +53,11 @@ angular.module('pragmaApp')
         authorizedRoles = [authorizedRoles];
       }
 
-      return (this.isAuthenticated() &&
-          authorizedRoles.indexOf(Session.user.userType || USER_ROLES.guest) !== -1);
+      return authorizedRoles.indexOf(this.getUserRole()) !== -1;
+    },
+
+    hasRole: function(role) {
+      return role === this.getUserRole();
     }
   };
 });
