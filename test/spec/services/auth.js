@@ -40,13 +40,21 @@ describe('Service: Auth', function () {
     httpBackend.verifyNoOutstandingRequest();
   });
 
-  describe('without having called login or logout', function() {
+  describe('initial state', function() {
     it('should have a role of guest', function() {
       Auth.hasRole(USER_ROLES.guest);
     });
 
     it('should not be authenticated', function() {
       expect(Auth.isAuthenticated()).toBe(false);
+    });
+
+    it('should have a guest user role', function() {
+      expect(Auth.getUserRole()).toEqual(USER_ROLES.guest);
+    });
+
+    it('should be authorized to access pages with a guest user role in them', function() {
+      expect(Auth.isAuthorized([USER_ROLES.guest])).toBe(true);
     });
   });
 
