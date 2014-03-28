@@ -12,15 +12,16 @@ angular.module('pragmaApp')
         return Restangular.one('research/variables', variableName).getList('data');
       },
       getMapsFor: function(variableName, startDate, endDate) {
-        var queryParams = {};
+        var queryParams;
         if(startDate) {
+          queryParams = {};
           queryParams.startDate = startDate;
           if(endDate) {
             queryParams.endDate = endDate;
           }
         }
         return Restangular.one('research/variables', variableName)
-            .getList('map', {startDate: startDate, endDate: endDate});
+            .getList('map', queryParams);
       }
     };
   });
