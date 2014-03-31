@@ -9,7 +9,7 @@ angular.module('pragmaApp')
    * Authenticated user
    * @type {Object}
    */
-  this.user = null;
+  this.user = {};
 
   /**
    * Authenticates the user
@@ -26,7 +26,7 @@ angular.module('pragmaApp')
   this.logout = function() {
 
     return session.remove().then(function() {
-      self.user = null;
+      self.user = {};
       return true;
     });
   };
