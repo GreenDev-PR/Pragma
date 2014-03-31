@@ -44,6 +44,10 @@ angular.module('pragmaApp', [
     abstract: true,
     templateUrl: 'partials/dashboard.html',
     controller: 'DashboardCtrl'
+    // TODO UNCOMMENT FOR PRODUCTION
+    // data: {
+    //   authorizedRoles: [USER_ROLES.farmer, USER_ROLES.researcher]
+    // }
   })
   .state('dashboard.overview',  {
     url: '/overview',
@@ -63,10 +67,33 @@ angular.module('pragmaApp', [
 .config(function ($httpProvider) {
   $httpProvider.interceptors.push('AuthInterceptor');
 })
-.run(['$location', '$rootScope', function($location, $rootScope) {
+.run(function($rootScope, Auth, AUTH_EVENTS, USER_ROLES) {
+
+  $rootScope.$on('$stateChangeStart', function(event, toState) {
+    function getAuthorizedRoles(state) {
+      var authorizedRoles = USER_ROLES.guest;
+      if(state.data && state.data.authorizedRoles) {
+        authorizedRoles = state.data.authorizedRoles;
+      }
+
+      return authorizedRoles;
+    }
+
+    var authorizedRoles = getAuthorizedRoles(toState);
+    if (!Auth.isAuthorized(authorizedRoles)) {
+      event.preventDefault();
+      if (Auth.isAuthenticated()) {
+        // user is not allowed
+        $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
+      } else {
+        // user is not logged in
+        $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+      }
+    }
+  });
 
   $rootScope.$on('$stateChangeSuccess', function (event, current) {
     $rootScope.bodyClass = current.bodyClass || 'pragma';
   });
 
-}]);
+});

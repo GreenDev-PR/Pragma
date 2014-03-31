@@ -3,22 +3,25 @@
 angular.module('pragmaApp')
   .factory('variables', function (Restangular) {
 
-    var variables = Restangular.all('research/variables');
 
     return {
       getAll: function() {
-        return variables.getList();
+        return Restangular.all('research/variables').getList();
       },
       getDataFor: function(variableName) {
-        return variables.one(variableName).getList('data');
+        return Restangular.one('research/variables', variableName).getList('data');
       },
       getMapsFor: function(variableName, startDate, endDate) {
-        var queryParams = {};
+        var queryParams;
         if(startDate) {
+          queryParams = {};
           queryParams.startDate = startDate;
-          queryParams.endDate = endDate;
+          if(endDate) {
+            queryParams.endDate = endDate;
+          }
         }
-        return variables.one(variableName).getList('map', {startDate: startDate, endDate: endDate});
+        return Restangular.one('research/variables', variableName)
+            .getList('map', queryParams);
       }
     };
   });
