@@ -6,7 +6,8 @@ angular.module('pragmaApp', [
   'ngSanitize',
   'ui.router',
   'google-maps',
-  'restangular'
+  'restangular',
+  'geolocation'
 ])
 .config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   $locationProvider.html5Mode(true);

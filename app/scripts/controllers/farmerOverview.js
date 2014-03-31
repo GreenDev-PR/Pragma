@@ -1,11 +1,13 @@
 'use strict';
 
 angular.module('pragmaApp')
-.controller('FarmerOverviewCtrl', function ($scope, variables) {
+.controller('FarmerOverviewCtrl', function ($scope, variables, geolocation, $timeout) {
   $scope.rainfallMap = {};
+
   variables.getMapsFor('rainfall').then(function(maps) {
     $scope.rainfallMap = maps[0];
   });
+
   $scope.map = {
     control: {},
     center:{
@@ -18,5 +20,17 @@ angular.module('pragmaApp')
     }
   };
 
-  $scope.location = 'Mayaguez, PR';
+
+  this.getUserLocation = function() {
+    geolocation.getLocation().then(function(data) {
+      var coords = data.coords;
+      $scope.location = coords.latitude + ',' + coords.longitude;
+    }, function() {
+      $scope.location = 'Mayaguez, PR';
+    });
+  };
+
+
+  $timeout(this.getUserLocation, 10);
+
 });
