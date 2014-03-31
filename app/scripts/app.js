@@ -6,7 +6,8 @@ angular.module('pragmaApp', [
   'ngSanitize',
   'ui.router',
   'google-maps',
-  'restangular'
+  'restangular',
+  'ui.bootstrap'
 ])
 .config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
@@ -43,10 +44,20 @@ angular.module('pragmaApp', [
     templateUrl: 'partials/dashboard.html',
     controller: 'DashboardCtrl'
   })
-  .state('dashboard.overview',  {
+  .state('dashboard.overview', {
     url: '/overview',
     templateUrl: 'partials/farmerOverview.html',
     controller: 'FarmerOverviewCtrl'
+  })
+  .state('dashboard.research-maps', {
+    url: '/research-maps',
+    templateUrl: 'partials/researchMaps.html',
+    controller: 'ResearchMapsCtrl'
+  })
+  .state('dashboard.research-variables', {
+    url: '/research-variables',
+    templateUrl: 'partials/researchVariables.html',
+    controller: 'ResearchVariables'
   });
 
   $urlRouterProvider.otherwise('/');

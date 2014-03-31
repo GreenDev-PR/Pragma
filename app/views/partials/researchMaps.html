@@ -1,0 +1,55 @@
+  <div class="row">
+  <div class="span4">
+    <div id="controls">
+      <h3>Generate maps for specified dates</h3>
+
+      <div class="row"> <!-- inner row-->
+        
+        <div class="col-md-3 xs-12">
+        <form class="form-horizontal">
+          <div class="control-group">
+              <label for="selectVariable">
+                Choose a variable: 
+              </label>
+              <select id="selectVariable" ng-model="variable"
+                      ng-options="v.variableName for v in variables"
+                      required>
+              </select>
+          </div>
+        </form>  
+        </div> <!-- /inner column--> 
+
+         <div class="col-md-3"> 
+          <div class="control-group">
+              <label for="start-date">From:</label></br>
+              <input id="start-date" type="date" required ng-model="startDate" placeholder="Start Date">
+          </div>
+        </div> <!-- /inner column--> 
+      
+        <div class="col-md-3">
+          <div class="control-group">
+              <label for="end-date">To:</label></br>
+              <input id="end-date" type="date" required ng-model="endDate" placeholder="End Date">
+          </div> 
+        </div> <!-- /inner column--> 
+
+      <div class="col-md-3">
+        <div class="control-group">
+        </br>
+          <button class="btn btn-primary" ng-click="generateSlideshow()">Show Maps</button>
+        </div>
+      </div> <!--/inner column -->
+
+    </div> <!--/ inner row -->
+    <hr/>
+    <div class="span8">
+    <carousel interval="state.interval">
+      <slide ng-repeat="slide in slides" active="slide.active">
+        <img ng-src="{{slide.imagePath}}">
+      </slide>
+    </carousel>
+  </div>
+
+  </div>
+  
+</div>
