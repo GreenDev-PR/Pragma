@@ -9,10 +9,10 @@ var lastNames = ['Rosario', 'Doe', 'Doer'];
 factory.define('user')
 .sequence('id')
 .sequence('email', function(i) {
-  return 'email' + i + '@test.com';
+  return 'e' + i + '@test.com';
 })
 .sequence('password', function(i) {
-  return 'lookma_difficult_pwd' + i;
+  return 'pwd' + i;
 })
 .sequence('name', function(i) {
   return names[i % names.length];
