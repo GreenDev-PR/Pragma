@@ -9,7 +9,7 @@
 
 .map-panel {
   z-index: 5;
-  position: relative;
+  position: absolute;
   top: 5px;
-  left: 50%;
+  left: 35%;
 }

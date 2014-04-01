@@ -32,7 +32,7 @@ angular.module('pragmaApp', [
   .state('signup-farmer', {
     url: '/signup-farmer',
     templateUrl: 'partials/signupFarmer.html',
-    controller: 'signupFarmerCtrl'
+    controller: 'SignupFarmerCtrl'
   })
   .state('signup-researcher', {
     url:'/signup-researcher',
