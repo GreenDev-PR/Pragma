@@ -1,8 +1,15 @@
 'use strict';
 
 angular.module('pragmaApp')
-.controller('FarmerOverviewCtrl', function ($scope) {
+.controller('FarmerOverviewCtrl', function ($scope, variables, geolocation, $timeout) {
+  $scope.rainfallMap = {};
+
+  variables.getMapsFor('rainfall').then(function(maps) {
+    $scope.rainfallMap = maps[0];
+  });
+
   $scope.map = {
+    control: {},
     center:{
       latitude: 18.229351,
       longitude: -66.453767
@@ -12,6 +19,18 @@ angular.module('pragmaApp')
       temperatureUnits: google.maps.weather.TemperatureUnit.FAHRENHEIT
     }
   };
-  
-  $scope.location = 'Mayaguez, PR';
+
+
+  this.getUserLocation = function() {
+    geolocation.getLocation().then(function(data) {
+      var coords = data.coords;
+      $scope.location = coords.latitude + ',' + coords.longitude;
+    }, function() {
+      $scope.location = 'Mayaguez, PR';
+    });
+  };
+
+
+  $timeout(this.getUserLocation, 10);
+
 });

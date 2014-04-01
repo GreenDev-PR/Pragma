@@ -21,6 +21,7 @@ module.exports = function(config) {
       'app/bower_components/restangular/dist/restangular.js',
       'app/bower_components/angular-ui-router/release/angular-ui-router.js',
       'app/bower_components/angular-google-maps/dist/angular-google-maps.js',
+      'app/bower_components/angularjs-geolocation/src/geolocation.js',
       'app/scripts/*.js',
       'app/scripts/**/*.js',
       // 'test/mock/**/*.js',
