@@ -12,8 +12,16 @@ var getRow = function(latitude) {
   return Math.round(Math.abs(LATITUDE-latitude)/RESOLUTION);
 };
 
+//Getting the module for the application and adding the controller, injects the variables service.
 angular.module('pragmaApp')
-.controller('PlotsResearcherCtrl', ['$scope', 'variables',function ($scope, variables) {
+.controller('PlotsResearcherCtrl', ['$scope','$filter','variables',function ($scope, $filter, variables) {
+
+  //Helper used to limit the coordinates to 8 decimal places
+  var filter = function(number){
+    return $filter('number')(number,8);
+  };
+
+  //Google map properties
   $scope.map = {
     center:{
       latitude: 18.229351,
@@ -27,42 +35,31 @@ angular.module('pragmaApp')
     }
   };
 
+  //Map marker properties
   $scope.marker = {
     coords:{
-      latitude: 18.229351,
-      longitude: -66.25
+      latitude: filter(18.2293),
+      longitude: filter(-66.2500)
     },
     options: {
       draggable: true
     },
     events: {
       dragend: function(evt) {
-        $scope.marker.coords.latitude = evt.position.k;
-        $scope.marker.coords.longitude = evt.position.A;
+        $scope.marker.coords.latitude = filter(evt.position.k);
+        $scope.marker.coords.longitude = filter(evt.position.A);
         $scope.$digest();
       }
     }
   };
 
+  //Using the variables service to get a list of all variables
   variables.getAll().then(function(result){
     console.log(result.length);
     $scope.variables = result;
   });
 
-  // [{name:'actual_ET'},
-  // {name:'actual_vapor_pressure'},{name:'aerodynamic_resistance'},
-  // {name:'aquifer_recharge'},{name:'average_air_temperature'},
-  // {name:'Bowen_Ratio'},{name:'crop_coefficient'},{name:'crop_stress_coefficient'},
-  // {name:'effective_surface_temperature'},{name:'latent_heat_flux'},
-  // {name:'max-min_air_temperature'},{name:'maximum_air_temperature'},
-  // {name:'minimum_air_temperature'},{name:'net_radiation'},
-  // {name:'rainfall'},{name:'reference_ET'},{name:'relative_humidity'},
-  // {name:'runoff'},{name:'saturated_vapor_pressure'},
-  // {name:'sensible_heat_flux'},{name:'soil_moisture'},
-  // {name:'soil_saturation'},{name:'solar_radiation'},{name:'surface_resistance'},
-  // {name:'wind_speed'}];
-  
-
+  //Properties of the start datepicker
   $scope.startDate = {
     value: new Date(),
     opened: false,
@@ -73,6 +70,7 @@ angular.module('pragmaApp')
     }
   };
 
+  //Properties of the end datepicker
   $scope.endDate = {
     value: new Date(),
     opened: false,
@@ -83,20 +81,19 @@ angular.module('pragmaApp')
     }
   };
 
+  //Additional properties used for both, stat and end, datepickers
   $scope.showWeeks = true;
-
   $scope.dateOptions = {
     'year-format': '\'yy\'',
     'starting-day': 1,
     'datepicker-append-to-body': true,
     'show-button-bar': false
   };
-
   $scope.minDate = '2009-01-01';
   $scope.maxDate = '2014-04-27';
 
-  console.log($scope.variable);
 
+  //Configuring the timeseries (linear graph)
   $scope.timeseries = {
     config: {
       chart: {
@@ -104,6 +101,7 @@ angular.module('pragmaApp')
         spacingRight: 20
       },
 
+      //TODO: Legend should not be showing
       legend: {
         enabled: false
       },
@@ -129,22 +127,23 @@ angular.module('pragmaApp')
           },
           threshold: null
         }
-      },
-      series: [{
-        name: 'old data',
-        data: [1,2,3,4]
-      }]
+      }
 
     }
   };
 
-  console.log('legend '+$scope.timeseries.config.legend.enabled);
-
+  //Event triggered when the selected variable changes
+  //Gets the data for the new variable and changes the plot title (variable name)
   $scope.$watch('variable', function(newValue){
     if(newValue){
       $scope.timeseries.config.title.text = newValue.variableName;
       console.log(newValue.variableName);
-      variables.getDataFor(newValue.variableName).then(function(result){
+
+      var startDate = $scope.startDate.value;
+      var endDate = $scope.endDate.value;
+
+      //Using the variables service to gather the data for the given variable and date range
+      variables.getDataFor(newValue.variableName, startDate, endDate).then(function(result){
 
         var currentLongitude = $scope.marker.coords.longitude;
         var column = getColumn(currentLongitude);
@@ -154,18 +153,27 @@ angular.module('pragmaApp')
         var row = getRow(currentLatitude);
         console.log(row);
 
+        //Copying the values obtained from the request into the array that will be used for the timeseries
         var i;
         var newData = [];
+        //var dateAxis = [];
         for(i=0; i<result.length; i++){
           //if(column === getColumn(result[i].column) && row === getRow(result[i].row)){
           newData.push(result[i].dataValue);
+          console.log(i+' '+result[i].dataDate);
+          //dateAxis.push(result[i].dataDate);
           //}
         }
         
         console.log(newData);
+
+        //Updating the timeseries with the new data set
         $scope.timeseries.config.series = [{
           data: newData
         }];
+
+
+        //$scope.timeseries.config.xAxis.categories = dateAxis;
 
       });
     }
