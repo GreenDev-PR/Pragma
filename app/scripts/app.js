@@ -60,8 +60,8 @@ angular.module('pragmaApp', [
   })
   .state('dashboard.research-variables', {
     url: '/research-variables',
-    templateUrl: 'partials/researchVariables.html',
-    controller: 'ResearchVariables'
+    templateUrl: 'partials/researchVariablesTable.html',
+    controller: 'ResearchVariablesCtrl'
   });
 
   $urlRouterProvider.otherwise('/');
