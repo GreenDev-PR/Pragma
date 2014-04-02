@@ -64,7 +64,7 @@ describe('Service: variables', function () {
       httpBackend.whenGET('/api/research/variables/actual_ET/map')
       .respond(mapData);
     });
-
+  
     it('should be able to get maps for rainfall', function() {
       httpBackend.expectGET('/api/research/variables/rainfall/map')
       .respond([]);

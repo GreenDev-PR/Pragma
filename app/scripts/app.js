@@ -51,11 +51,22 @@ angular.module('pragmaApp', [
     //   authorizedRoles: [USER_ROLES.farmer, USER_ROLES.researcher]
     // }
   })
-  .state('dashboard.overview',  {
+  .state('dashboard.overview', {
     url: '/overview',
     templateUrl: 'partials/farmerOverview.html',
     controller: 'FarmerOverviewCtrl'
-  }).state('dashboard.plots-researcher', {
+  })
+  .state('dashboard.research-maps', {
+    url: '/research-maps',
+    templateUrl: 'partials/researchMaps.html',
+    controller: 'ResearchMapsCtrl'
+  })
+  .state('dashboard.research-variables', {
+    url: '/research-variables',
+    templateUrl: 'partials/researchVariablesTable.html',
+    controller: 'ResearchVariablesCtrl'
+  })
+  .state('dashboard.plots-researcher', {
     url:'/plots-researcher',
     templateUrl: 'partials/plotsResearcher.html',
     controller: 'PlotsResearcherCtrl'
