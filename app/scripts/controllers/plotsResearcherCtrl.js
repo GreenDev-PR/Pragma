@@ -1,16 +1,16 @@
 'use strict';
 
-var RESOLUTION = 0.00899281;
-var LATITUDE = 17.8;
-var LONGITUDE = -67.3;
+// var RESOLUTION = 0.00899281;
+// var LATITUDE = 17.8;
+// var LONGITUDE = -67.3;
 
-var getColumn = function(longitude) {
-  return Math.round(Math.abs(LONGITUDE-longitude)/RESOLUTION);
-};
+// var getColumn = function(longitude) {
+//   return Math.round(Math.abs(LONGITUDE-longitude)/RESOLUTION);
+// };
 
-var getRow = function(latitude) {
-  return Math.round(Math.abs(LATITUDE-latitude)/RESOLUTION);
-};
+// var getRow = function(latitude) {
+//   return Math.round(Math.abs(LATITUDE-latitude)/RESOLUTION);
+// };
 
 //Getting the module for the application and adding the controller, injects the variables service.
 angular.module('pragmaApp')
@@ -45,9 +45,10 @@ angular.module('pragmaApp')
       draggable: true
     },
     events: {
-      dragend: function(evt) {
-        $scope.marker.coords.latitude = filter(evt.position.k);
-        $scope.marker.coords.longitude = filter(evt.position.A);
+      dragend: function(marker) {
+        //Binding the coordinates of the input boxes with the marker
+        $scope.marker.coords.latitude = filter(marker.getPosition().lat());
+        $scope.marker.coords.longitude = filter(marker.getPosition().lng());
         $scope.$digest();
       }
     }
@@ -55,7 +56,6 @@ angular.module('pragmaApp')
 
   //Using the variables service to get a list of all variables
   variables.getAll().then(function(result){
-    console.log(result.length);
     $scope.variables = result;
   });
 
@@ -81,7 +81,7 @@ angular.module('pragmaApp')
     }
   };
 
-  //Additional properties used for both, stat and end, datepickers
+  //Additional properties used for both, start and end, datepickers
   $scope.showWeeks = true;
   $scope.dateOptions = {
     'year-format': '\'yy\'',
@@ -90,7 +90,7 @@ angular.module('pragmaApp')
     'show-button-bar': false
   };
   $scope.minDate = '2009-01-01';
-  $scope.maxDate = '2014-04-27';
+  $scope.maxDate = new Date();
 
 
   //Configuring the timeseries (linear graph)
@@ -137,45 +137,41 @@ angular.module('pragmaApp')
   $scope.$watch('variable', function(newValue){
     if(newValue){
       $scope.timeseries.config.title.text = newValue.variableName;
-      console.log(newValue.variableName);
 
       var startDate = $scope.startDate.value;
       var endDate = $scope.endDate.value;
 
-      //Using the variables service to gather the data for the given variable and date range
-      variables.getDataFor(newValue.variableName, startDate, endDate).then(function(result){
+      if(startDate <= endDate){
+        //Using the variables service to gather the data for the given variable and date range
+        variables.getDataFor(newValue.variableName, startDate, endDate).then(function(result){
 
-        var currentLongitude = $scope.marker.coords.longitude;
-        var column = getColumn(currentLongitude);
-        console.log(column);
+          // var currentLongitude = $scope.marker.coords.longitude;
+          // var column = getColumn(currentLongitude);
 
-        var currentLatitude = $scope.marker.coords.latitude;
-        var row = getRow(currentLatitude);
-        console.log(row);
+          // var currentLatitude = $scope.marker.coords.latitude;
+          // var row = getRow(currentLatitude);
 
-        //Copying the values obtained from the request into the array that will be used for the timeseries
-        var i;
-        var newData = [];
-        //var dateAxis = [];
-        for(i=0; i<result.length; i++){
-          //if(column === getColumn(result[i].column) && row === getRow(result[i].row)){
-          newData.push(result[i].dataValue);
-          console.log(i+' '+result[i].dataDate);
-          //dateAxis.push(result[i].dataDate);
-          //}
-        }
-        
-        console.log(newData);
-
-        //Updating the timeseries with the new data set
-        $scope.timeseries.config.series = [{
-          data: newData
-        }];
+          //Copying the values obtained from the request into the array that will be used for the timeseries
+          var i;
+          var newData = [];
+          //var dateAxis = [];
+          for(i=0; i<result.length; i++){
+            //if(column === getColumn(result[i].column) && row === getRow(result[i].row)){
+            newData.push(result[i].dataValue);
+            //dateAxis.push(result[i].dataDate);
+            //}
+          }
+          
+          //Updating the timeseries with the new data set
+          $scope.timeseries.config.series = [{
+            data: newData
+          }];
 
 
-        //$scope.timeseries.config.xAxis.categories = dateAxis;
+          //$scope.timeseries.config.xAxis.categories = dateAxis;
 
-      });
+        });
+      }
     }
   });
 
