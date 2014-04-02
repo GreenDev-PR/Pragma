@@ -114,12 +114,13 @@ describe('Controller: PlotsResearcherCtrl', function(){
 			expect(scope.timeseries.config).toBeDefined();
 		});
 
-		describe('Changing timeseries data', function(){
+		describe('Changing timeseries data using getData', function(){
 
 			it('should have called getDataFor', function(){
 				scope.variable = {};
 				scope.variable.variableName = 'rainfall';
-				scope.$digest(); // trigger watcher.
+				scope.getData();
+				scope.$apply(); //trigger button click
 				expect(variables.getDataFor).toHaveBeenCalled();
 			});
 
@@ -128,7 +129,8 @@ describe('Controller: PlotsResearcherCtrl', function(){
 				scope.endDate.value = new Date('March 1, 2014 00:00:00');
 				scope.variable = {};
 				scope.variable.variableName = 'rainfall';
-				scope.$digest(); // trigger watcher.
+				scope.getData();
+				scope.$apply(); //trigger button click
 				expect(variables.getDataFor).not.toHaveBeenCalled();
 			});
 
@@ -140,13 +142,13 @@ describe('Controller: PlotsResearcherCtrl', function(){
 					scope.startDate.value = new Date('March 1, 2014 00:00:00');
 					scope.endDate.value = new Date('March 3, 2014 00:00:00');
 					scope.variable = {};
-					scope.variable.variableName = 'other';
+					scope.variable.variableName = 'rainfall';
 					scope.timeseries.config.series = {};
 				});
 
 				it('should get the data for the variable', function(){
-					scope.variable.variableName = 'rainfall';
-					scope.$digest();
+					scope.getData();
+					scope.$apply(); //trigger button click					
 					expect(scope.timeseries.config.series).toEqual(expectedVariableData);
 				});
 
