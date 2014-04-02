@@ -8,7 +8,6 @@ angular.module('pragmaApp').controller('ProjectPagesCtrl',function($scope) {
     {name: 'Dashboard', sref: 'dashboard.overview'},
     {name: 'ResearchMaps', sref: 'dashboard.research-maps' },
     {name: 'ResearchVariables', sref: 'dashboard.research-variables'},
-    {name: 'Dashboard', sref: 'dashboard.overview'},
     {name: 'Plots Researcher', sref: 'dashboard.plots-researcher'}
   ];
 });
