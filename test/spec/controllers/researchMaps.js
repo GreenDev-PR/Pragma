@@ -15,6 +15,7 @@ describe('Controller: ResearchMapsCtrl', function () {
 
   beforeEach(inject(function ($controller, $injector, _$q_) {
     scope = $injector.get('$rootScope').$new();
+
     q = _$q_;
 
     variableService = $injector.get('variables');
@@ -36,10 +37,6 @@ describe('Controller: ResearchMapsCtrl', function () {
   }));
 
   describe('initial state', function (){
-
-    beforeEach(function(){
-
-    });
 
     it('should have a minDate set', function (){
       expect(scope.minDate).toBeDefined();
@@ -81,10 +78,6 @@ describe('Controller: ResearchMapsCtrl', function () {
     
     var expectedVariables = [{variableName:'rainfall', description:'a desc'}];
 
-    beforeEach(function(){
-
-    });
-
     it('should have been called', function() {
       expect(variableService.getAll).toHaveBeenCalled();
     });
@@ -101,10 +94,7 @@ describe('Controller: ResearchMapsCtrl', function () {
       
       beforeEach(function(){
         scope.startDate.value = new Date('2014-01-04');
-        console.log(scope.startDate.value);
         scope.endDate.value = new Date('2014-01-03');
-        console.log(scope.endDate.value);
-        console.log(scope.variable);
         scope.variable = {};
         scope.variable.variableName = 'rainfall';
   
@@ -125,15 +115,12 @@ describe('Controller: ResearchMapsCtrl', function () {
       scope.endDate.value = new Date('2014-01-03');
       scope.variable = {};
       scope.variable.variableName = 'rainfall';
-      console.log(scope.startDate.value);
-      console.log(scope.endDate.value);
-      console.log(scope.variable.variableName);
+    
     });
 
     it('should return map imagePaths for specified dates', function(){
       scope.generateSlideShow();
       scope.$apply();
-      console.log(scope.slides);
       expect(scope.slides).toEqual(maps);
     });
 
