@@ -1,39 +1,47 @@
 <div class="container">
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
-        <div class="signup-farmer panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Farmer! Sign up to Pragma!</h3>
-            </div>
-            <div class="panel-body">
-                <form role="form">
-                    <fieldset>
-                        <div class="form-group">
-                            <input class="form-control" placeholder="Name" name="name" >
-                        </div>
-                        <div class="form-group">
-                            <input class="form-control" placeholder="Last Name" name="lastname" >
-                        </div>
-
-
-                        <div class="form-group">
-                            <input class="form-control" placeholder="Organization" name="lastname" >
-                        </div>
-                        <label for='signup-map'>Where is your farm located?</label>
-                        <google-map center='map.center' zoom='map.zoom' id="signup-map" class='form-group'></google-map>
-
-                        <div class="form-group">
-                            <input class="form-control" placeholder="E-mail" name="email" type="email" >
-                        </div>
-                        <div class="form-group">
-                            <input class="form-control" placeholder="Password" name="password" type="password" value="">
-                        </div>
-                    </fieldset>
-                    <!-- Change this to a button or input when using this as a form -->
-                    <a href="#" class="btn btn-lg btn-success btn-block">Signup</a>
-                </form>
-            </div>
+      <div class="signup-farmer panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Farmer! Sign up to Pragma!</h3>
         </div>
+        <div class="panel-body">
+          <form role="form" name="signupForm" ng-submit="register(signupForm)" novalidate>
+            <fieldset>
+              <div class="form-group">
+                <input class="form-control" placeholder="Name" name="name" ng-model="user.name" required>
+              </div>
+              <div class="form-group">
+                <input class="form-control" placeholder="Last Name" name="lastname" ng-model="user.lastName" required>
+              </div>
+              <div class="form-group">
+                <input class="form-control" placeholder="Organization" name="organization" ng-model="user.organization" required>
+              </div>
+              <div class="form-group">
+                <label for="address">Where is your farm located?</label>
+                <div style="position: relative">
+                  <div class="map-panel">
+                    <input type="text" id="address" ng-model="address">
+                    <a class="btn btn-primary" ng-click="searchAddress()">Search</a>
+                  </div>
+                  <google-map center='map.center' zoom='map.zoom' control="map.control" draggable="true" id="signup-map" class='form-group'>
+                    <marker coords='marker.coords' options='marker.options' events="marker.events"></marker>
+                  </google-map>
+                </div>
+              </div>
+
+            <div class="form-group">
+              <input class="form-control" placeholder="E-mail" name="email" type="email" ng-model="user.email" required>
+            </div>
+            <div class="form-group">
+              <input class="form-control" placeholder="Password" name="password" type="password" ng-model="user.password" required>
+            </div>
+          </fieldset>
+          <!-- Change this to a button or input when using this as a form -->
+          <button type="submit" class="btn btn-lg btn-success btn-block" ng-disabled="!signupForm.$valid">Signup</button>
+        </form>
+      </div>
     </div>
+  </div>
 </div>
 </div>

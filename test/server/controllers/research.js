@@ -72,7 +72,7 @@ describe('Research controller', function () {
         request(app).get(getMapEndpoint('rainfall'))
         .expect(200)
         .expect('Content-Type', /json/)
-        .end(helper.isGoesBodyEqual(_.last(goesMaps), done));
+        .end(helper.isGoesBodyEqual([_.last(goesMaps)], done));
       });
     });
 

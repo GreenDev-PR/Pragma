@@ -7,7 +7,10 @@ angular.module('pragmaApp', [
   'ui.router',
   'google-maps',
   'restangular',
-  'ui.bootstrap'
+  'geolocation',
+  'restangular',
+  'ui.bootstrap',
+  'highcharts-ng'
 ])
 .config(function($stateProvider, $urlRouterProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
@@ -32,7 +35,7 @@ angular.module('pragmaApp', [
   .state('signup-farmer', {
     url: '/signup-farmer',
     templateUrl: 'partials/signupFarmer.html',
-    controller: 'signupFarmerCtrl'
+    controller: 'SignupFarmerCtrl'
   })
   .state('signup-researcher', {
     url:'/signup-researcher',
@@ -62,6 +65,11 @@ angular.module('pragmaApp', [
     url: '/research-variables',
     templateUrl: 'partials/researchVariablesTable.html',
     controller: 'ResearchVariablesCtrl'
+  })
+  .state('dashboard.plots-researcher', {
+    url:'/plots-researcher',
+    templateUrl: 'partials/plotsResearcher.html',
+    controller: 'PlotsResearcherCtrl'
   });
 
   $urlRouterProvider.otherwise('/');

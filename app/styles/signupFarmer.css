@@ -2,7 +2,14 @@
   margin-top: 5%;
 }
 
-#signup-map .angular-google-map-container { 
-  height: 300px; 
+#signup-map .angular-google-map-container {
+  height: 300px;
   margin-bottom: 15px;
+}
+
+.map-panel {
+  z-index: 5;
+  position: absolute;
+  top: 5px;
+  left: 35%;
 }
