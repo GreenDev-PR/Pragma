@@ -35,7 +35,7 @@ angular.module('pragmaApp')
   };
 
   $scope.minDate = '2009-01-01';
-  $scope.maxDate = '2014-04-27';
+
   //var MIN_INTERVAL = 1;
   //var MAX_INTERVAL = 10;
 
@@ -46,7 +46,7 @@ angular.module('pragmaApp')
 
   variables.getAll().then(function(result){
     $scope.variables = result;
-    $scope.variable =  $scope.variables[0].variableName;
+   // $scope.variable =  $scope.variables[0].variableName;
   });
   
   // $scope.startDate = $scope.startDate;
@@ -65,16 +65,20 @@ angular.module('pragmaApp')
     }
   };*/
 
-  $scope.generateSlideshow = function () {
+  $scope.generateSlideShow = function () {
     
     var startDateWithoutTimeZone = $filter('date')($scope.startDate.value,$scope.format);
     var endDateWithoutTimeZone = $filter('date')($scope.endDate.value,$scope.format);
 
-    variables.getMapsFor($scope.variable.variableName, startDateWithoutTimeZone, endDateWithoutTimeZone)
+    if(new Date(endDateWithoutTimeZone) >= new Date(startDateWithoutTimeZone)){
+
+      variables.getMapsFor($scope.variable.variableName, startDateWithoutTimeZone, endDateWithoutTimeZone)
     .then(function (result){
-      $scope.slides = result;
-      console.log($scope.slides);
-    });
+        $scope.slides = result;
+        // console.log($scope.slides);
+      });
+    } //end of if
   };
+
 
 }]);

@@ -29,10 +29,10 @@
               <p class="input-group">
               <input id="start-date" type="text" datepicker-popup="{{ format }}" 
                     ng-model="startDate.value" is-open="startDate.opened" min="minDate" max="maxDate" datepicker-options="dateOptions" ng-required="true" placeholder="yyyy/mm/dd">
-                    <span class="input-group-btn">
+                    <!-- <span class="input-group-btn"> -->
                     <button class="btn btn-default" ng-click="startDate.open($event)"><i class="glyphicon glyphicon-calendar"></i>
                     </button>
-                  </span>
+                  <!-- </span> -->
               </p>
           </div>
         </div> <!-- /inner column--> 
@@ -44,11 +44,11 @@
               <!-- <input id="end-date" type="date" required ng-model="endDate" placeholder="End Date"> -->
                <p class="input-group">
                   <input type="text" datepicker-popup="{{format}}" ng-model="endDate.value" is-open="endDate.opened" min="startDate.value" max="maxDate" placeholder="yyyy/mm/dd" datepicker-options="dateOptions"/>
-                  <span class="input-group-btn">
+                  <!-- <span class="input-group-btn"> -->
                   <button class="btn btn-default" ng-click="endDate.open($event)">
                     <i class="glyphicon glyphicon-calendar"></i>
                   </button>
-                </span>
+                <!-- </span> -->
                </p>
           </div> 
         </div> <!-- /inner column--> 
@@ -56,7 +56,7 @@
       <div class="col-md-3">
           <div class="control-group">
           <br>
-          <button class="btn btn-primary" ng-click="generateSlideshow()">Show Maps</button>
+          <button class="btn btn-primary" ng-click="generateSlideShow()">Show Maps</button>
           </div>
       </div> <!--/inner column -->
 
