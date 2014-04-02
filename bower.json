@@ -19,7 +19,6 @@
     "angular-ui-router": "~0.2.10",
     "angularjs-geolocation": "~0.1.1",
     "angular-ui-router": "~0.2.10",
-    "highcharts.com": "~3.0.7",
     "highcharts-ng": "~0.0.6",
     "angular-bootstrap": "*"
   },
