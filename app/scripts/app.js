@@ -74,7 +74,7 @@ angular.module('pragmaApp', [
   .state('dashboard.cropSessions', {
     url: '/cropSessions',
     templateUrl: 'partials/cropSessions.html',
-    controller: 'CropsSessionsCtrl'
+    controller: 'CropSessionsCtrl'
   });
 
   $urlRouterProvider.otherwise('/');

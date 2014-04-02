@@ -5,7 +5,7 @@
 			<h3>Crop Sessions</h3>	
 		</div>
 		<div class="col-md-1">
-			<h4><a><i class="fa fa-plus-square fa-2x" style=""></i></a></h4>
+			<h5><button class="btn btn-success"><i class="fa fa-plus fa-1x" style=""></i></button></h5>
 		</div>
 	</div>
 		
@@ -14,18 +14,24 @@
 		<table class="table table-striped table-bordered">
 			<thead>
 			<tr>
-				<th class=""><strong>Name</strong></th>
-				<th class=""><strong>Type</strong></th>
-				<th class=""><strong>Start Date</strong></th>
-				<th class=""><strong>Delete</strong></th>
+				<th><strong>Name</strong></th>
+				<th><strong>Type</strong></th>
+				<th><strong>Start Date</strong></th>
+				<th><strong>Delete</strong></th>
 			</tr>
 			</thead>	
 			<tbody>
-			<tr ng-model="crops" ng-repeat="crop in cropList">
-				<td class=""><p>{{ crop.name }}</p></td>
-				<td class=""><p>{{ crop.type }}</p></td>
-				<td class=""><p>{{ crop.startDate }}</p></td>
-				<td class=""><button>delete</button></td>
+			<!-- <tr ng-model="crops" ng-repeat="crop in cropList">
+				<td><p>{{ crop.name }}</p></td>
+				<td><p>{{ crop.type }}</p></td>
+				<td><p>{{ crop.startDate }}</p></td>
+				<td><button class="btn btn-danger" ng-click="deleteSession($index)">Delete</button></td>
+			</tr> -->
+			<tr>
+				<td><a><p>Mi favorito</p></a></td>
+				<td><p>Calabaza</p></td>
+				<td><p>01/01/2014</p></td>
+				<td ><button class="btn btn-danger">Delete</button></td>
 			</tr>
 			</tbody>
 		</table>

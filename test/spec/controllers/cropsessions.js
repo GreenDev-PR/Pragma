@@ -1,22 +1,31 @@
 'use strict';
 
-describe('Controller: CropsessionsCtrl', function () {
+describe('Controller: CropSessionsCtrl', function () {
 
   // load the controller's module
   beforeEach(module('pragmaApp'));
 
-  var CropsessionsCtrl,
-    scope;
+  var CropSessionsCtrl, cropSessionsService, scope, q;
+  var crops =[{name:'',type:''}];
 
-  // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
-    scope = $rootScope.$new();
-    CropsessionsCtrl = $controller('CropsessionsCtrl', {
+  beforeEach(inject(function ($controller, $injector, _$q_) {
+    scope = $injector.get('$rootScope').$new();
+
+    q = _$q_;
+
+    cropSessionsService = $injector.get('CropSessions');
+
+    spyOn(cropSessionsService,'getAll').and.callFake(function(){
+      return q.when(crops);
+    });
+
+    CropSessionsCtrl = $controller('CropSessionsCtrl', {
       $scope: scope
     });
+
+    scope.$digest();
+
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(scope.awesomeThings.length).toBe(3);
-  });
+
 });

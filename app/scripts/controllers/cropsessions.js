@@ -1,10 +1,15 @@
 'use strict';
 
 angular.module('pragmaApp')
-  .controller('CropsessionsCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+  .controller('CropSessionsCtrl',['$scope','$injector','CropSessions', function ($scope,$injector,CropSessions) {
+	
+	CropSessions.getAll().then(function(result){
+		$scope.cropList = result;
+	});
+
+  $scope.deleteSession = function(index){
+    var temp = $scope.cropList[index];
+    $scope.cropList.splice(index,1);
+    CropSessions.delete(temp.iD);
+  };
+}]);
