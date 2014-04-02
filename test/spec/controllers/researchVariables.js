@@ -28,9 +28,9 @@ describe('Controller: ResearchVariablesCtrl', function () {
   }));
 
   describe('getVariablesList', function(){
-    
+
     var expectedVariables = [{variableName:'rainfall', description:'a desc'}];
-    
+
     it('should have been called', function() {
       expect(variableService.getAll).toHaveBeenCalled();
     });
@@ -40,7 +40,4 @@ describe('Controller: ResearchVariablesCtrl', function () {
     });
 
   });
-
-
-
 });

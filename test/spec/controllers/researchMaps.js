@@ -6,9 +6,13 @@ describe('Controller: ResearchMapsCtrl', function () {
 
   var variables = [{variableName: 'rainfall', description: 'a desc'}];
   var today = new Date().setHours(0,0,0,0);
-  var maps = [{variablename: 'rainfall',
-  imagepath: 'http://academic.uprm.edu/hdc/GOES-PRWEB_RESULTS/rainfall/rainfall20140101.jpg',
-  datadate: '2014-01-01 00:00:00-04', createdat: '2014-04-01 18:30:23-04', updatedat:'2014-04-01 18:30:23-04'}];
+  var maps = [{
+    variablename: 'rainfall',
+    imagepath: 'http://academic.uprm.edu/hdc/GOES-PRWEB_RESULTS/rainfall/rainfall20140101.jpg',
+    datadate: '2014-01-01 00:00:00-04',
+    createdat: '2014-04-01 18:30:23-04',
+    updatedat:'2014-04-01 18:30:23-04'
+  }];
 
   var ResearchMapsCtrl, q, scope;
   var variableService;
@@ -27,7 +31,7 @@ describe('Controller: ResearchMapsCtrl', function () {
     spyOn(variableService,'getMapsFor').and.callFake(function(){
       return q.when(maps);
     });
-    
+
     ResearchMapsCtrl = $controller('ResearchMapsCtrl', {
       $scope: scope
     });
@@ -75,7 +79,7 @@ describe('Controller: ResearchMapsCtrl', function () {
   });
 
   describe('getVariablesArray', function(){
-    
+
     var expectedVariables = [{variableName:'rainfall', description:'a desc'}];
 
     it('should have been called', function() {
@@ -89,15 +93,15 @@ describe('Controller: ResearchMapsCtrl', function () {
   });
 
   describe('selected date values', function(){
-      
+
     describe('startDate > endDate', function (){
-      
+
       beforeEach(function(){
         scope.startDate.value = new Date('2014-01-04');
         scope.endDate.value = new Date('2014-01-03');
         scope.variable = {};
         scope.variable.variableName = 'rainfall';
-  
+
       });
 
       it('should not call getMapsFor when startDate > endDate', function(){
@@ -109,13 +113,13 @@ describe('Controller: ResearchMapsCtrl', function () {
   });
 
   describe('generateSlideShow', function(){
-    
+
     beforeEach(function(){
       scope.startDate.value = new Date('2014-01-01');
       scope.endDate.value = new Date('2014-01-03');
       scope.variable = {};
       scope.variable.variableName = 'rainfall';
-    
+
     });
 
     it('should return map imagePaths for specified dates', function(){
@@ -123,9 +127,6 @@ describe('Controller: ResearchMapsCtrl', function () {
       scope.$apply();
       expect(scope.slides).toEqual(maps);
     });
-
   });
-
-
 });
 

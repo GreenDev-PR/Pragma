@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('pragmaApp')
-  .controller('ResearchMapsCtrl', ['$scope', '$filter','variables', function ($scope, $filter, variables) {
+.controller('ResearchMapsCtrl', ['$scope', '$filter','variables', function ($scope, $filter, variables) {
 
   var DEFAULT_INTERVAL = 3000;
+  var dateFilter = $filter('date');
 
   $scope.startDate = {
     value: new Date(),
@@ -36,49 +37,27 @@ angular.module('pragmaApp')
 
   $scope.minDate = '2009-01-01';
 
-  //var MIN_INTERVAL = 1;
-  //var MAX_INTERVAL = 10;
-
   $scope.format = 'yyyy-MM-dd';
-  
-  //$scope.slides = goesService.getSlides();
-  //$scope.variables = goesService.getVariables();
 
   variables.getAll().then(function(result){
     $scope.variables = result;
-   // $scope.variable =  $scope.variables[0].variableName;
   });
-  
-  // $scope.startDate = $scope.startDate;
-  // $scope.endDate = $scope.endDate;
 
   $scope.state = {
     interval: DEFAULT_INTERVAL
   };
 
-
- /* $scope.updateInterval = function () {
-    if (MIN_INTERVAL <= $scope.newInterval && $scope.newInterval <= MAX_INTERVAL) {
-      $scope.state.interval = $scope.newInterval * 1000;
-    } else {
-      $scope.state.interval = DEFAULT_INTERVAL;
-    }
-  };*/
-
   $scope.generateSlideShow = function () {
-    
-    var startDateWithoutTimeZone = $filter('date')($scope.startDate.value,$scope.format);
-    var endDateWithoutTimeZone = $filter('date')($scope.endDate.value,$scope.format);
+
+    var startDateWithoutTimeZone = dateFilter($scope.startDate.value,$scope.format);
+    var endDateWithoutTimeZone = dateFilter($scope.endDate.value,$scope.format);
 
     if(new Date(endDateWithoutTimeZone) >= new Date(startDateWithoutTimeZone)){
-
       variables.getMapsFor($scope.variable.variableName, startDateWithoutTimeZone, endDateWithoutTimeZone)
-    .then(function (result){
+      .then(function (result){
         $scope.slides = result;
-        // console.log($scope.slides);
       });
-    } //end of if
+    }
   };
-
 
 }]);
