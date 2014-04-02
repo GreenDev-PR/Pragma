@@ -12,16 +12,16 @@
 //   return Math.round(Math.abs(LATITUDE-latitude)/RESOLUTION);
 // };
 
-//Getting the module for the application and adding the controller, injects the variables service.
+// Getting the module for the application and adding the controller, injects the variables service.
 angular.module('pragmaApp')
 .controller('PlotsResearcherCtrl', ['$scope','$filter','variables',function ($scope, $filter, variables) {
 
-  //Helper used to limit the coordinates to 8 decimal places
+  // Helper used to limit the coordinates to 8 decimal places
   var filter = function(number){
-    return $filter('number')(number,8);
+    return $filter('number')(number, 8);
   };
 
-  //Google map properties
+  // Google map properties
   $scope.map = {
     center:{
       latitude: 18.229351,
@@ -30,12 +30,12 @@ angular.module('pragmaApp')
     zoom: 9,
     draggable: false,
     options: {
-      disableDefaultUI: true,
+      disableDefaultUI: false,
       scrollwheel: false
     }
   };
 
-  //Map marker properties
+  // Map marker properties
   $scope.marker = {
     coords:{
       latitude: filter(18.2293),
@@ -46,20 +46,21 @@ angular.module('pragmaApp')
     },
     events: {
       dragend: function(marker) {
-        //Binding the coordinates of the input boxes with the marker
-        $scope.marker.coords.latitude = filter(marker.getPosition().lat());
-        $scope.marker.coords.longitude = filter(marker.getPosition().lng());
+        // Binding the coordinates of the input boxes with the marker
+        var position = marker.getPosition();
+        $scope.marker.coords.latitude = filter(position.lat());
+        $scope.marker.coords.longitude = filter(position.lng());
         $scope.$digest();
       }
     }
   };
 
-  //Using the variables service to get a list of all variables
+  // Using the variables service to get a list of all variables
   variables.getAll().then(function(result){
     $scope.variables = result;
   });
 
-  //Properties of the start datepicker
+  // Properties of the start datepicker
   $scope.startDate = {
     value: new Date(),
     opened: false,
@@ -145,31 +146,16 @@ angular.module('pragmaApp')
         //Using the variables service to gather the data for the given variable and date range
         variables.getDataFor(newValue.variableName, startDate, endDate).then(function(result){
 
-          // var currentLongitude = $scope.marker.coords.longitude;
-          // var column = getColumn(currentLongitude);
+          var newData = result.map(function(datum) {
+            return datum.dataValue;
+          });
 
-          // var currentLatitude = $scope.marker.coords.latitude;
-          // var row = getRow(currentLatitude);
-
-          //Copying the values obtained from the request into the array that will be used for the timeseries
-          var i;
-          var newData = [];
-          //var dateAxis = [];
-          for(i=0; i<result.length; i++){
-            //if(column === getColumn(result[i].column) && row === getRow(result[i].row)){
-            newData.push(result[i].dataValue);
-            //dateAxis.push(result[i].dataDate);
-            //}
-          }
-          
           //Updating the timeseries with the new data set
           $scope.timeseries.config.series = [{
             data: newData
           }];
 
-
           //$scope.timeseries.config.xAxis.categories = dateAxis;
-
         });
       }
     }

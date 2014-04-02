@@ -8,6 +8,7 @@ describe('Controller: PlotsResearcherCtrl', function(){
 	var variables;
 	var scope;
 	var $q;
+
 	var variableNames = ['rainfall', 'actual_ET'];
 	var variableData = [{dataValue: 1}, {dataValue: 2}];
 	var today = new Date().setHours(0,0,0,0);
@@ -58,7 +59,7 @@ describe('Controller: PlotsResearcherCtrl', function(){
 		it('should be placed in longitude', function(){
 			expect(scope.marker.coords.longitude).toBeCloseTo(-66.2500, 4);
 		});
-		
+
 		it('should be draggable', function(){
 			expect(scope.marker.options.draggable).toBe(true);
 		});
@@ -86,7 +87,7 @@ describe('Controller: PlotsResearcherCtrl', function(){
 				var actualDate = scope.maxDate.setHours(0,0,0,0);
 				expect(actualDate).toEqual(today);
 			});
-		
+
 		describe('Start Date', function(){
 			it('should have an initial date of today', function(){
 				var actualDate = scope.startDate.value.setHours(0,0,0,0);
@@ -102,7 +103,7 @@ describe('Controller: PlotsResearcherCtrl', function(){
 		});
 
 	});
-	
+
 	describe('Timeseries', function(){
 
 		it('should be defined', function(){
@@ -114,11 +115,11 @@ describe('Controller: PlotsResearcherCtrl', function(){
 		});
 
 		describe('Changing timeseries data', function(){
-			
+
 			it('should have called getDataFor', function(){
 				scope.variable = {};
 				scope.variable.variableName = 'rainfall';
-				scope.$digest();
+				scope.$digest(); // trigger watcher.
 				expect(variables.getDataFor).toHaveBeenCalled();
 			});
 
@@ -127,7 +128,7 @@ describe('Controller: PlotsResearcherCtrl', function(){
 				scope.endDate.value = new Date('March 1, 2014 00:00:00');
 				scope.variable = {};
 				scope.variable.variableName = 'rainfall';
-				scope.$digest();
+				scope.$digest(); // trigger watcher.
 				expect(variables.getDataFor).not.toHaveBeenCalled();
 			});
 
@@ -148,12 +149,11 @@ describe('Controller: PlotsResearcherCtrl', function(){
 					scope.$digest();
 					expect(scope.timeseries.config.series).toEqual(expectedVariableData);
 				});
-			
+
 			});
 
 		});
 
 	});
-
 
 });
