@@ -5,7 +5,7 @@ describe('Controller: ResearchMapsCtrl', function () {
   beforeEach(module('pragmaApp'));
 
   var variables = [{variableName: 'rainfall', description: 'a desc'}];
-
+  var today = new Date().setHours(0,0,0,0);
   var maps = [{variablename: 'rainfall',
   imagepath: 'http://academic.uprm.edu/hdc/GOES-PRWEB_RESULTS/rainfall/rainfall20140101.jpg',
   datadate: '2014-01-01 00:00:00-04', createdat: '2014-04-01 18:30:23-04', updatedat:'2014-04-01 18:30:23-04'}];
@@ -26,7 +26,7 @@ describe('Controller: ResearchMapsCtrl', function () {
     spyOn(variableService,'getMapsFor').and.callFake(function(){
       return q.when(maps);
     });
-
+    
     ResearchMapsCtrl = $controller('ResearchMapsCtrl', {
       $scope: scope
     });
@@ -66,11 +66,13 @@ describe('Controller: ResearchMapsCtrl', function () {
     });
 
     it('should have startDate set to currentDate', function(){
-      expect(scope.startDate.value).toEqual(new Date());
+      var startDateWithoutTime = scope.endDate.value.setHours(0,0,0,0);
+      expect(startDateWithoutTime).toEqual(today);
     });
 
     it('should have endDate set to currentDate', function(){
-      expect(scope.endDate.value).toEqual(new Date());
+      var endDateWithoutTime = scope.endDate.value.setHours(0,0,0,0);
+      expect(endDateWithoutTime).toEqual(today);
     });
 
   });
