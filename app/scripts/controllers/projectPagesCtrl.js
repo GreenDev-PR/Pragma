@@ -6,8 +6,8 @@ angular.module('pragmaApp').controller('ProjectPagesCtrl',function($scope) {
     {name: 'Sign Up Researcher', sref: 'signup-researcher'},
     {name: 'Sign Up Farmer', sref: 'signup-farmer'},
     {name: 'Dashboard', sref: 'dashboard.overview'},
-    {name: 'ResearchMaps', sref: 'dashboard.research-maps' },
-    {name: 'ResearchVariables', sref: 'dashboard.research-variables'},
-    {name: 'Plots Researcher', sref: 'dashboard.plots-researcher'}
+    {name: 'ResearchMaps', sref: 'dashboard.researchMaps' },
+    {name: 'ResearchVariables', sref: 'dashboard.researchVariables'},
+    {name: 'Plots Researcher', sref: 'dashboard.researchPlots'}
   ];
 });
