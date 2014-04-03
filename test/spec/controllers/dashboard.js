@@ -7,13 +7,16 @@ describe('Controller: DashboardCtrl', function () {
 
   var farmerCredentials = {email: 'f@f.com', password: 'ff'};
   var researcherCredentials = {email: 'r@r.com', password: 'rr'};
-  var DashboardCtrl,
-    scope,
-    Auth,
-    $httpBackend;
+
+  var DashboardCtrl;
+  var scope;
+  var Auth;
+  var $httpBackend;
+  var q;
+  var CropSessions;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function (_$httpBackend_, $controller, $rootScope, _Auth_) {
+  beforeEach(inject(function (_$httpBackend_, $controller, $rootScope, _Auth_, _CropSessions_, $q) {
     $httpBackend = _$httpBackend_;
     Auth = _Auth_;
 
@@ -22,6 +25,13 @@ describe('Controller: DashboardCtrl', function () {
 
     $httpBackend.whenPOST('/api/session', researcherCredentials)
     .respond({id:1, name: 'Victor', userType: 'researcher'});
+
+    q = $q;
+
+    CropSessions = _CropSessions_;
+    spyOn(CropSessions, 'getAll').and.callFake(function() {
+      return $q.when([]);
+    });
 
     scope = $rootScope.$new();
     DashboardCtrl = $controller('DashboardCtrl', {
@@ -47,5 +57,9 @@ describe('Controller: DashboardCtrl', function () {
 
   it('should not be a farmer when its not logged in', function() {
     expect(scope.isFarmer()).toBe(false);
+  });
+
+  it('should get the user cropsSessions', function() {
+    expect(CropSessions.getAll).toHaveBeenCalled();
   });
 });

@@ -1,68 +1,70 @@
 <div id="wrapper">
-    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="index.html">Pragma</a>
+  <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Pragma</a>
 
-        </div>
-        <!-- /.navbar-header -->
-
-        <ul class="nav navbar-top-links navbar-right hidden-xs">
-            <li><a href="#login"><i class="fa fa-user fa-fw"></i>Profile</a></li>
-            <li><a href="#login"><i class="fa fa-times-circle-o fa-fw"></i>Logout</a></li>
-        </ul>
-
-        <!-- /.navbar-top-links -->
-
-    </nav>
-    <!-- /.navbar-static-top -->
-
-
-    <!-- Menu bar start-->
-    <nav class="navbar-default navbar-static-side" role="navigation">
-        <div class="sidebar-collapse">
-            <ul class="nav" id="side-menu">
-                <li class="hidden-lg hidden-md hidden-sm" ><a href="#login"><i class="fa fa-user fa-fw"></i>Profile</a></li>
-                <li class="hidden-lg hidden-md hidden-sm"><a href="#login"><i class="fa fa-times-circle-o fa-fw"></i>Logout</a></li>
-                <li>
-                    <a ui-sref="dashboard.overview"><i class="fa fa-globe fa-fw"></i>Overview</a>
-                </li>
-                <li ng-if="isFarmer()">
-                    <a href="#"><i class="fa fa-leaf fa-fw"></i> Crop Sessions<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="#">Platano</a>
-                        </li>
-                        <li>
-                            <a href="#">Calabaza</a>
-                        </li>
-                        <li>
-                            <a href="#">Cilantrillo</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="index.html"><i class="fa fa-flask fa-fw"></i> Research</a>
-                </li>
-
-            </ul>
-            <!-- /#side-menu -->
-        </div>
-        <!-- /.sidebar-collapse -->
-    </nav>
-    <!-- /.navbar-static-side -->
-    <!-- Menu bar finish-->
-
-    <div id="page-wrapper">
-        <div ui-view></div>
     </div>
-    <!-- /#page-wrapper -->
+    <!-- /.navbar-header -->
+
+    <ul class="nav navbar-top-links navbar-right hidden-xs">
+      <li><a href="#login"><i class="fa fa-user fa-fw"></i>Profile</a></li>
+      <li><a href="#login"><i class="fa fa-times-circle-o fa-fw"></i>Logout</a></li>
+    </ul>
+
+    <!-- /.navbar-top-links -->
+
+  </nav>
+  <!-- /.navbar-static-top -->
+
+
+  <!-- Menu bar start-->
+  <nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+      <ul class="nav" id="side-menu">
+        <li class="hidden-lg hidden-md hidden-sm" ><a href="#login"><i class="fa fa-user fa-fw"></i>Profile</a></li>
+        <li class="hidden-lg hidden-md hidden-sm"><a href="#login"><i class="fa fa-times-circle-o fa-fw"></i>Logout</a></li>
+        <li>
+          <a ui-sref="dashboard.overview"><i class="fa fa-globe fa-fw"></i>Overview</a>
+        </li>
+        <li ng-if="isFarmer()">
+          <a href="#"><i class="fa fa-leaf fa-fw"></i> Crop Sessions<span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level">
+            <li ng-repeat="cropSession in cropSessions">
+              <a href="dashboard.overview">{{ cropSession.cropName }}</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a ui-sref="dashboard.researchVariables"><i class="fa fa-flask fa-fw"></i>Research</a>
+          <ul class="nav nav-second-level">
+            <li>
+              <a ui-sref="dashboard.researchPlots">Plots</a>
+            </li>
+            <li>
+              <a ui-sref="dashboard.researchMaps">Maps</a>
+            </li>
+          </ul>
+        </li>
+
+      </ul>
+      <!-- /#side-menu -->
+    </div>
+    <!-- /.sidebar-collapse -->
+  </nav>
+  <!-- /.navbar-static-side -->
+  <!-- Menu bar finish-->
+
+  <div id="page-wrapper">
+    <div ui-view></div>
+  </div>
+  <!-- /#page-wrapper -->
 
 
 </div>
-    <!-- /#wrapper -->
+<!-- /#wrapper -->

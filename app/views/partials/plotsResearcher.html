@@ -1,56 +1,63 @@
 <div id="research-plot-well" class="well">
   <div class="row">
-      <div class="panel panel-info">
-        <div class="panel-heading">Location and Parameter</div>
-        <div class="panel-body">
-          <div class="col-md-8">
-            <google-map center='map.center' zoom='map.zoom' draggable='map.draggable' options="map.options" id="plot-map">
-              <marker coords='marker.coords' options='marker.options' events="marker.events"></marker>
-            </google-map>
-          </div>
-          <div class="col-md-4">
-            <form>
-              <div class="row">
-                <div class="col-md-4">
-                  <label for="latitude">Latitude</label>
-                  <label for="longitude">Longitude</label>
-                  <br><br>
-                  <label for="variable">Variable</label>
-                  <br><br>
-                  <label for="startdate">Start Date</label>
-                  <label for="enddate">End Date</label>
-                </div>
-                <div class="col-md-8">
-                  <input id="latitude" ng-model="marker.coords.latitude">
-                  <input id="longitude" ng-model="marker.coords.longitude">
-                  <br><br>
-                  <select id="variable" ng-model="variable" ng-options="v.variableName for v in variables"></select>
-                  <br><br>
-                  <div class="input-group">
-                    <input type="text" datepicker-popup="{{format}}" ng-model="startDate.value" is-open="startDate.opened" min="minDate" max="maxDate" datepicker-options="dateOptions"/>
-                    <button class="btn btn-default" ng-click="startDate.open($event)">
-                      <i class="glyphicon glyphicon-calendar"></i>
-                    </button>
-                  </div>
-                  <div class="input-group">
-                    <input type="text" datepicker-popup="{{format}}" ng-model="endDate.value" is-open="endDate.opened" min="startDate.value" max="maxDate" datepicker-options="dateOptions"/>
-                    <button class="btn btn-default" ng-click="endDate.open($event)">
-                      <i class="glyphicon glyphicon-calendar"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-          </form>
+    <div class="panel panel-info">
+      <div class="panel-heading">Location & Parameter</div>
+      <div class="panel-body">
+        <div class="col-md-8">
+          <google-map center='map.center' zoom='map.zoom' draggable='true' options="map.options" id="plot-map">
+          <marker coords='marker.coords' options='marker.options' events="marker.events"></marker>
+        </google-map>
       </div>
-  </div>
-  </div>
+      <div class="col-md-4">
+        <form>
+          <div class="row">
+            <label for="latitude">Latitude</label>
+            <br>
+            <input id="latitude" ng-model="marker.coords.latitude">
+          </div>
+          <div class="row">
+            <label for="longitude">Longitude</label>
+            <br>
+            <input id="longitude" ng-model="marker.coords.longitude">
+          </div>
+          <div class="row">
+            <label for="variable">Variable</label>
+            <br>
+            <select id="variable" ng-model="variable" ng-options="v.variableName for v in variables"></select>
+          </div>
+          <div class="row">
+            <label for="startdate">Start Date</label>
+            <br>
+            <div class="input-group">
+              <input type="text" datepicker-popup="{{format}}" ng-model="startDate.value" is-open="startDate.opened" min="minDate" max="maxDate" datepicker-options="dateOptions"/>
+              <button class="btn btn-default" ng-click="startDate.open($event)">
+                <i class="glyphicon glyphicon-calendar"></i>
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <label for="enddate">End Date</label>
+            <br>
+            <div class="input-group">
+              <input type="text" datepicker-popup="{{format}}" ng-model="endDate.value" is-open="endDate.opened" min="startDate.value" max="maxDate" datepicker-options="dateOptions"/>
+              <button class="btn btn-default" ng-click="endDate.open($event)">
+                <i class="glyphicon glyphicon-calendar"></i>
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <button class="btn btn-primary" ng-click="plotData()">Plot Data</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
   <div class="row">
-      <div class="panel panel-success">
-        <div class="panel-heading">Timeseries</div>
-        <div class="panel-body">
-          <highchart id="timeseries-chart" config="timeseries.config"></highchart>
-        </div>
+    <div class="panel panel-success">
+      <div class="panel-heading">Timeseries</div>
+      <div class="panel-body">
+        <highchart id="timeseries-chart" config="timeseries.config"></highchart>
       </div>
+    </div>
   </div>
 </div>
