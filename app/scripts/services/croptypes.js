@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('pragmaApp')
-.service('CropTypes', function Croptype(Restangular) {
+.service('CropTypes', function CropTypes(Restangular) {
   var cropTypes = Restangular.all('cropTypes');
 
   this.getAll = function() {
@@ -16,5 +16,3 @@ angular.module('pragmaApp')
     return Restangular.one('cropTypes', id).getList('cropData');
   };
 });
-
-// /api/cropTypes/id
