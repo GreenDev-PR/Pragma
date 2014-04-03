@@ -35,14 +35,8 @@
         <li ng-if="isFarmer()">
           <a href="#"><i class="fa fa-leaf fa-fw"></i> Crop Sessions<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level">
-            <li>
-              <a href="#">Platano</a>
-            </li>
-            <li>
-              <a href="#">Calabaza</a>
-            </li>
-            <li>
-              <a href="#">Cilantrillo</a>
+            <li ng-repeat="cropSession in cropSessions">
+              <a href="dashboard.overview">{{ cropSession.cropName }}</a>
             </li>
           </ul>
         </li>
