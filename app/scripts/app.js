@@ -16,21 +16,21 @@ angular.module('pragmaApp', [
   $locationProvider.html5Mode(true);
 
   $stateProvider
+  .state('showcase', {
+    url: '/',
+    templateUrl: 'partials/projectPages.html',
+    controller: 'ProjectPagesCtrl'
+  })
+  .state('landingPage', {
+    url: '/landing',
+    templateUrl: 'partials/landing.html',
+    bodyClass: 'landing-page'
+  })
   .state('login', {
     url: '/login',
     templateUrl: 'partials/login.html',
     controller: 'LoginCtrl',
     bodyClass: 'pragma'
-  })
-  .state('showcase', {
-    url: '/showcase',
-    templateUrl: 'partials/projectPages.html',
-    controller: 'ProjectPagesCtrl'
-  })
-  .state('landingPage', {
-    url: '/',
-    templateUrl: 'partials/landing.html',
-    bodyClass: 'landing-page'
   })
   .state('signup-farmer', {
     url: '/signup-farmer',
@@ -84,12 +84,14 @@ angular.module('pragmaApp', [
 
   $rootScope.$on('$stateChangeStart', function(event, toState) {
     function getAuthorizedRoles(state) {
-      var authorizedRoles = USER_ROLES.guest;
-      if(state.data && state.data.authorizedRoles) {
-        authorizedRoles = state.data.authorizedRoles;
-      }
+      // var authorizedRoles = USER_ROLES.guest;
+      // if(state.data && state.data.authorizedRoles) {
+      //   authorizedRoles = state.data.authorizedRoles;
+      // }
 
-      return authorizedRoles;
+      // return authorizedRoles;
+      console.log(state);
+      return [USER_ROLES.guest, USER_ROLES.farmer, USER_ROLES.researcher];
     }
 
     var authorizedRoles = getAuthorizedRoles(toState);
