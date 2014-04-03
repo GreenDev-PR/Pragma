@@ -70,6 +70,11 @@ angular.module('pragmaApp', [
     url:'/plots-researcher',
     templateUrl: 'partials/plotsResearcher.html',
     controller: 'PlotsResearcherCtrl'
+  })
+  .state('dashboard.viewCropSession', {
+    url:'/cropSessions/:cropSessionId',
+    templateUrl: 'partials/cropSession.html',
+    controller: 'CropSessionCtrl'
   });
 
   $urlRouterProvider.otherwise('/');
