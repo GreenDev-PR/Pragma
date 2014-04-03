@@ -7,7 +7,7 @@ describe('Service: Auth', function () {
 
   var credentials = {email: 't@t.com', password: 'ttt'};
   var user = {id:1, name: 'Victor', userType: 'farmer'};
-  var invalidCredentials = {email: 't@t.com', password: 'ttttt'};
+  // var invalidCredentials = {email: 't@t.com', password: 'ttttt'};
 
   // instantiate service
   var Auth;
