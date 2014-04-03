@@ -119,7 +119,7 @@ describe('Controller: PlotsResearcherCtrl', function(){
 			it('should have called getDataFor', function(){
 				scope.variable = {};
 				scope.variable.variableName = 'rainfall';
-				scope.getData();
+				scope.plotData();
 				scope.$apply(); //trigger button click
 				expect(variables.getDataFor).toHaveBeenCalled();
 			});
@@ -129,7 +129,7 @@ describe('Controller: PlotsResearcherCtrl', function(){
 				scope.endDate.value = new Date('March 1, 2014 00:00:00');
 				scope.variable = {};
 				scope.variable.variableName = 'rainfall';
-				scope.getData();
+				scope.plotData();
 				scope.$apply(); //trigger button click
 				expect(variables.getDataFor).not.toHaveBeenCalled();
 			});
@@ -147,8 +147,8 @@ describe('Controller: PlotsResearcherCtrl', function(){
 				});
 
 				it('should get the data for the variable', function(){
-					scope.getData();
-					scope.$apply(); //trigger button click					
+					scope.plotData();
+					scope.$apply(); //trigger button click
 					expect(scope.timeseries.config.series).toEqual(expectedVariableData);
 				});
 
