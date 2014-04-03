@@ -6,71 +6,71 @@
       <h3>Generate maps for specified dates</h3>
 
       <div class="row"> <!-- inner row-->
-        
+
         <div class="col-md-3 xs-12">
-        <form class="form-horizontal">
-          <div class="control-group">
+          <form class="form-horizontal">
+            <div class="control-group">
               <label for="selectVariable">
-                Choose a variable: 
+                Choose a variable:
               </label>
               <select id="selectVariable" ng-model="variable"
-                      ng-options="v.variableName for v in variables"
-                      required>
-              </select>
+              ng-options="v.variableName for v in variables"
+              required>
+            </select>
           </div>
-        </form>  
-        </div> <!-- /inner column--> 
-
-        <div class="col-md-3"> 
-          <div class="control-group">
-              <label for="start-date">From:</label>
-              <br>
-              <!-- <input id="start-date" type="date" required ng-model="startDate" placeholder="Start Date"> -->
-              <p class="input-group">
-              <input id="start-date" type="text" datepicker-popup="{{ format }}" 
-                    ng-model="startDate.value" is-open="startDate.opened" min="minDate" max="maxDate" datepicker-options="dateOptions" ng-required="true" placeholder="yyyy/mm/dd">
-                    <!-- <span class="input-group-btn"> -->
-                    <button class="btn btn-default" ng-click="startDate.open($event)"><i class="glyphicon glyphicon-calendar"></i>
-                    </button>
-                  <!-- </span> -->
-              </p>
-          </div>
-        </div> <!-- /inner column--> 
-      
-        <div class="col-md-3">
-          <div class="control-group">
-              <label for="end-date">To:</label>
-              <br>
-              <!-- <input id="end-date" type="date" required ng-model="endDate" placeholder="End Date"> -->
-               <p class="input-group">
-                  <input type="text" datepicker-popup="{{format}}" ng-model="endDate.value" is-open="endDate.opened" min="startDate.value" max="maxDate" placeholder="yyyy/mm/dd" datepicker-options="dateOptions"/>
-                  <!-- <span class="input-group-btn"> -->
-                  <button class="btn btn-default" ng-click="endDate.open($event)">
-                    <i class="glyphicon glyphicon-calendar"></i>
-                  </button>
-                <!-- </span> -->
-               </p>
-          </div> 
-        </div> <!-- /inner column--> 
+        </form>
+      </div> <!-- /inner column-->
 
       <div class="col-md-3">
-          <div class="control-group">
+        <div class="control-group">
+          <label for="start-date">From:</label>
+          <br>
+          <!-- <input id="start-date" type="date" required ng-model="startDate" placeholder="Start Date"> -->
+          <p class="input-group">
+            <input id="start-date" type="text" datepicker-popup="{{ format }}"
+            ng-model="startDate.value" is-open="startDate.opened" min="minDate" max="maxDate" datepicker-options="dateOptions" ng-required="true" placeholder="yyyy/mm/dd">
+            <!-- <span class="input-group-btn"> -->
+            <button class="btn btn-default" ng-click="startDate.open($event)"><i class="glyphicon glyphicon-calendar"></i>
+            </button>
+            <!-- </span> -->
+          </p>
+        </div>
+      </div> <!-- /inner column-->
+
+      <div class="col-md-3">
+        <div class="control-group">
+          <label for="end-date">To:</label>
+          <br>
+          <!-- <input id="end-date" type="date" required ng-model="endDate" placeholder="End Date"> -->
+          <p class="input-group">
+            <input type="text" datepicker-popup="{{format}}" ng-model="endDate.value" is-open="endDate.opened" min="startDate.value" max="maxDate" placeholder="yyyy/mm/dd" datepicker-options="dateOptions"/>
+            <!-- <span class="input-group-btn"> -->
+            <button class="btn btn-default" ng-click="endDate.open($event)">
+              <i class="glyphicon glyphicon-calendar"></i>
+            </button>
+            <!-- </span> -->
+          </p>
+        </div>
+      </div> <!-- /inner column-->
+
+      <div class="col-md-3">
+        <div class="control-group">
           <br>
           <button class="btn btn-primary" ng-click="generateSlideShow()">Show Maps</button>
-          </div>
+        </div>
       </div> <!--/inner column -->
 
     </div> <!--/ inner row -->
 
     <hr/>
     <div class="span8">
-    <carousel interval="state.interval">
-      <slide ng-repeat="slide in slides" active="slide.active">
-        <img ng-src="{{slide.imagePath}}">
-      </slide>
-    </carousel>
+      <carousel interval="state.interval">
+        <slide ng-repeat="slide in slides" active="slide.active">
+          <img ng-src="{{slide.imagePath}}">
+        </slide>
+      </carousel>
     </div>
 
   </div>
-  </div>
+</div>
 </div>
