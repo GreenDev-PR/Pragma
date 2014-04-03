@@ -15,8 +15,7 @@ angular.module('pragmaApp')
         return user;
       })
       .catch(function(err) {
-        $rootScope.$broadcast(AUTH_EVENTS.loginFailed, err);
-        return err;
+        throw err;
       });
     },
 
@@ -31,7 +30,7 @@ angular.module('pragmaApp')
       })
       .catch(function(err) {
         $rootScope.$broadcast(AUTH_EVENTS.logoutFailed, err);
-        return err;
+        throw err;
       });
     },
 
