@@ -133,18 +133,18 @@ angular.module('pragmaApp')
     }
   };
 
-  //Event triggered when the selected variable changes
+  //Event triggered when the Get Data button is pressed
   //Gets the data for the new variable and changes the plot title (variable name)
-  $scope.$watch('variable', function(newValue){
-    if(newValue){
-      $scope.timeseries.config.title.text = newValue.variableName;
+  $scope.getData = function(){
+    if($scope.variable){
+      $scope.timeseries.config.title.text = $scope.variable.variableName;
 
       var startDate = $scope.startDate.value;
       var endDate = $scope.endDate.value;
 
       if(startDate <= endDate){
         //Using the variables service to gather the data for the given variable and date range
-        variables.getDataFor(newValue.variableName, startDate, endDate).then(function(result){
+        variables.getDataFor($scope.variable.variableName, startDate, endDate).then(function(result){
 
           var newData = result.map(function(datum) {
             return datum.dataValue;
@@ -159,6 +159,6 @@ angular.module('pragmaApp')
         });
       }
     }
-  });
+  };
 
 }]);

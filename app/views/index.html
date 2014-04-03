@@ -33,7 +33,6 @@
     <div ui-view=""></div>
 
     <script src='//maps.googleapis.com/maps/api/js?sensor=false&libraries=weather,visualization'></script>
-    <script src='http://code.highcharts.com/highcharts.js'></script>
 
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
@@ -53,14 +52,13 @@
     <script src="bower_components/restangular/dist/restangular.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="bower_components/angularjs-geolocation/src/geolocation.js"></script>
-    <script src="bower_components/highcharts.com/js/highcharts.src.js"></script>
-    <script src="bower_components/highcharts.com/js/highcharts-more.src.js"></script>
-    <script src="bower_components/highcharts.com/js/modules/exporting.src.js"></script>
     <script src="bower_components/highcharts-ng/dist/highcharts-ng.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <!-- endbower -->
     <script src="bower_components/metisMenu/jquery.metisMenu.js"></script>
     <!-- endbuild -->
+    <!-- Needs to be after jquery -->
+    <script src='http://code.highcharts.com/highcharts.js'></script>
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
@@ -88,8 +86,6 @@
     <script src="scripts/services/variables.js"></script>
     <script src="scripts/services/user.js"></script>
     <script src="scripts/services/geocoder.js"></script>
-    <script src="scripts/services/cropType.js"></script>
-
     <!-- endbuild -->
   </body>
 </html>
