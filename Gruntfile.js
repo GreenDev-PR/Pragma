@@ -118,6 +118,7 @@ module.exports = function(grunt) {
 
     // Empties folders to start fresh
     clean: {
+      schema: 'database/schema.sql',
       dist: {
         files: [
           {
@@ -456,7 +457,7 @@ module.exports = function(grunt) {
     ]);
   });
 
-  grunt.registerTask('createDb', ['exec:createDb', 'execute:seedDB']);
+  grunt.registerTask('createDb', ['exec:createDb', 'execute:seedDB', 'clean:schema']);
 
   grunt.registerTask('server', function() {
     grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
