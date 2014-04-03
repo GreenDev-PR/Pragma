@@ -28,10 +28,8 @@ angular.module('pragmaApp')
       longitude: -66.25
     },
     zoom: 9,
-    draggable: false,
+    draggable: true,
     options: {
-      disableDefaultUI: false,
-      scrollwheel: false
     }
   };
 
