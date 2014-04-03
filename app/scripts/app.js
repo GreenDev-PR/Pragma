@@ -56,17 +56,17 @@ angular.module('pragmaApp', [
     templateUrl: 'partials/farmerOverview.html',
     controller: 'FarmerOverviewCtrl'
   })
-  .state('dashboard.research-maps', {
+  .state('dashboard.researchMaps', {
     url: '/research-maps',
     templateUrl: 'partials/researchMaps.html',
     controller: 'ResearchMapsCtrl'
   })
-  .state('dashboard.research-variables', {
+  .state('dashboard.researchVariables', {
     url: '/research-variables',
     templateUrl: 'partials/researchVariablesTable.html',
     controller: 'ResearchVariablesCtrl'
   })
-  .state('dashboard.plots-researcher', {
+  .state('dashboard.researchPlots', {
     url:'/plots-researcher',
     templateUrl: 'partials/plotsResearcher.html',
     controller: 'PlotsResearcherCtrl'
