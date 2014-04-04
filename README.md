@@ -34,7 +34,7 @@ Pragma is a web application designed to provide irrigation management services t
 
 ## Configuration
 
-  All configuration is specified in the [config](config/) folder, particularly the [config.js](config/config.js) file.
+  All configuration is specified in the [config](/lib/config) folder, particularly the [config.js](lib/config/config.js) file.
 
 ### Environmental Settings
 
