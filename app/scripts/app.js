@@ -81,7 +81,6 @@ angular.module('pragmaApp', [
     url:'/detail/:cropSessionId',
     resolve: {
       cropSession: function($stateParams, CropSessions) {
-        console.log('state resolving');
         return CropSessions.get($stateParams.cropSessionId);
       }
     },
@@ -94,7 +93,8 @@ angular.module('pragmaApp', [
         templateUrl: 'partials/cropSession-irrigationRequirement.html'
       },
       'kc': {
-        templateUrl: 'partials/cropSession-kc.html'
+        templateUrl: 'partials/cropSession-kc.html',
+        controller: 'KcCtrl'
       },
       'irrigationHistory': {
         templateUrl: 'partials/cropSession-irrigationHistory.html'
