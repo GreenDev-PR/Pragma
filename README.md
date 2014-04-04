@@ -14,6 +14,10 @@ Pragma is a web application designed to provide irrigation management services t
 * Make sure you install grunt-cli globally using `npm install -g grunt-cli`.
 * PostgreSQL - Download and install [PostgreSQL] (http://www.postgresql.org/download/).
 
+### Additional Packages
+
+Additional dependencies are defined as npm modules in the [package.json](/package.json) file. 
+
 ## Quick Install
 
  The quickest way to get started with Pragma is to utilize it like this:
