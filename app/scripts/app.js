@@ -70,6 +70,11 @@ angular.module('pragmaApp', [
     url:'/plots-researcher',
     templateUrl: 'partials/plotsResearcher.html',
     controller: 'PlotsResearcherCtrl'
+  })
+  .state('dashboard.user-profile', {
+    url:'/user-profile',
+    templateUrl: 'partials/userProfile.html',
+    controller: 'UserProfileCtrl'
   });
 
   $urlRouterProvider.otherwise('/');
