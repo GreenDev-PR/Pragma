@@ -3,11 +3,9 @@ Pragma
 
 [![Build Status](https://travis-ci.org/GreenDev-PR/Pragma.png?branch=master)](https://travis-ci.org/GreenDev-PR/Pragma)
 
-Web irrigation scheduling tool.
+##Description
 
-## Docs
-
-  Links to docs go here.
+Pragma is a web application designed to provide irrigation management services to farmers. Additionally, it provides registered agricultural scientists access to Puerto Rico wide hydro-climate data. Primarily, Pragma provides farmers with the proper amount of water to irrigate their crops. This service is possible because Pragma keeps track of your crop’s growth stage, irrigation history, your farm’s geographical location, and collects the previously mentioned hydro-climate data daily from the GOES satellite and NEXRAD radar. Pragma employs agricultural engineering methodologies and algorithms for crop water requirement calculations. Pragma is available for both mobile and desktop use.
 
 ## Prerequisites
 
@@ -24,11 +22,11 @@ Web irrigation scheduling tool.
     git clone https://github.com/GreenDev-PR/Pragma.git
     cd Pragma
     npm install && bower install
-    grunt serve
+    grunt
 
   We recommend using [Grunt](https://github.com/gruntjs/grunt-cli) to start the server:
 
-    grunt serve
+    grunt
 
   Then open a browser and go to:
 
