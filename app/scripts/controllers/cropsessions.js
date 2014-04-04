@@ -19,8 +19,9 @@ angular.module('pragmaApp')
 
   $scope.deleteCropSession = function(index){
     var temp = $scope.cropList[index];
-    $scope.cropList.splice(index,1);
-    CropSessions.delete(temp.id);
+    CropSessions.remove(temp.id).then(function(){
+      $scope.cropList.splice(index,1);
+    });
   };
   
 }]);
