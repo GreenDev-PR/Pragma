@@ -71,6 +71,11 @@ angular.module('pragmaApp', [
     templateUrl: 'partials/plotsResearcher.html',
     controller: 'PlotsResearcherCtrl'
   })
+  .state('dashboard.cropSessions', {
+    url: '/cropSessions',
+    templateUrl: 'partials/cropSessions.html',
+    controller: 'CropSessionsCtrl'
+  })
   .state('dashboard.user-profile', {
     url:'/user-profile',
     templateUrl: 'partials/userProfile.html',
