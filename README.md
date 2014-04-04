@@ -12,6 +12,7 @@ Pragma is a web application designed to provide irrigation management services t
 * Node.js - Download and Install [Node.js](http://www.nodejs.org/download/). You can also follow [this gist](https://gist.github.com/isaacs/579814) for a quick and easy way to install Node.js and npm.
 * Grunt - [grunt-cli](http://gruntjs.com/getting-started)
 * Make sure you install grunt-cli globally using `npm install -g grunt-cli`.
+* PostgreSQL - Download and install [PostgreSQL] (http://www.postgresql.org/download/).
 
 ## Quick Install
 
@@ -22,11 +23,7 @@ Pragma is a web application designed to provide irrigation management services t
     git clone https://github.com/GreenDev-PR/Pragma.git
     cd Pragma
     npm install && bower install
-    grunt
-
-  We recommend using [Grunt](https://github.com/gruntjs/grunt-cli) to start the server:
-
-    grunt
+    grunt serve
 
   Then open a browser and go to:
 
@@ -41,6 +38,8 @@ Pragma is a web application designed to provide irrigation management services t
   To run with a different environment, just specify NODE_ENV as you call grunt:
 
     $ NODE_ENV=test grunt
+
+   The environment can be test, development or production and can be configured as above. 
 
 ## Code Style
 
@@ -59,4 +58,4 @@ Pragma is a web application designed to provide irrigation management services t
 
 ## Contributing
 
-  TODO: Specify commiting rules and format.
+Contribut
