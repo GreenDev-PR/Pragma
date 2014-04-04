@@ -5,15 +5,15 @@
   <table class="table table-bordered">
     <tr>
       <td>Crop Type</td>
-      <td>Platano Esteroidal</td>
+      <td>{{ cropSession.cropTypeId }}</td>
     </tr>
     <tr>
       <td>Start Date</td>
-      <td>2014-05-01</td>
+      <td>{{ cropSession.startDate | date:'medium'}}</td>
     </tr>
     <tr>
       <td>Area</td>
-      <td>140</td>
+      <td>{{ cropSession.area }}</td>
     </tr>
   </table>
 </div>

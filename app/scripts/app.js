@@ -79,9 +79,16 @@ angular.module('pragmaApp', [
   })
   .state('dashboard.cropSession.detail', {
     url:'/detail/:cropSessionId',
+    resolve: {
+      cropSession: function($stateParams, CropSessions) {
+        console.log('state resolving');
+        return CropSessions.get($stateParams.cropSessionId);
+      }
+    },
     views: {
       'summary': {
-        templateUrl: 'partials/cropSession-summary.html'
+        templateUrl: 'partials/cropSession-summary.html',
+        controller: 'SummaryCtrl'
       },
       'irrigationRequirement': {
         templateUrl: 'partials/cropSession-irrigationRequirement.html'
