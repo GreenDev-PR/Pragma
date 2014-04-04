@@ -71,10 +71,28 @@ angular.module('pragmaApp', [
     templateUrl: 'partials/plotsResearcher.html',
     controller: 'PlotsResearcherCtrl'
   })
-  .state('dashboard.viewCropSession', {
-    url:'/cropSessions/:cropSessionId',
+  .state('dashboard.cropSession', {
+    url: '/cropSession',
+    abstract: true,
     templateUrl: 'partials/cropSession.html',
     controller: 'CropSessionCtrl'
+  })
+  .state('dashboard.cropSession.detail', {
+    url:'/detail/:cropSessionId',
+    views: {
+      'summary': {
+        templateUrl: 'partials/cropSession-summary.html'
+      },
+      'irrigationRequirement': {
+        templateUrl: 'partials/cropSession-irrigationRequirement.html'
+      },
+      'kc': {
+        templateUrl: 'partials/cropSession-kc.html'
+      },
+      'irrigationHistory': {
+        templateUrl: 'partials/cropSession-irrigationHistory.html'
+      }
+    }
   });
 
   $urlRouterProvider.otherwise('/');
