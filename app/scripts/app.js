@@ -75,6 +75,11 @@ angular.module('pragmaApp', [
     url: '/cropSessions',
     templateUrl: 'partials/cropSessions.html',
     controller: 'CropSessionsCtrl'
+  })
+  .state('dashboard.user-profile', {
+    url:'/user-profile',
+    templateUrl: 'partials/userProfile.html',
+    controller: 'UserProfileCtrl'
   });
 
   $urlRouterProvider.otherwise('/');

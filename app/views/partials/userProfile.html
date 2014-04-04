@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="signup-farmer panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Profile</h3>
+        </div>
+        <div class="panel-body">
+          <form role="form" name="profileForm" ng-submit="saveChanges(profileForm)" novalidate>
+            <fieldset>
+              <div class="form-group">
+                <input class="form-control" placeholder="Name" name="name" ng-model="user.name" required>
+              </div>
+              <div class="form-group">
+                <input class="form-control" placeholder="Last Name" name="lastname" ng-model="user.lastName" required>
+              </div>
+              <div class="form-group">
+                <input class="form-control" placeholder="Organization" name="organization" ng-model="user.organization" required>
+              </div>
+              <div class="form-group">
+                <label for="address">Where is your farm located?</label>
+                <div style="position: relative">
+                  <div class="map-panel">
+                    <input type="text" id="address" ng-model="address">
+                    <a class="btn btn-primary" ng-click="searchAddress()">Search</a>
+                  </div>
+                  <google-map center='map.center' zoom='map.zoom' control="map.control" draggable="true" id="signup-map" class='form-group'>
+                    <marker coords='marker.coords' options='marker.options' events="marker.events"></marker>
+                  </google-map>
+                </div>
+              </div>
+
+            <div class="form-group">
+              <input class="form-control" placeholder="E-mail" name="email" type="email" ng-model="user.email" required>
+            </div>
+            <div class="form-group">
+              <input class="form-control" placeholder="Password" name="password" type="password" ng-model="user.password" required>
+            </div>
+          </fieldset>
+          <button type="submit" class="btn btn-lg btn-success btn-block" ng-disabled="!profileForm.$valid" >Save Changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
