@@ -3,7 +3,9 @@
 angular.module('pragmaApp')
 .service('CropSessions', function (Restangular) {
 
-  var cropSessions = Restangular.all('users/me/cropSessions');
+  var cropSessionEndpoint = 'users/me/cropSessions';
+  var cropSessions = Restangular.all(cropSessionEndpoint);
+
   this.getAll = function() {
     return cropSessions.getList();
   };
@@ -14,5 +16,9 @@ angular.module('pragmaApp')
 
   this.get = function(id) {
     return cropSessions.get(id);
+  };
+
+  this.remove = function(id) {
+    return Restangular.one(cropSessionEndpoint, id).remove();
   };
 });

@@ -28,10 +28,8 @@ angular.module('pragmaApp')
       longitude: -66.25
     },
     zoom: 9,
-    draggable: false,
+    draggable: true,
     options: {
-      disableDefaultUI: false,
-      scrollwheel: false
     }
   };
 
@@ -135,7 +133,7 @@ angular.module('pragmaApp')
 
   //Event triggered when the Get Data button is pressed
   //Gets the data for the new variable and changes the plot title (variable name)
-  $scope.getData = function(){
+  $scope.plotData = function() {
     if($scope.variable){
       $scope.timeseries.config.title.text = $scope.variable.variableName;
 
