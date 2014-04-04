@@ -105,4 +105,20 @@ describe('Service: CropSessions', function () {
       httpBackend.flush();
     });
   });
+
+  describe('remove', function() {
+    it('should get the cropSession with id 1', function() {
+      httpBackend.expectDELETE(cropSessionEndpoint+'/1')
+      .respond({});
+      CropSessions.remove(1);
+      httpBackend.flush();
+    });
+
+    it('should get the cropSession with id 3', function() {
+      httpBackend.expectDELETE(cropSessionEndpoint+'/3')
+      .respond({});
+      CropSessions.remove(3);
+      httpBackend.flush();
+    });
+  });
 });
