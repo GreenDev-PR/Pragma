@@ -1,11 +1,11 @@
 <div class="well researchTable">
-	
+
 	<div class="row">
 		<div class="col-md-11">
-			<h3>Crop Sessions</h3>	
+			<h3>Manage Crop Sessions</h3>	
 		</div>
 		<div class="col-md-1">
-			<h5><button class="btn btn-success"><i class="fa fa-plus fa-1x" style=""></i></button></h5>
+			<h5><button class="btn btn-success" data-toggle="modal" data-target="#addCropModal"><i class="fa fa-plus fa-1x" style=""></i></button></h5>
 		</div>
 	</div>
 		
@@ -19,22 +19,53 @@
 				<th><strong>Start Date</strong></th>
 				<th><strong>Delete</strong></th>
 			</tr>
-			</thead>	
 			<tbody>
-			<!-- <tr ng-model="crops" ng-repeat="crop in cropList">
-				<td><p>{{ crop.name }}</p></td>
-				<td><p>{{ crop.type }}</p></td>
-				<td><p>{{ crop.startDate }}</p></td>
-				<td><button class="btn btn-danger" ng-click="deleteSession($index)">Delete</button></td>
-			</tr> -->
-			<tr>
-				<td><a><p>Mi favorito</p></a></td>
-				<td><p>Calabaza</p></td>
-				<td><p>01/01/2014</p></td>
-				<td ><button class="btn btn-danger">Delete</button></td>
-			</tr>
+			<tr ng-repeat="crop in cropList">
+				<td><p><a>{{ crop.cropName }}</a></p></td>
+				<td><p>{{ crop.cropType }}</p></td>
+				<td><p>{{ crop.startDate | date: 'yyyy-MMMM-dd' }}</p></td>
+				<td><button class="btn btn-danger" ng-click="deleteCropSession($index)">Delete</button></td>
+			</tr> 
 			</tbody>
 		</table>
+			
+	</div> <!-- / Manage Crop Sessions-->
 
-	</div>
+	<!-- Modal -->
+  <div class="modal fade" id="addCropModal" tabindex="-1" role="dialog" aria-labelledby="addCropModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="addCropModalLabel">Add a Crop Session</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" name="addCropSessionForm"  novalidate>
+          <fieldset>
+            <div class="form-group">
+              <label for="cropName">Give your new crop session a name.</label>
+              <input class="form-control" placeholder="Crop Name" name="cropName" ng-model="newcrop.name" required>
+            </div>
+            <div class="form-group">
+              <label for="selectCropType">Select a crop type to plant (e.g. Cilantrillo)</label>
+              <select id="selectCropType" ng-model="newcrop.type"
+                      ng-options="c.cropType for c in cropTypeList"
+                      required>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="cropArea">What is the area (in X unit) the crop encloses?</label>
+              <input class="form-control" placeholder="Crop Area" name="cropArea" ng-model="newcrop.area" required>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success"  ng-disabled="!addCropSessionForm.$valid">Save</button>
+      </div>
+    </div>
+  </div>
+</div>	<!-- / modal-->
+
 </div>
