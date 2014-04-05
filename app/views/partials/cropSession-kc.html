@@ -8,32 +8,40 @@
     </div>
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2">
-        <table class="table table-striped table-bordered">
-          <thead>
-            <tr>
-              <td>Crop Growth Stage</td>
-              <td>Stage Length</td>
-              <td>Stage Value</td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Initial</td>
-              <td><input type="number" class="form-control" ></td>
-              <td><input type="number" class="form-control"></td>
-            </tr>
-            <tr>
-              <td>Mid</td>
-              <td><input type="number" class="form-control" ></td>
-              <td><input type="number" class="form-control"></td>
-            </tr>
-            <tr>
-              <td>Late</td>
-              <td><input type="number" class="form-control" ></td>
-              <td><input type="number" class="form-control"></td>
-            </tr>
-          </tbody>
-        </table>
+        <form name="kcForm">
+          <table class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <td>Crop Growth Stage</td>
+                <td>Stage Length</td>
+                <td>Stage Value</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Initial</td>
+                <td><input type="number" class="form-control" ng-model="cropSession.initialStageLength"></td>
+                <td><input type="number" class="form-control" ng-model="cropSession.kcInitial"></td>
+              </tr>
+              <tr>
+                <td>Development</td>
+                <td><input type="number" class="form-control" ng-model="cropSession.developmentStageLength"></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Mid</td>
+                <td><input type="number" class="form-control" ng-model="cropSession.midStageLength"></td>
+                <td><input type="number" class="form-control" ng-model="cropSession.kcMid"></td>
+              </tr>
+              <tr>
+                <td>Late</td>
+                <td><input type="number" class="form-control" ng-model="cropSession.lateStageLength"></td>
+                <td><input type="number" class="form-control" ng-model="cropSession.kcEnd"></td>
+              </tr>
+            </tbody>
+          </table>
+          <button ng-click="save()" class="btn btn-primary">Save</button>
+        </form>
       </div>
     </div>
   </div>
