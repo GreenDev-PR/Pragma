@@ -7,13 +7,13 @@
 
       <div class="row"> <!-- inner row-->
 
-        <div class="col-md-3 xs-12">
+        <div class="col-lg-3">
           <form class="form-horizontal">
             <div class="control-group">
               <label for="selectVariable">
                 Choose a variable:
               </label>
-              <select class="form-control ng-pristine" id="selectVariable" ng-model="variable"
+              <select class="form-control" id="selectVariable" ng-model="variable"
               ng-options="v.variableName for v in variables"
               required>
             </select>
@@ -21,15 +21,14 @@
         </form>
       </div> <!-- /inner column-->
 
-      <div class="col-md-3">
+      <div class="col-lg-3">
         <div class="control-group">
           <label for="start-date">From:</label>
           <br>
           <!-- <input id="start-date" type="date" required ng-model="startDate" placeholder="Start Date"> -->
           <p class="input-group">
-            <input class="form-control ng-pristine ng-valid ng-valid-required" id="start-date" type="text" datepicker-popup="{{ format }}"
+            <input class="form-control" id="start-date" type="text" datepicker-popup="{{ format }}"
             ng-model="startDate.value" is-open="startDate.opened" min="minDate" max="maxDate" datepicker-options="dateOptions" ng-required="true" placeholder="yyyy/mm/dd">
-            <!-- <span class="input-group-btn"> -->
             <span class="input-group-btn">
               <button class="btn btn-default" ng-click="startDate.open($event)"><i class="glyphicon glyphicon-calendar"></i>
               </button>
@@ -39,13 +38,13 @@
         </div>
       </div> <!-- /inner column-->
 
-      <div class="col-md-3">
+      <div class="col-lg-3">
         <div class="control-group">
           <label for="end-date">To:</label>
           <br>
           <!-- <input id="end-date" type="date" required ng-model="endDate" placeholder="End Date"> -->
           <p class="input-group">
-            <input class="form-control ng-pristine ng-valid ng-valid-required" type="text" datepicker-popup="{{format}}" ng-model="endDate.value" is-open="endDate.opened" min="startDate.value" max="maxDate" placeholder="yyyy/mm/dd" datepicker-options="dateOptions"/>
+            <input class="form-control" type="text" datepicker-popup="{{format}}" ng-model="endDate.value" is-open="endDate.opened" min="startDate.value" max="maxDate" placeholder="yyyy/mm/dd" datepicker-options="dateOptions"/>
             <!-- <span class="input-group-btn"> -->
             <span class="input-group-btn">
               <button class="btn btn-default" ng-click="endDate.open($event)">
@@ -57,7 +56,7 @@
         </div>
       </div> <!-- /inner column-->
 
-      <div class="col-md-3">
+      <div class="col-lg-3">
         <div class="control-group">
           <br>
           <button class="form-control btn btn-primary" ng-click="generateSlideShow()">Show Maps</button>

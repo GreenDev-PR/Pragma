@@ -13,23 +13,23 @@
           <div class="row">
             <label for="latitude">Latitude</label>
             <br>
-            <input class="form-control ng-pristine" id="latitude" ng-model="marker.coords.latitude">
+            <input class="form-control" id="latitude" ng-model="marker.coords.latitude">
           </div>
           <div class="row">
             <label for="longitude">Longitude</label>
             <br>
-            <input class="form-control ng-pristine" id="longitude" ng-model="marker.coords.longitude">
+            <input class="form-control" id="longitude" ng-model="marker.coords.longitude">
           </div>
           <div class="row">
             <label for="variable">Variable</label>
             <br>
-            <select class="form-control ng-pristine" id="variable" ng-model="variable" ng-options="v.variableName for v in variables"></select>
+            <select class="form-control" id="variable" ng-model="variable" ng-options="v.variableName for v in variables"></select>
           </div>
           <div class="row">
             <label for="startdate">Start Date</label>
             <br>
             <div class="input-group">
-              <input type="text" class="form-control ng-pristine ng-valid ng-valid-required" datepicker-popup="{{format}}" ng-model="startDate.value" is-open="startDate.opened" min="minDate" max="maxDate" datepicker-options="dateOptions"/>
+              <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="startDate.value" is-open="startDate.opened" min="minDate" max="maxDate" datepicker-options="dateOptions"/>
               <span class="input-group-btn">
                 <button class="btn btn-default" ng-click="startDate.open($event)">
                   <i class="glyphicon glyphicon-calendar"></i>
@@ -41,7 +41,7 @@
             <label for="enddate">End Date</label>
             <br>
             <div class="input-group">
-              <input type="text" class="form-control ng-pristine ng-valid ng-valid-required" datepicker-popup="{{format}}" ng-model="endDate.value" is-open="endDate.opened" min="startDate.value" max="maxDate" datepicker-options="dateOptions"/>
+              <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="endDate.value" is-open="endDate.opened" min="startDate.value" max="maxDate" datepicker-options="dateOptions"/>
               <span class="input-group-btn">
                 <button class="btn btn-default" ng-click="endDate.open($event)">
                 <i class="glyphicon glyphicon-calendar"></i>
