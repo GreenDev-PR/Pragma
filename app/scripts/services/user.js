@@ -12,4 +12,9 @@ angular.module('pragmaApp')
     return user.get('me');
   };
 
+  // TODO: Implement method to update user's information
+  this.update = function(){
+
+  };
+
 });

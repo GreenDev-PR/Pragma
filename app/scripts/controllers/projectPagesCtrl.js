@@ -10,6 +10,9 @@ angular.module('pragmaApp').controller('ProjectPagesCtrl',function($scope) {
     {name: 'ResearchMaps', sref: 'dashboard.researchMaps' },
     {name: 'ResearchVariables', sref: 'dashboard.researchVariables'},
     {name: 'Plots Researcher', sref: 'dashboard.researchPlots'},
-    {name: 'Crop Session Detail', sref: 'dashboard.cropSession.detail({cropSessionId: 1})'}
+    {name: 'Crop Session Detail', sref: 'dashboard.cropSession.detail({cropSessionId: 1})'},
+    {name: 'Plots Researcher', sref: 'dashboard.researchPlots'},
+    {name: 'CropSessions', sref: 'dashboard.cropSessions'},
+    {name: 'User Profile', sref: 'dashboard.user-profile'}
   ];
 });
