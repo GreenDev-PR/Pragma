@@ -1,13 +1,16 @@
 'use strict';
 
 angular.module('pragmaApp')
-.controller('KcCtrl', function ($scope, cropSession) {
+.controller('KcCtrl', function ($scope, cropSession, Restangular) {
+
+  $scope.tempCropSession = Restangular.copy(cropSession);
 
   var generateSeries = function(cropSession) {
     var initial = [0, cropSession.initialStageLength];
     var dev = [initial[1], initial[1] + cropSession.developmentStageLength];
     var mid = [dev[1], dev[1] + cropSession.midStageLength];
     var late = [mid[1], mid[1] + cropSession.lateStageLength];
+
     return [
       {
         name: 'Initial Stage',
@@ -40,25 +43,31 @@ angular.module('pragmaApp')
     ];
   };
 
-  $scope.cropSession = cropSession;
-
   $scope.chartConfig = {
     options: {
       chart: {
         type: 'line'
       }
     },
-    series: generateSeries(cropSession),
+    series: generateSeries($scope.tempCropSession),
     title: {
       text: 'Crop Coefficient'
     }
   };
 
-  $scope.update = function() {
-    $scope.chartConfig.series = generateSeries($scope.cropSession);
+  $scope.updateChart = function() {
+    $scope.chartConfig.series = generateSeries($scope.tempCropSession);
   };
 
   $scope.save = function() {
+    $scope.tempCropSession.put().then(function(updatedCropSession) {
+      $scope.tempCropSession = Restangular.copy(updatedCropSession);
+      cropSession = updatedCropSession;
+    });
+  };
 
+  $scope.cancel = function() {
+    $scope.tempCropSession = Restangular.copy(cropSession);
+    $scope.updateChart();
   };
 });
