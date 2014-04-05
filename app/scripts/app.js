@@ -90,7 +90,8 @@ angular.module('pragmaApp', [
         controller: 'SummaryCtrl'
       },
       'irrigationRequirement': {
-        templateUrl: 'partials/cropSession-irrigationRequirement.html'
+        templateUrl: 'partials/cropSession-irrigationRequirement.html',
+        controller: 'IrrigationrequirementCtrl'
       },
       'kc': {
         templateUrl: 'partials/cropSession-kc.html',
