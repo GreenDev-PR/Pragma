@@ -13,7 +13,7 @@
     <!-- /.navbar-header -->
 
     <ul class="nav navbar-top-links navbar-right hidden-xs">
-      <li><a href="#login"><i class="fa fa-user fa-fw"></i>Profile</a></li>
+      <li><a ui-sref="dashboard.profile"><i class="fa fa-user fa-fw"></i>Profile</a></li>
       <li><a href="#login"><i class="fa fa-times-circle-o fa-fw"></i>Logout</a></li>
     </ul>
 
@@ -33,7 +33,7 @@
           <a ui-sref="dashboard.overview"><i class="fa fa-globe fa-fw"></i>Overview</a>
         </li>
         <li ng-if="isFarmer()">
-          <a href="#"><i class="fa fa-leaf fa-fw"></i> Crop Sessions<span class="fa arrow"></span></a>
+          <a ui-sref="dashboard.cropSessions"><i class="fa fa-leaf fa-fw"></i> Crop Sessions<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level">
             <li ng-repeat="cropSession in cropSessions">
               <a href="dashboard.overview">{{ cropSession.cropName }}</a>

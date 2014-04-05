@@ -13,6 +13,6 @@ angular.module('pragmaApp').controller('ProjectPagesCtrl',function($scope) {
     {name: 'Crop Session Detail', sref: 'dashboard.cropSession.detail({cropSessionId: 1})'},
     {name: 'Plots Researcher', sref: 'dashboard.researchPlots'},
     {name: 'CropSessions', sref: 'dashboard.cropSessions'},
-    {name: 'User Profile', sref: 'dashboard.user-profile'}
+    {name: 'User Profile', sref: 'dashboard.profile'}
   ];
 });
