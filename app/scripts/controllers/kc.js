@@ -51,16 +51,14 @@ angular.module('pragmaApp')
     series: generateSeries(cropSession),
     title: {
       text: 'Crop Coefficient'
-    },
-    loading: false
+    }
   };
 
-  // $scope.update = function() {
-  //   $scope.chartConfig.series[0];
-  // };
-
-  $scope.save = function() {
+  $scope.update = function() {
     $scope.chartConfig.series = generateSeries($scope.cropSession);
   };
 
+  $scope.save = function() {
+
+  };
 });
