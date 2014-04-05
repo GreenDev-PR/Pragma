@@ -11,6 +11,6 @@ angular.module('pragmaApp').controller('ProjectPagesCtrl',function($scope) {
     {name: 'ResearchVariables', sref: 'dashboard.researchVariables'},
     {name: 'Plots Researcher', sref: 'dashboard.researchPlots'},
     {name: 'CropSessions', sref: 'dashboard.cropSessions'},
-    {name: 'User Profile', sref: 'dashboard.user-profile'}
+    {name: 'User Profile', sref: 'dashboard.profile'}
   ];
 });
