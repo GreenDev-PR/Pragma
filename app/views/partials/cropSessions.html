@@ -21,7 +21,7 @@
 			</tr>
 			<tbody>
 			<tr ng-repeat="crop in cropList">
-				<td><p><a>{{ crop.cropName }}</a></p></td>
+				<td><p><a ui-sref="dashboard.cropSession.detail({cropSessionId: crop.id})">{{ crop.cropName }}</a></p></td>
 				<td><p>{{ crop.cropType }}</p></td>
 				<td><p>{{ crop.startDate | date: 'yyyy-MMMM-dd' }}</p></td>
 				<td><button class="btn btn-danger" ng-click="deleteCropSession($index)">Delete</button></td>
