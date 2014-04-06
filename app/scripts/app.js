@@ -138,6 +138,11 @@ angular.module('pragmaApp', [
   })
   .state('dashboard.profile', {
     url:'/profile',
+    resolve: {
+      user: function(User) {
+        return User.getMe();
+      }
+    },
     templateUrl: 'partials/userProfile.html',
     controller: 'UserProfileCtrl'
   });
