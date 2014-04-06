@@ -94,6 +94,7 @@ describe('Controller: UserProfileCtrl', function(){
 			scope.saveChanges(form);
 			scope.$digest();
 			expect(User.update).toHaveBeenCalled();
+			expect(state.go).toHaveBeenCalledWith('dashboard.overview');
 		});
 
 
