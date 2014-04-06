@@ -83,7 +83,7 @@ CREATE TABLE cropsessions (
 
 CREATE TABLE irrigationevents (
     id SERIAL NOT NULL,
-    cropSessionId integer REFERENCES cropsessions(id),
+    cropSessionId integer REFERENCES cropsessions(id) ON DELETE CASCADE,
     irrigationdate timestamp with time zone NOT NULL,
     irrigationvolume double precision NOT NULL,
     createdat timestamp with time zone NOT NULL,
