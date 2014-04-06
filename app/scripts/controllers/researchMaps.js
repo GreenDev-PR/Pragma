@@ -1,7 +1,12 @@
 'use strict';
 /**
- * Research Maps Croller module. 
- * It is responsible for providing ResearchMaps view with appropriate functionalities.
+ * Research Maps Controller. 
+ * 
+ * This controller is responsible for defining the default time interval for the maps carousel 
+ * display, the default startDate and endDate properties of the calendar inputs, and date options
+ * properties of the ui-bootstrap calendars. Also, it defines the display date format and the 
+ * initial state of the carousel. Finally, it provides the generate slide show functionality to
+ * the maps view.
  */
 angular.module('pragmaApp')
 .controller('ResearchMapsCtrl', ['$scope', '$filter','variables', function ($scope, $filter, variables) {

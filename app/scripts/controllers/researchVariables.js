@@ -1,7 +1,10 @@
 'use strict';
 /**
  * Research Variables Controller. 
+ * 
  * Provides appropriate functionalities for the research variables views.
+ * This controller loads the all goes-variables supported by the system for 
+ * research variables view.
  */
 angular.module('pragmaApp')
 .controller('ResearchVariablesCtrl', ['$scope','variables', function ($scope, variables) {

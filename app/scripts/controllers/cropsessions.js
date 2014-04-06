@@ -1,7 +1,12 @@
 'use strict';
 /**
  * Crop Sessions Controller. 
- * Provides appropriate functionalities to the crop sessions view. 
+ * 
+ * This controller loads all crop sessions of the user. It is responsible
+ * for replacing each of the crop sessions' date property a with JavaScript 
+ * Date object for ng-filther compatibility. Also, it laods all crop types
+ * supported by the system. Finally, it defines the dele Crop Session fucntion, 
+ * to provide cropSession deletion capabilities.     
  */
 angular.module('pragmaApp')
   .controller('CropSessionsCtrl',['$scope','$injector','CropSessions','CropTypes',
