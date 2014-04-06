@@ -1,0 +1,19 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"><i class="fa fa-pencil-square-o"></i> Summary</h3>
+  </div>
+  <table class="table table-bordered">
+    <tr>
+      <td>Crop Type</td>
+      <td>{{ cropSession.cropTypeId }}</td>
+    </tr>
+    <tr>
+      <td>Start Date</td>
+      <td>{{ cropSession.startDate | date:'medium'}}</td>
+    </tr>
+    <tr>
+      <td>Area</td>
+      <td>{{ cropSession.area }}</td>
+    </tr>
+  </table>
+</div>

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('pragmaApp').controller('UserProfileCtrl',['$scope', 'User', '$state', 'Geocoder', function($scope, User, $state, Geocoder){
-  
+
   User.getMe().then(function(me){
     console.log('me', me);
 
@@ -22,7 +22,7 @@ angular.module('pragmaApp').controller('UserProfileCtrl',['$scope', 'User', '$st
       longitude: -66.453767
     },
     control: {},
-    zoom: 8
+    zoom: 9
   };
 
   $scope.marker = {

@@ -71,6 +71,44 @@ angular.module('pragmaApp', [
     templateUrl: 'partials/plotsResearcher.html',
     controller: 'PlotsResearcherCtrl'
   })
+  .state('dashboard.cropSession', {
+    url: '/cropSession',
+    abstract: true,
+    templateUrl: 'partials/cropSession.html',
+    controller: 'CropSessionCtrl'
+  })
+  .state('dashboard.cropSession.detail', {
+    url:'/detail/:cropSessionId',
+    resolve: {
+      cropSession: function($stateParams, CropSessions) {
+        return CropSessions.get($stateParams.cropSessionId);
+      }
+    },
+    views: {
+      'summary': {
+        templateUrl: 'partials/cropSession-summary.html',
+        controller: 'SummaryCtrl'
+      },
+      'irrigationRequirement': {
+        templateUrl: 'partials/cropSession-irrigationRequirement.html',
+        controller: 'IrrigationrequirementCtrl'
+      },
+      'kc': {
+        templateUrl: 'partials/cropSession-kc.html',
+        controller: 'KcCtrl'
+      },
+      'irrigationHistory': {
+        templateUrl: 'partials/cropSession-irrigationHistory.html',
+        controller: 'IrrigationhistoryCtrl',
+        resolve: {
+          irrigationEvents: function(cropSession) {
+            console.log('nest cropasdfdsfdsa', cropSession);
+            return cropSession.getList('irrigationEvents');
+          }
+        }
+      }
+    }
+  })
   .state('dashboard.cropSessions', {
     url: '/cropSessions',
     templateUrl: 'partials/cropSessions.html',
@@ -122,3 +160,4 @@ angular.module('pragmaApp', [
   });
 
 });
+// .controller('paginationCtrl', angular.noop);
