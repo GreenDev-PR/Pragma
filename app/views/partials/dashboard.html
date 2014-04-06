@@ -14,7 +14,7 @@
 
     <ul class="nav navbar-top-links navbar-right hidden-xs">
       <li><a ui-sref="dashboard.profile"><i class="fa fa-user fa-fw"></i>Profile</a></li>
-      <li><a ui-sref="login"><i class="fa fa-times-circle-o fa-fw"></i>Logout</a></li>
+      <li><a ng-click="logout()"><i class="fa fa-times-circle-o fa-fw"></i>Logout</a></li>
     </ul>
 
     <!-- /.navbar-top-links -->
@@ -27,8 +27,8 @@
   <nav class="navbar-default navbar-static-side" role="navigation">
     <div class="sidebar-collapse">
       <ul class="nav" id="side-menu">
-        <li class="hidden-lg hidden-md hidden-sm" ><a href="#login"><i class="fa fa-user fa-fw"></i>Profile</a></li>
-        <li class="hidden-lg hidden-md hidden-sm"><a href="#login"><i class="fa fa-times-circle-o fa-fw"></i>Logout</a></li>
+        <li class="hidden-lg hidden-md hidden-sm" ><a ui-sref="dashboard.profile"><i class="fa fa-user fa-fw"></i>Profile</a></li>
+        <li class="hidden-lg hidden-md hidden-sm"><a ng-click="logout()"><i class="fa fa-times-circle-o fa-fw"></i>Logout</a></li>
         <li>
           <a ui-sref="dashboard.overview"><i class="fa fa-globe fa-fw"></i>Overview</a>
         </li>
@@ -36,7 +36,7 @@
           <a ui-sref="dashboard.cropSessions"><i class="fa fa-leaf fa-fw"></i> Crop Sessions<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level">
             <li ng-repeat="cropSession in cropSessions">
-              <a href="dashboard.overview">{{ cropSession.cropName }}</a>
+              <a ui-sref="dashboard.cropSession.detail({cropSessionId: cropSession.id})">{{ cropSession.cropName }}</a>
             </li>
           </ul>
         </li>

@@ -14,9 +14,10 @@ describe('Controller: DashboardCtrl', function () {
   var $httpBackend;
   var q;
   var CropSessions;
+  var state;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function (_$httpBackend_, $controller, $rootScope, _Auth_, _CropSessions_, $q) {
+  beforeEach(inject(function (_$httpBackend_, $controller, $rootScope, _Auth_, _CropSessions_, $q, $state) {
     $httpBackend = _$httpBackend_;
     Auth = _Auth_;
 
@@ -26,7 +27,10 @@ describe('Controller: DashboardCtrl', function () {
     $httpBackend.whenPOST('/api/session', researcherCredentials)
     .respond({id:1, name: 'Victor', userType: 'researcher'});
 
+    $httpBackend.whenGET(/.*/).respond({});
+
     q = $q;
+    state = $state;
 
     CropSessions = _CropSessions_;
     spyOn(CropSessions, 'getAll').and.callFake(function() {
@@ -61,5 +65,20 @@ describe('Controller: DashboardCtrl', function () {
 
   it('should get the user cropsSessions', function() {
     expect(CropSessions.getAll).toHaveBeenCalled();
+  });
+
+  describe('logout', function() {
+    beforeEach(function() {
+      spyOn(state, 'go').and.returnValue({});
+
+      spyOn(Auth, 'logout').and.returnValue(q.when({}));
+    });
+
+    it('should call auth logout and go to the the landingPage', function() {
+      scope.logout();
+      scope.$apply();
+      expect(state.go).toHaveBeenCalledWith('landingPage');
+      expect(Auth.logout).toHaveBeenCalled();
+    });
   });
 });
