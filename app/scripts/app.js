@@ -54,6 +54,7 @@ angular.module('pragmaApp', [
   .state('signup-researcher', {
     url:'/signup-researcher',
     templateUrl: 'partials/signupResearcher.html',
+    controller: 'SignupCtrl',
     data: {
       authorizedRoles: all
     }

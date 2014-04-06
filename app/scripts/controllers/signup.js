@@ -1,33 +1,22 @@
 'use strict';
 
 angular.module('pragmaApp')
-  .controller('SignupCtrl', function ($scope, Auth, $location) {
-    $scope.user = {};
-    $scope.errors = {};
+.controller('SignupCtrl', function ($scope, Auth, $state, User) {
+  User.register();
+  $scope.user = {userType: 'researcher'};
+  $scope.errors = {};
 
-    $scope.register = function(form) {
-      $scope.submitted = true;
-  
-      if(form.$valid) {
-        Auth.createUser({
-          name: $scope.user.name,
-          email: $scope.user.email,
-          password: $scope.user.password
-        })
-        .then( function() {
-          // Account created, redirect to home
-          $location.path('/');
-        })
-        .catch( function(err) {
-          err = err.data;
-          $scope.errors = {};
+  $scope.register = function(form) {
 
-          // Update validity of form fields that match the mongoose errors
-          angular.forEach(err.errors, function(error, field) {
-            form[field].$setValidity('mongoose', false);
-            $scope.errors[field] = error.type;
-          });
-        });
-      }
-    };
-  });
+    if(form.$valid) {
+      User.register($scope.user).then(function() {
+        $state.go('login');
+        $scope.user = {userType: 'researcher'};
+        $scope.errors = {};
+      })
+      .catch(function(response) {
+        $scope.errors = response.data;
+      });
+    }
+  };
+});
