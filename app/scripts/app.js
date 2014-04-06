@@ -12,44 +12,60 @@ angular.module('pragmaApp', [
   'ui.bootstrap',
   'highcharts-ng'
 ])
-.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
+.config(function($stateProvider, $urlRouterProvider, $locationProvider, USER_ROLES) {
   $locationProvider.html5Mode(true);
+
+  var all = [USER_ROLES.guest, USER_ROLES.researcher, USER_ROLES.farmer];
+  var farmerAndResearcher = all.slice(1);
 
   $stateProvider
   .state('showcase', {
     url: '/',
     templateUrl: 'partials/projectPages.html',
-    controller: 'ProjectPagesCtrl'
+    controller: 'ProjectPagesCtrl',
+    data: {
+      authorizedRoles: all
+    }
   })
   .state('landingPage', {
     url: '/landing',
     templateUrl: 'partials/landing.html',
-    bodyClass: 'landing-page'
+    bodyClass: 'landing-page',
+    data: {
+      authorizedRoles: all
+    }
   })
   .state('login', {
     url: '/login',
     templateUrl: 'partials/login.html',
     controller: 'LoginCtrl',
-    bodyClass: 'pragma'
+    data: {
+      authorizedRoles: all
+    }
   })
   .state('signup-farmer', {
     url: '/signup-farmer',
     templateUrl: 'partials/signupFarmer.html',
-    controller: 'SignupFarmerCtrl'
+    controller: 'SignupFarmerCtrl',
+    data: {
+      authorizedRoles: all
+    }
   })
   .state('signup-researcher', {
     url:'/signup-researcher',
-    templateUrl: 'partials/signupResearcher.html'
+    templateUrl: 'partials/signupResearcher.html',
+    data: {
+      authorizedRoles: all
+    }
   })
   .state('dashboard', {
     url: '/dashboard',
     abstract: true,
     templateUrl: 'partials/dashboard.html',
-    controller: 'DashboardCtrl'
-    // TODO UNCOMMENT FOR PRODUCTION
-    // data: {
-    //   authorizedRoles: [USER_ROLES.farmer, USER_ROLES.researcher]
-    // }
+    controller: 'DashboardCtrl',
+    data: {
+      authorizedRoles: farmerAndResearcher
+    }
   })
   .state('dashboard.overview', {
     url: '/overview',
@@ -75,7 +91,10 @@ angular.module('pragmaApp', [
     url: '/cropSession',
     abstract: true,
     templateUrl: 'partials/cropSession.html',
-    controller: 'CropSessionCtrl'
+    controller: 'CropSessionCtrl',
+    data: {
+      authorizedRoles: [USER_ROLES.farmer]
+    }
   })
   .state('dashboard.cropSession.detail', {
     url:'/detail/:cropSessionId',
@@ -112,7 +131,10 @@ angular.module('pragmaApp', [
   .state('dashboard.cropSessions', {
     url: '/cropSessions',
     templateUrl: 'partials/cropSessions.html',
-    controller: 'CropSessionsCtrl'
+    controller: 'CropSessionsCtrl',
+    data: {
+      authorizedRoles: [USER_ROLES.farmer]
+    }
   })
   .state('dashboard.profile', {
     url:'/profile',
@@ -132,18 +154,19 @@ angular.module('pragmaApp', [
 
   $rootScope.$on('$stateChangeStart', function(event, toState) {
     function getAuthorizedRoles(state) {
-      // var authorizedRoles = USER_ROLES.guest;
-      // if(state.data && state.data.authorizedRoles) {
-      //   authorizedRoles = state.data.authorizedRoles;
-      // }
+      var authorizedRoles = USER_ROLES.guest;
+      if(state.data && state.data.authorizedRoles) {
+        authorizedRoles = state.data.authorizedRoles;
+      }
 
-      // return authorizedRoles;
-      console.log(state);
-      return [USER_ROLES.guest, USER_ROLES.farmer, USER_ROLES.researcher];
+      return authorizedRoles;
+      // console.log(state);
+      // return [USER_ROLES.guest, USER_ROLES.farmer, USER_ROLES.researcher];
     }
 
     var authorizedRoles = getAuthorizedRoles(toState);
     if (!Auth.isAuthorized(authorizedRoles)) {
+      console.log('not authorized', authorizedRoles, Auth.getUserRole());
       event.preventDefault();
       if (Auth.isAuthenticated()) {
         // user is not allowed
