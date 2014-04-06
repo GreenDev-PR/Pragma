@@ -1,11 +1,11 @@
 'use strict';
 
-describe('Controller: SummaryCtrl', function () {
+describe('Controller: IrrigationhistoryCtrl', function () {
 
   // load the controller's module
   // beforeEach(module('pragmaApp'));
 
-  // var SummaryCtrl,
+  // var IrrigationhistoryCtrl,
   //   scope,
   //   $httpBackend;
 
@@ -15,7 +15,7 @@ describe('Controller: SummaryCtrl', function () {
   //   $httpBackend.expectGET('/api/awesomeThings')
   //     .respond(['HTML5 Boilerplate', 'AngularJS', 'Karma', 'Express']);
   //   scope = $rootScope.$new();
-  //   SummaryCtrl = $controller('SummaryCtrl', {
+  //   IrrigationhistoryCtrl = $controller('IrrigationhistoryCtrl', {
   //     $scope: scope
   //   });
   // }));

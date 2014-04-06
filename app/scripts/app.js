@@ -98,7 +98,14 @@ angular.module('pragmaApp', [
         controller: 'KcCtrl'
       },
       'irrigationHistory': {
-        templateUrl: 'partials/cropSession-irrigationHistory.html'
+        templateUrl: 'partials/cropSession-irrigationHistory.html',
+        controller: 'IrrigationhistoryCtrl',
+        resolve: {
+          irrigationEvents: function(cropSession) {
+            console.log('nest cropasdfdsfdsa', cropSession);
+            return cropSession.getList('irrigationEvents');
+          }
+        }
       }
     }
   })
@@ -153,3 +160,4 @@ angular.module('pragmaApp', [
   });
 
 });
+// .controller('paginationCtrl', angular.noop);
