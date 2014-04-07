@@ -1,0 +1,38 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="addCropModalLabel">Add a Crop Session</h4>
+</div>
+<div class="modal-body">
+  <form role="form" name="addCropSessionForm" novalidate>
+    <fieldset>
+      <div class="form-group">
+        <label for="cropName">Give your new crop session a name.</label>
+        <input class="form-control" placeholder="Crop Name" name="cropName" ng-model="newCropSession.cropName" required>
+      </div>
+      <div class="form-group">
+        <label for="selectCropType">Select a crop type to plant (e.g. Cilantrillo)</label>
+        <select id="selectCropType" ng-model="selectedCropType"
+        ng-options="c.cropType for c in cropTypeList"
+        required>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="cropArea">What is the area in acre the crop encloses?</label>
+        <input class="form-control" placeholder="Crop Area" name="cropArea" ng-model="newCropSession.area" required>
+      </div>
+      <div class="form-group">
+        <div class="input-group">
+            <input type="text" class="form-control" id="lastIrrigationDate" datepicker-popup="{{ format }}" show-weeks="false" ng-model="startDate.value" is-open="startDate.opened" max="maxDate" datepicker-options="dateOptions" placeholder="yyyy/mm/dd">
+            <span class="input-group-btn">
+              <button class="btn btn-default" ng-click="startDate.open($event)">
+                <i class="glyphicon glyphicon-calendar"></i>
+              </button>
+            </span>
+          </div>
+      </div>
+   </fieldset>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+  <button type="button" class="btn btn-success"  ng-disabled="!addCropSessionForm.$valid" ng-click="save()">Save</button>
+</div>
