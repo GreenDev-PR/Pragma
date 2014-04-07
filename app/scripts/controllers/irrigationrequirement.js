@@ -3,7 +3,7 @@
 angular.module('pragmaApp')
 .controller('IrrigationrequirementCtrl', function ($scope, cropSession) {
   $scope.cropSession = cropSession;
-
+  $scope.irrigationVolume = 0;
   $scope.format = 'yyyy/MM/dd';
   $scope.lastIrrigation = {
     // value: new Date(),
@@ -26,7 +26,10 @@ angular.module('pragmaApp')
 
   $scope.calculate = function(form) {
     if(form.$valid) {
-      // TODO: make calculation
+      cropSession.customGET('calculateIrrigation', {lastIrrigationDate: $scope.lastIrrigation.value.toString()})
+      .then(function(response) {
+        $scope.irrigationVolume = response.result;
+      });
     }
   };
 });
