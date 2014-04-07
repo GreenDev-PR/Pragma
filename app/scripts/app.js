@@ -54,6 +54,7 @@ angular.module('pragmaApp', [
   .state('signup-researcher', {
     url:'/signup-researcher',
     templateUrl: 'partials/signupResearcher.html',
+    controller: 'SignupCtrl',
     data: {
       authorizedRoles: all
     }
@@ -138,6 +139,11 @@ angular.module('pragmaApp', [
   })
   .state('dashboard.profile', {
     url:'/profile',
+    resolve: {
+      user: function(User) {
+        return User.getMe();
+      }
+    },
     templateUrl: 'partials/userProfile.html',
     controller: 'UserProfileCtrl'
   });

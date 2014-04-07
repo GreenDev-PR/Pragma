@@ -1,20 +1,6 @@
 'use strict';
 
-angular.module('pragmaApp').controller('UserProfileCtrl',['$scope', 'User', '$state', 'Geocoder', function($scope, User, $state, Geocoder){
-
-  User.getMe().then(function(me){
-    console.log('me', me);
-
-    $scope.user = me;
-    $scope.marker.coords.latitude = me.farmLatitude;
-    $scope.marker.coords.longitude = me.farmLongitude;
-
-  });
-
-  var setFarmerLocation = function(location) {
-    $scope.user.farmLatitude = location.lat();
-    $scope.user.farmLongitude = location.lng();
-  };
+angular.module('pragmaApp').controller('UserProfileCtrl',['$scope', '$state', 'Geocoder', 'user', 'Restangular', function($scope, $state, Geocoder, user, Restangular) {
 
   $scope.map = {
     center:{
@@ -43,20 +29,8 @@ angular.module('pragmaApp').controller('UserProfileCtrl',['$scope', 'User', '$st
 
   $scope.address = 'Bayamon, PR';
 
-  $scope.saveChanges = function(form) {
-    console.log(form);
-    if(form.$valid) {
-      User.update($scope.user).then(function() {
-        $state.go('dashboard.overview');
-      })
-      .catch(function(response) {
-        console.log(response);
-      });
-    }
-  };
-
   $scope.searchAddress = function() {
-    Geocoder.geocode({ 'address': $scope.address}).then(function(results) {
+    Geocoder.geocode({'address': $scope.address}).then(function(results) {
 
       var location = results[0].geometry.location;
       $scope.map.control.getGMap().setCenter(location);
@@ -66,5 +40,23 @@ angular.module('pragmaApp').controller('UserProfileCtrl',['$scope', 'User', '$st
 
       setFarmerLocation(location);
     });
+  };
+
+  $scope.tempUser = Restangular.copy(user);
+  $scope.marker.coords.latitude = $scope.tempUser.farmLatitude;
+  $scope.marker.coords.longitude = $scope.tempUser.farmLongitude;
+  var setFarmerLocation = function(location) {
+    $scope.tempUser.farmLatitude = location.lat();
+    $scope.tempUser.farmLongitude = location.lng();
+  };
+
+
+  $scope.saveChanges = function(form) {
+    console.log(form);
+    if(form.$valid) {
+      $scope.tempUser.put().then(function(modifiedUser) {
+        $scope.tempUser = Restangular.copy(modifiedUser);
+      });
+    }
   };
 }]);
