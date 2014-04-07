@@ -23,7 +23,7 @@ factory.define('CropSession')
   return i % 47;
 })
 .attr('area', randomInt)
-.attr('startDate', function() { return moment().toString(); })
+.attr('startDate', function() { return moment().toISOString(); })
 .attr('initialStageLength', randomInt)
 .attr('developmentStageLength', randomInt)
 .attr('midStageLength', randomInt)

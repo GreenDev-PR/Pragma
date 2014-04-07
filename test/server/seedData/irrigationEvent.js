@@ -6,7 +6,7 @@ var _ = require('lodash');
 
 factory.define('IrrigationEvent')
 .sequence('cropSessionId')
-.attr('irrigationDate', function() { return moment().toString(); })
+.attr('irrigationDate', function() { return moment().toISOString(); })
 .attr('irrigationVolume', function() { return _.random(0, 10); });
 
 var createIrrigationEvents = function(number) {
