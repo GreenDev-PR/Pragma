@@ -2,27 +2,31 @@
 
 angular.module('pragmaApp')
 .controller('IrrigationhistoryCtrl', function ($scope, irrigationEvents) {
-  $scope.irrigationEvents = irrigationEvents;
-  // $scope.irrigationEvents = (function() {
-  //   var arr = [];
-  //   for (var i = 40 - 1; i >= 0; i--) {
-  //     arr.push({irrigationDate: new Date(), irrigationVolume: i});
-  //   }
+  $scope.data.irrigationEvents = irrigationEvents;
 
-  //   return arr;
-  // })();
+  var getDataFromIrrigationEvents = function() {
+    return $scope.data.irrigationEvents.map(function(irrigationEvent) {
+      return [new Date(irrigationEvent.irrigationDate), irrigationEvent.irrigationVolume];
+    });
+  };
 
   $scope.chartConfig = {
     options: {
       chart: {
         type: 'line'
+      },
+      legend: {
+        enabled: false
+      },
+      title: {
+        text: 'Irrigated Volume'
       }
     },
     series: [{
-      data: [1,2,3,4,5]
+      data: getDataFromIrrigationEvents()
     }],
-    title: {
-      text: 'Irrigated Volume'
+    xAxis: {
+      type: 'datetime'
     }
   };
 });
