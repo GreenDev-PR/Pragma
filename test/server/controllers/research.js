@@ -25,16 +25,16 @@ describe('Research controller', function () {
   });
 
   describe('getDataForVariable', function() {
-    var options = seedData.goesDataOptions;
-    var goesData = seedData.goesData;
+    // var options = seedData.goesDataOptions;
+    // var goesData = seedData.goesData;
 
     describe('with no optional query parameters passed', function () {
-      it('should bring the latest data for the whole map', function(done) {
-        request(app).get(getDataEndpoint('rainfall'))
-        .expect('Content-Type', /json/)
-        .expect(200)
-        .end(helper.isGoesDataBodyEqual(seedData.goesData.slice(options.rowsPerDay * (options.days - 1)), done));
-      });
+      // it('should bring the latest data for the whole map', function(done) {
+      //   request(app).get(getDataEndpoint('rainfall'))
+      //   .expect('Content-Type', /json/)
+      //   .expect(200)
+      //   .end(helper.isGoesDataBodyEqual(seedData.goesData.slice(options.rowsPerDay * (options.days - 1)), done));
+      // });
 
       it('should respond with a 404 for a not supported variable', function(done) {
         request(app).get(getDataEndpoint('notAvariable'))
