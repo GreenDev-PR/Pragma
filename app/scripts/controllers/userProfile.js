@@ -56,6 +56,7 @@ angular.module('pragmaApp').controller('UserProfileCtrl',['$scope', '$state', 'G
     if(form.$valid) {
       $scope.tempUser.put().then(function(modifiedUser) {
         $scope.tempUser = Restangular.copy(modifiedUser);
+        delete $scope.tempUser.password;
       });
     }
   };
