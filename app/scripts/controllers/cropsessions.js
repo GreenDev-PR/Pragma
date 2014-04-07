@@ -9,8 +9,7 @@
  * to provide cropSession deletion capabilities.
  */
 angular.module('pragmaApp')
-  .controller('CropSessionsCtrl',['$scope','$injector','CropSessions','CropTypes',
-    function ($scope,$injector,CropSessions,CropTypes){
+  .controller('CropSessionsCtrl', function($scope, CropSessions, CropTypes, $modal){
 	/**
    * Invoke the Crop session getAll method in order to collect all cropSessions of
    * the currently logged in user.
@@ -61,5 +60,58 @@ angular.module('pragmaApp')
     });
 
   };
+  $scope.newCropSession = {};
 
-}]);
+  $scope.openModal = function () {
+
+    var modalInstance = $modal.open({
+      templateUrl: 'partials/addCropSessionModal.html',
+      scope: $scope,
+      controller: function($scope, $modalInstance) {
+        $scope.format = 'yyyy/MM/dd';
+
+        $scope.dateOptions = {
+          'date-format': '\'dd-MMMM-yyyy\'',
+          'starting-day': 1,
+          'datepicker-append-to-body': false,
+          'show-button-bar': false
+        };
+
+        $scope.maxDate = new Date();
+        $scope.startDate = {
+          value: new Date(),
+          opened: false,
+          open: function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+
+            $scope.startDate.opened = true;
+          }
+        };
+
+        $scope.selectedCropType = $scope.cropTypeList[0];
+        $scope.save = function() {
+          console.log('the selectedCropType', $scope.selectedCropType);
+          angular.extend($scope.newCropSession, $scope.selectedCropType.cropData);
+          $scope.newCropSession.startDate = $scope.startDate.value;
+
+          CropSessions.create($scope.newCropSession).then(function(newCropSession) {
+            $scope.cropList.push(newCropSession);
+            $scope.$emit('add:cropSession', newCropSession);
+            $scope.newCropSession = {};
+            $modalInstance.close(newCropSession);
+          });
+        };
+
+        $scope.cancel = function () {
+          $scope.newCropSession = {};
+          $modalInstance.dismiss('cancel');
+        };
+      }
+    });
+
+    modalInstance.result.then(function(newCropSession) {
+      console.log(newCropSession);
+    });
+  };
+});
