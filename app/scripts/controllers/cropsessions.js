@@ -9,7 +9,8 @@
  * to provide cropSession deletion capabilities.
  */
 angular.module('pragmaApp')
-  .controller('CropSessionsCtrl', function($scope, CropSessions, CropTypes, $modal){
+  .controller('CropSessionsCtrl', function($scope, CropSessions, CropTypes, $modal) {
+
 	/**
    * Invoke the Crop session getAll method in order to collect all cropSessions of
    * the currently logged in user.
@@ -17,19 +18,19 @@ angular.module('pragmaApp')
   CropSessions.getAll().then(function(cropSessions){
 
     /**
-     * Define a scope cropList property with an crop session array containing the user's currently
+     * Define a scope cropSessions property with an crop session array containing the user's currently
      * ongoing crop sesssions.
      * @type {{Object}}
      */
-    $scope.cropList = cropSessions;
+    $scope.data.cropSessions = cropSessions;
 
     /**
-     * Modify cropList property to create a JavaScript Date object for the date string representation
-     * property in each crop object in the cropList array.
-     * @param  {Object} entry A json object representaion of a single instance of a crop session
+     * Modify cropSessions property to create a JavaScript Date object for the date string representation
+     * property in each crop object in the cropSessions array.
+     * @param  {Object} cropSession A json object representaion of a single instance of a crop session
      */
-    $scope.cropList.forEach(function(entry){
-      entry.startDate = new Date(entry.startDate);
+    $scope.data.cropSessions.forEach(function(cropSession){
+      cropSession.startDate = new Date(cropSession.startDate);
     });
 
 	});
@@ -45,25 +46,27 @@ angular.module('pragmaApp')
   $scope.deleteCropSession = function(index){
 
     /**
-     * CropList element at index location
+     * cropSessions element at index location
      * @type {Object}
      */
-    var temp = $scope.cropList[index];
+    var temp = $scope.data.cropSessions[index];
 
     CropSessions.remove(temp.id).then(function(){
 
-      /* Remove elment at location index from the scope cropList property array*/
-      $scope.cropList.splice(index,1);
+      /* Remove elment at location index from the scope cropSessions property array*/
+      $scope.data.cropSessions.splice(index,1);
 
       $scope.$emit('delete:cropSession', index);
 
     });
 
   };
+
   $scope.newCropSession = {};
 
   $scope.openModal = function () {
-
+    var outerScope = $scope;
+    console.log('open modal', outerScope);
     var modalInstance = $modal.open({
       templateUrl: 'partials/addCropSessionModal.html',
       scope: $scope,
@@ -91,12 +94,11 @@ angular.module('pragmaApp')
 
         $scope.selectedCropType = $scope.cropTypeList[0];
         $scope.save = function() {
-          console.log('the selectedCropType', $scope.selectedCropType);
           angular.extend($scope.newCropSession, $scope.selectedCropType.cropData);
           $scope.newCropSession.startDate = $scope.startDate.value;
 
           var created = CropSessions.create($scope.newCropSession).then(function(newCropSession) {
-            $scope.cropList.push(newCropSession);
+            outerScope.data.cropSessions.push(newCropSession);
             $scope.$emit('add:cropSession', newCropSession);
             $scope.newCropSession = {};
           });

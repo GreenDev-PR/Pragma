@@ -20,7 +20,7 @@
 				<th><strong>Delete</strong></th>
 			</tr>
 			<tbody>
-			<tr ng-repeat="crop in cropList">
+			<tr ng-repeat="crop in data.cropSessions">
 				<td><p><a ui-sref="dashboard.cropSession.detail({cropSessionId: crop.id})">{{ crop.cropName }}</a></p></td>
 				<td><p>{{ crop.cropType }}</p></td>
 				<td><p>{{ crop.startDate | date: 'yyyy-MMMM-dd' }}</p></td>
