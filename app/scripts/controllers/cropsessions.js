@@ -23,16 +23,6 @@ angular.module('pragmaApp')
      * @type {{Object}}
      */
     $scope.data.cropSessions = cropSessions;
-
-    /**
-     * Modify cropSessions property to create a JavaScript Date object for the date string representation
-     * property in each crop object in the cropSessions array.
-     * @param  {Object} cropSession A json object representaion of a single instance of a crop session
-     */
-    $scope.data.cropSessions.forEach(function(cropSession){
-      cropSession.startDate = new Date(cropSession.startDate);
-    });
-
 	});
 
   CropTypes.getAllWithCropData().then(function(cropTypes) {
@@ -52,12 +42,7 @@ angular.module('pragmaApp')
     var temp = $scope.data.cropSessions[index];
 
     CropSessions.remove(temp.id).then(function(){
-
-      /* Remove elment at location index from the scope cropSessions property array*/
       $scope.data.cropSessions.splice(index,1);
-
-      $scope.$emit('delete:cropSession', index);
-
     });
 
   };
@@ -66,7 +51,6 @@ angular.module('pragmaApp')
 
   $scope.openModal = function () {
     var outerScope = $scope;
-    console.log('open modal', outerScope);
     var modalInstance = $modal.open({
       templateUrl: 'partials/addCropSessionModal.html',
       scope: $scope,
@@ -99,7 +83,6 @@ angular.module('pragmaApp')
 
           var created = CropSessions.create($scope.newCropSession).then(function(newCropSession) {
             outerScope.data.cropSessions.push(newCropSession);
-            $scope.$emit('add:cropSession', newCropSession);
             $scope.newCropSession = {};
           });
 
