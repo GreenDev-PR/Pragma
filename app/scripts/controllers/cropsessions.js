@@ -95,11 +95,14 @@ angular.module('pragmaApp')
           angular.extend($scope.newCropSession, $scope.selectedCropType.cropData);
           $scope.newCropSession.startDate = $scope.startDate.value;
 
-          CropSessions.create($scope.newCropSession).then(function(newCropSession) {
+          var created = CropSessions.create($scope.newCropSession).then(function(newCropSession) {
             $scope.cropList.push(newCropSession);
             $scope.$emit('add:cropSession', newCropSession);
             $scope.newCropSession = {};
-            $modalInstance.close(newCropSession);
+          });
+
+          created.finally(function() {
+            $modalInstance.close();
           });
         };
 
