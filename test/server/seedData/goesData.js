@@ -5,12 +5,12 @@ var moment = require('moment');
 var locationMapper = require('../../../lib/helpers/locationMapper');
 
 var startMoment = moment('2014-01-01');
-var endMoment = moment('2014-01-03');
+var endMoment = moment('2014-01-02');
 
-// var ROWS = 210,
-//   COLUMNS = 101;
-var ROWS = 20,
-  COLUMNS = 10;
+var ROWS = 101,
+  COLUMNS = 210;
+// var ROWS = 20,
+//   COLUMNS = 10;
 
 var createdAt = moment().toISOString();
 

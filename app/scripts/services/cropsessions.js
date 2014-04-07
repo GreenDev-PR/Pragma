@@ -21,4 +21,8 @@ angular.module('pragmaApp')
   this.remove = function(id) {
     return Restangular.one(cropSessionEndpoint, id).remove();
   };
+
+  this.calculateIrrigation = function(id, lastIrrigationDate) {
+    return Restangular.one(cropSessionEndpoint, id).customGET('calculateIrrigation', {lastIrrigationDate: lastIrrigationDate});
+  };
 });
