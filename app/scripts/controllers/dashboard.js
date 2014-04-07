@@ -11,6 +11,10 @@ angular.module('pragmaApp')
     $scope.cropSessions = cropSessions;
   });
 
+  $scope.$on('delete:cropSession', function(evt, index) {
+    $scope.cropSessions.splice(index, 1);
+  });
+
   $scope.logout = function() {
     Auth.logout().then(function() {
       $state.go('landingPage');
