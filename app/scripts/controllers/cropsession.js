@@ -2,5 +2,5 @@
 
 angular.module('pragmaApp')
 .controller('CropSessionCtrl', function ($scope) {
-  $scope.cropSession = {cropName: 'Platano Asesino'};
+  $scope.data = $scope.data || {};
 });

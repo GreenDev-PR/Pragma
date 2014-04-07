@@ -42,21 +42,22 @@ describe('Controller: CropSessionsCtrl', function () {
 
   beforeEach(inject(function ($controller, $injector, _$q_) {
     scope = $injector.get('$rootScope').$new();
-
+    scope.data = {};
     q = _$q_;
-
+    scope.data.cropSessions = crops;
+    
     cropSessionsService = $injector.get('CropSessions');
     cropTypesService = $injector.get('CropTypes');
 
     spyOn(cropSessionsService,'getAll').and.callFake(function(){
-      return q.when(crops);
+      return q.when(scope.data.cropSessions);
     });
 
     spyOn(cropSessionsService,'remove').and.callFake(function(){
       return q.when({});
     });
 
-    spyOn(cropTypesService,'getAll').and.callFake(function(){
+    spyOn(cropTypesService,'getAllWithCropData').and.callFake(function(){
       return q.when(cropTypeResult);
     });
 
@@ -71,7 +72,7 @@ describe('Controller: CropSessionsCtrl', function () {
 
     var expectedCropSessions = [
       {
-        startDate: new Date('Thu Apr 03 2014 15:48:16 GMT-0400'),
+        startDate: 'Thu Apr 03 2014 15:48:16 GMT-0400',
         id: 1,
         area: 9,
         userId: 1,
@@ -93,12 +94,12 @@ describe('Controller: CropSessionsCtrl', function () {
       expect(cropSessionsService.getAll).toHaveBeenCalled();
     });
 
-    it('should expect scope.cropList', function(){
-      expect(scope.cropList).toBeDefined();
+    it('should expect scope.data.cropSessions', function(){
+      expect(scope.data.cropSessions).toBeDefined();
     });
 
     it('should return an array of cropSessions', function(){
-      expect(scope.cropList).toEqual(expectedCropSessions);
+      expect(scope.data.cropSessions).toEqual(expectedCropSessions);
     });
 
   });
@@ -121,7 +122,7 @@ describe('Controller: CropSessionsCtrl', function () {
     ];
 
     it('should have been called', function(){
-      expect(cropTypesService.getAll).toHaveBeenCalled();
+      expect(cropTypesService.getAllWithCropData).toHaveBeenCalled();
     });
 
     it('should expect scope.cropTypesList', function(){
@@ -178,24 +179,22 @@ describe('Controller: CropSessionsCtrl', function () {
     });
 
     it('should have 3 elements before calling $scope.deleteCropSession', function(){
-      scope.cropList = cropList;
-      console.log(scope.cropList);
-      expect(scope.cropList.length).toBe(2);
+      scope.data.cropSessions = cropList;
+      expect(scope.data.cropSessions.length).toBe(2);
     });
 
     it('should remove the first element from list', function(){
-      scope.cropList = cropList;
+      scope.data.cropSessions = cropList;
       scope.deleteCropSession(0);
       scope.$digest();
-      expect(scope.cropList).not.toEqual(crops);
+      expect(scope.data.cropSessions).not.toEqual(crops);
     });
 
     it('should remove the second element from list', function(){
-      scope.cropList = cropList;
-      console.log(scope.cropList);
+      scope.data.cropSessions = cropList;
       scope.deleteCropSession(0);
       scope.$digest();
-      expect(scope.cropList).not.toEqual(crops);
+      expect(scope.data.cropSessions).not.toEqual(crops);
     });
    
   });

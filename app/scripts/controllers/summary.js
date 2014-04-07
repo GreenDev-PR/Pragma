@@ -2,5 +2,5 @@
 
 angular.module('pragmaApp')
 .controller('SummaryCtrl', function ($scope, cropSession) {
-  $scope.cropSession = cropSession;
+  $scope.data.cropSession = cropSession;
 });

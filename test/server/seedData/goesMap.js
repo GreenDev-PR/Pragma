@@ -2,7 +2,7 @@
 
 var moment = require('moment');
 var mapDates = function(map) {
-  map.dataDate = moment(map.dataDate).toString();
+  map.dataDate = moment(map.dataDate).toISOString();
 };
 
 var rainfallMaps =[

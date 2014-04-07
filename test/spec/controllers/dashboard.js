@@ -64,7 +64,9 @@ describe('Controller: DashboardCtrl', function () {
   });
 
   it('should get the user cropsSessions', function() {
-    expect(CropSessions.getAll).toHaveBeenCalled();
+    Auth.login(farmerCredentials).then(function(){
+      expect(CropSessions.getAll).toHaveBeenCalled();
+    });
   });
 
   describe('logout', function() {

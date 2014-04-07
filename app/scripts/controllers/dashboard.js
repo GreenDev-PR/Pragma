@@ -7,9 +7,13 @@ angular.module('pragmaApp')
     return Auth.hasRole(USER_ROLES.farmer);
   };
 
-  CropSessions.getAll().then(function(cropSessions) {
-    $scope.cropSessions = cropSessions;
-  });
+  $scope.data = {};
+
+  if($scope.isFarmer()) {
+    CropSessions.getAll().then(function(cropSessions) {
+      $scope.data.cropSessions = cropSessions;
+    });
+  }
 
   $scope.logout = function() {
     Auth.logout().then(function() {
