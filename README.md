@@ -59,7 +59,3 @@ Additional dependencies are defined as npm modules in the [package.json](/packag
 
 
   We use the following JavaScript [Style Guide](http://goo.gl/b3LFBH) as our JS coding standards.
-
-## Contributing
-
-Contribut
