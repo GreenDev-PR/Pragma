@@ -35,23 +35,13 @@ angular.module('pragmaApp')
 
 	});
 
-  /**
-   * Invoke the Crop Types getAll method inorder to collect all crop types supported by the system
-   */
-  CropTypes.getAll().then(function(types){
-
-    /**
-     * Define cropTypeList an array containing json object representation of each crop type
-     * supported by the system.
-     * @type {Object}
-     */
-    $scope.cropTypeList = types;
-
+  CropTypes.getAllWithCropData().then(function(cropTypes) {
+    $scope.cropTypeList = cropTypes;
   });
 
   /**
-   * Detete a crop session from the view.
-   * @param  {Integer} index The location of the cropssion inside the crop sessions array.
+   * Delete a crop session from the view.
+   * @param {Integer} index The location of the cropssion inside the crop sessions array.
    */
   $scope.deleteCropSession = function(index){
 
