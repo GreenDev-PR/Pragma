@@ -1,3 +1,3 @@
-#map-carousel .carousel-control.left, .carousel-control.right {
+#map-carousel .carousel-control.left, #map-carousel .carousel-control.right {
 	background-image: none
 }
