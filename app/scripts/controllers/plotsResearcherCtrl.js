@@ -150,45 +150,24 @@ angular.module('pragmaApp')
    * Define timeseries (plot) and its configuration
    * @type {Object}
    */
-  $scope.timeseries = {
-    config: {
+  $scope.timeseriesConfig = {
+    options: {
       chart: {
-        zoomType: 'x',
-        spacingRight: 20
+        type: 'line'
       },
-
-      //TODO: Legend should not be showing
       legend: {
         enabled: false
       },
-
       /**
        * Binding the title of the plot to the currently selected variable
        * @type {Object}
        */
       title: {
         text: $scope.variable
-      },
-
-      plotOptions: {
-        area: {
-          fillColor: {
-            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
-          },
-          lineWidth: 1,
-          marker: {
-            enabled: false
-          },
-          shadow: false,
-          states: {
-            hover: {
-              lineWidth: 1
-            }
-          },
-          threshold: null
-        }
       }
-
+    },
+    xAxis: {
+      type: 'datetime'
     }
   };
 
@@ -201,7 +180,7 @@ angular.module('pragmaApp')
    */
   $scope.plotData = function() {
     if($scope.variable){
-      $scope.timeseries.config.title.text = $scope.variable.variableName;
+      $scope.timeseriesConfig.options.title.text = $scope.variable.variableName;
 
 
       var startDate = $scope.startDate.value;
@@ -219,20 +198,17 @@ angular.module('pragmaApp')
            * @return {Object|Array.<Number>} array of data values received from the variables.getDataFor call
            */
           var newData = result.map(function(datum) {
-            return datum.dataValue;
+            return [new Date(datum.dataValue), datum.dataValue];
           });
 
-          //Updating the timeseries with the new data set
-          
           /**
            * Updating the data set for the plot with the new data
            * @type {Array} array with a single series displayed by the plot
            */
-          $scope.timeseries.config.series = [{
+          $scope.timeseriesConfig.series = [{
             data: newData
           }];
 
-          //$scope.timeseries.config.xAxis.categories = dateAxis;
         });
       }
     }
