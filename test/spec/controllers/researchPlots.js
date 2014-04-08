@@ -10,7 +10,7 @@ describe('Controller: PlotsResearcherCtrl', function(){
 	var $q;
 
 	var variableNames = ['rainfall', 'actual_ET'];
-	var variableData = [{dataValue: 1}, {dataValue: 2}];
+	var variableData = [{dataDate: new Date(), dataValue: 1}, {dataDate: new Date(), dataValue: 2}];
 	var today = new Date().setHours(0,0,0,0);
 
 	beforeEach(inject(function (_$q_, $controller, $rootScope, $injector){
@@ -106,12 +106,8 @@ describe('Controller: PlotsResearcherCtrl', function(){
 
 	describe('Timeseries', function(){
 
-		it('should be defined', function(){
-			expect(scope.timeseries).toBeDefined();
-		});
-
-		it('should have a configuration', function(){
-			expect(scope.timeseries.config).toBeDefined();
+		it('should be defined and configured', function(){
+			expect(scope.timeseriesConfig).toBeDefined();
 		});
 
 		describe('Changing timeseries data using getData', function(){
@@ -136,20 +132,24 @@ describe('Controller: PlotsResearcherCtrl', function(){
 
 			describe('getting data for the given variable', function(){
 
-				var expectedVariableData = [{data:[1, 2]}];
+				var expectedVariableData = variableData.map(function(datum) {
+          return [new Date(datum.dataValue), datum.dataValue];
+        });
+
+        expectedVariableData = [{data: expectedVariableData}];
 
 				beforeEach(function(){
 					scope.startDate.value = new Date('March 1, 2014 00:00:00');
 					scope.endDate.value = new Date('March 3, 2014 00:00:00');
 					scope.variable = {};
 					scope.variable.variableName = 'rainfall';
-					scope.timeseries.config.series = {};
+					scope.timeseriesConfig.series = {};
 				});
 
 				it('should get the data for the variable', function(){
 					scope.plotData();
 					scope.$apply(); //trigger button click
-					expect(scope.timeseries.config.series).toEqual(expectedVariableData);
+					expect(scope.timeseriesConfig.series).toEqual(expectedVariableData);
 				});
 
 			});

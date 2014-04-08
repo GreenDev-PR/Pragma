@@ -5,27 +5,18 @@
 </div>
 <div class="row">
   <div class="col-lg-12">
-
-    <div>
-
-      <h3>Generate maps for specified dates</h3>
-
-      <div class="row"> <!-- inner row-->
-
-        <div class="col-lg-3">
-          <form class="form-horizontal">
-            <div class="control-group">
-              <label for="selectVariable">
-                Choose a variable:
-              </label>
-              <select class="form-control" id="selectVariable" ng-model="variable"
-              ng-options="v.variableName for v in variables"
-              required>
-            </select>
+    <h3>Generate maps for specified dates</h3>
+    <div class="row"> <!-- inner row-->
+      <div class="col-lg-3">
+        <form class="form-horizontal">
+          <div class="control-group">
+            <label for="selectVariable">Choose a variable:</label>
+            <select class="form-control" id="selectVariable" ng-model="variable"
+            ng-options="v.variableName for v in variables"
+            required></select>
           </div>
         </form>
       </div> <!-- /inner column-->
-
       <div class="col-lg-3">
         <div class="control-group">
           <label for="start-date">From:</label>
@@ -42,7 +33,6 @@
           </p>
         </div>
       </div> <!-- /inner column-->
-
       <div class="col-lg-3">
         <div class="control-group">
           <label for="end-date">To:</label>
@@ -60,25 +50,22 @@
           </p>
         </div>
       </div> <!-- /inner column-->
-
       <div class="col-lg-3">
         <div class="control-group">
           <br>
           <button class="form-control btn btn-primary" ng-click="generateSlideShow()">Show Maps</button>
         </div>
       </div> <!--/inner column -->
-
     </div> <!--/ inner row -->
-
     <hr/>
-    <div class="col-lg-12">
-      <carousel interval="state.interval">
-        <slide ng-repeat="slide in slides" active="slide.active">
-          <img ng-src="{{slide.imagePath}}">
-        </slide>
-      </carousel>
-    </div>
-
   </div>
 </div>
+<div class="row">
+  <div class="col-lg-12">
+    <carousel id="map-carousel" interval="state.interval">
+      <slide ng-repeat="slide in slides" active="slide.active">
+        <img ng-src="{{slide.imagePath}}">
+      </slide>
+    </carousel>
+  </div>
 </div>
