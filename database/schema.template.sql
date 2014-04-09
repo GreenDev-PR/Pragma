@@ -163,14 +163,14 @@ CREATE VIEW LatestRainfallData AS
     AND a.createdAt = d.latest
     WHERE variableName = 'rainfall';
 
-CREATE VIEW LatestActualETData AS
+CREATE VIEW LatestReferenceETData AS
     SELECT a.* FROM GoesData AS a
     INNER JOIN (
         SELECT dataDate, max(createdAt) AS latest
         FROM GoesData
-        WHERE variableName='actual_ET'
+        WHERE variableName='reference_ET_PenmanMonteith'
         GROUP BY dataDate
     ) AS d
     ON a.dataDate = d.datadate
     AND a.createdAt = d.latest
-    WHERE variableName = 'actual_ET';
+    WHERE variableName = 'reference_ET_PenmanMonteith';
