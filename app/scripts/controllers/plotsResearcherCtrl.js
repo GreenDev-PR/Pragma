@@ -8,7 +8,7 @@
 
 // Getting the module for the application and adding the controller, injects the variables service.
 angular.module('pragmaApp')
-.controller('PlotsResearcherCtrl', ['$scope','$filter','variables',function ($scope, $filter, variables) {
+.controller('PlotsResearcherCtrl', ['$scope','$filter','variables', 'DATE_PICKER', function ($scope, $filter, variables, DATE_PICKER) {
 
   // Helper used to limit the coordinates to 8 decimal places
   /**
@@ -23,7 +23,7 @@ angular.module('pragmaApp')
 
 
   // Google map properties
-  
+
   /**
    * Define properties of the google map used to select the location of the data to show
    * @type {Object}
@@ -40,7 +40,7 @@ angular.module('pragmaApp')
   };
 
   // Map marker properties
-  
+
   /**
    * Define properties of the map marker that a user can drag to choose a location
    * @type {Object}
@@ -69,7 +69,7 @@ angular.module('pragmaApp')
   };
 
   // Using the variables service to get a list of all variables
-  
+
   /**
    * Using the injected variables service to get the list of all variables to populate the dropdown
    * @param  {Object} result list of variables returned by the get all function when resolved
@@ -79,7 +79,7 @@ angular.module('pragmaApp')
   });
 
   // Properties of the start datepicker
-  
+
   /**
    * Define properties of the start datepicker
    * Initially set to today's date
@@ -96,7 +96,7 @@ angular.module('pragmaApp')
   };
 
   //Properties of the end datepicker
-  
+
   /**
    * Define properties of the end datepicker
    * @type {Object}
@@ -112,30 +112,7 @@ angular.module('pragmaApp')
   };
 
   //Additional properties used for both, start and end, datepickers
-  
-  /**
-   * Configures both datepickers to show week of the year
-   * @type {Boolean}
-   */
-  $scope.showWeeks = true;
-  
-  /**
-   * Configures year format and day of the week to start (Sunday)
-   * for both date pickers
-   * @type {Object}
-   */
-  $scope.dateOptions = {
-    'year-format': '\'yy\'',
-    'starting-day': 1,
-    'datepicker-append-to-body': true,
-    'show-button-bar': false
-  };
- 
-  /**
-   * Configures the min date for the start date. For the end date, the min is the currently
-   * @type {String}
-   */
-  $scope.minDate = '2009-01-01';
+  $scope.datePicker = DATE_PICKER;
 
   /**
    * Configures the max date for both dates to be today
@@ -145,7 +122,7 @@ angular.module('pragmaApp')
 
 
   //Configuring the timeseries (linear graph)
-  
+
   /**
    * Define timeseries (plot) and its configuration
    * @type {Object}
@@ -173,7 +150,7 @@ angular.module('pragmaApp')
 
   //Event triggered when the Get Data button is pressed
   //Gets the data for the new variable and changes the plot title (variable name)
-  
+
   /**
    * Action triggered by pressing the Get Data button which gets the data
    * for the given variable using the variables service

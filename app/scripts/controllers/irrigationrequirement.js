@@ -1,10 +1,9 @@
 'use strict';
 
 angular.module('pragmaApp')
-.controller('IrrigationrequirementCtrl', function ($scope, cropSession) {
+.controller('IrrigationrequirementCtrl', function ($scope, cropSession, DATE_PICKER) {
   $scope.cropSession = cropSession;
   $scope.irrigationVolume = 0;
-  $scope.format = 'yyyy/MM/dd';
   $scope.lastIrrigation = {
     // value: new Date(),
     opened: false,
@@ -17,12 +16,7 @@ angular.module('pragmaApp')
     }
   };
 
-  $scope.dateOptions = {
-    'date-format': '\'dd-MMMM-yyyy\'',
-    'starting-day': 1,
-    'datepicker-append-to-body': true,
-    'show-button-bar': false
-  };
+  $scope.datePicker = DATE_PICKER;
 
   $scope.calculate = function(form) {
     if(form.$valid) {
