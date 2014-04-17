@@ -2,59 +2,52 @@
   <div class="col-lg-12">
     <h1 class="page-header">Overview</h1>
   </div>
-  <!-- /.col-lg-12 -->
 </div>
 
-<!-- /.row -->
 <div class="row">
   <div class="col-lg-5">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <i class="fa fa-sun-o fa-fw"></i>Today's Weather
+        <div class="panel-title"><i class="fa fa-sun-o fa-fw"></i>Today's Weather</div>
       </div>
-      <!-- /.panel-heading -->
-      <!-- <h1>Weather widget placeholder</h1> -->
-      <div class="panel-body weather-spacing">
-        <weather location="location"></weather>
-      </div>
-    </div>
-    <!-- /.panel -->
-  </div>
-  <!--/ .col-lg-6 -->
-
-
-  <div class="col-lg-7">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <i class="fa fa-cloud fa-fw"></i> Rainfall for {{ rainfallMap.dataDate | date }}
-      </div>
-      <!-- /.panel-heading -->
-      <div class="panel-body">
-        <div class="center">
-          <img ng-src="{{ rainfallMap.imagePath }}" alt="Rainfall Image" class="rainfall-map">
+        <div class="panel-body weather-spacing">
+          <weather location="location"></weather>
         </div>
       </div>
     </div>
-    <!-- /.panel -->
-  </div>
-  <!--/ .col-lg-6 -->
 
+    <div class="col-lg-7">
+      <div class="panel panel-default">
+
+        <div class="panel-heading">
+          <div class="panel-title"><i class="fa fa-cloud fa-fw"></i> Rainfall for {{ rainfallMap.dataDate | date }}</div>
+        </div>
+
+        <div class="panel-body">
+          <div class="center">
+            <img ng-src="{{ rainfallMap.imagePath }}" alt="Rainfall Image" class="rainfall-map">
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
 </div>
-<!-- /.row -->
 
 <div class="row">
   <div class="col-lg-12">
     <div class="panel panel-default">
+
       <div class="panel-heading">
-        <i class="fa fa-map-marker fa-fw"></i>Weather Forecast
+        <div class="panel-title"><i class="fa fa-map-marker fa-fw"></i>Weather Forecast</div>
       </div>
-      <!-- /.panel-heading -->
+
       <div class="panel-body">
         <google-map center='map.center' control="map.control" draggable="true" zoom='map.zoom' id="signup-map">
-        <layer type="WeatherLayer" namespace="weather" show="true" options="map.weatherLayer"></layer>
-      </google-map>
+          <layer type="WeatherLayer" namespace="weather" show="true" options="map.weatherLayer"></layer>
+        </google-map>
+      </div>
     </div>
   </div>
-</div>
-
 </div>
