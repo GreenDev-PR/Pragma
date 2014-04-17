@@ -1,12 +1,12 @@
 'use strict';
 
 angular.module('pragmaApp')
-.controller('IrrigationhistoryCtrl', function ($scope, irrigationEvents) {
-  $scope.data.irrigationEvents = irrigationEvents;
-
+.controller('IrrigationhistoryCtrl', function ($scope, irrigationEventsData) {
+  $scope.data = irrigationEventsData;
+  console.log('the irrigation events', irrigationEventsData);
   var getDataFromIrrigationEvents = function() {
     return $scope.data.irrigationEvents.map(function(irrigationEvent) {
-      return [new Date(irrigationEvent.irrigationDate), irrigationEvent.irrigationVolume];
+      return [Date.parse(irrigationEvent.irrigationDate), irrigationEvent.irrigationVolume];
     });
   };
 
@@ -29,4 +29,9 @@ angular.module('pragmaApp')
       type: 'datetime'
     }
   };
+
+  $scope.$watch('data.irrigationEvents', function() {
+    console.log('the data changed');
+    $scope.chartConfig.series = [{data: getDataFromIrrigationEvents()}];
+  });
 });
