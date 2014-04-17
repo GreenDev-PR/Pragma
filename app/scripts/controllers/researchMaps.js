@@ -1,15 +1,15 @@
 'use strict';
 /**
- * Research Maps Controller. 
- * 
- * This controller is responsible for defining the default time interval for the maps carousel 
+ * Research Maps Controller.
+ *
+ * This controller is responsible for defining the default time interval for the maps carousel
  * display, the default startDate and endDate properties of the calendar inputs, and date options
- * properties of the ui-bootstrap calendars. Also, it defines the display date format and the 
+ * properties of the ui-bootstrap calendars. Also, it defines the display date format and the
  * initial state of the carousel. Finally, it provides the generate slide show functionality to
  * the maps view.
  */
 angular.module('pragmaApp')
-.controller('ResearchMapsCtrl', ['$scope', '$filter','variables', function ($scope, $filter, variables) {
+.controller('ResearchMapsCtrl', function ($scope, $filter, variables, DATE_PICKER) {
 
   /**
    * Define the default time interval for carousel slide show movement.
@@ -25,8 +25,8 @@ angular.module('pragmaApp')
   var dateFilter = $filter('date');
 
   /**
-   * Define startDate scope property to the start date's initial value to the current date.  
-   * @type {Object} 
+   * Define startDate scope property to the start date's initial value to the current date.
+   * @type {Object}
    */
   $scope.startDate = {
       value: new Date(),
@@ -49,6 +49,7 @@ angular.module('pragmaApp')
   $scope.endDate = {
     value: new Date(),
     opened: false,
+
     /**
      * This method propagates an open event notifying the calendar has been clicked.
      * @param  {$event} $event  Notification of a calendar open event.
@@ -60,35 +61,7 @@ angular.module('pragmaApp')
     }
   };
 
-  /**
-   * Defines the showWeeks scope property with an initial value of false.
-   * @type {Boolean}
-   */
-  $scope.showWeeks = false;
-
-  /**
-   * Creates a dateOptions object that provides options for the ui-boostrap calendar 
-   * @type {Object} 
-   */
-  $scope.dateOptions = {
-    'date-format': '\'dd-MMMM-yyyy\'',
-    'starting-day': 1,
-    'datepicker-append-to-body': true,
-    'show-button-bar': false
-  };
-
-  /** 
-   * The earliest date supported by the program. You cannot run the program for a date
-   * earlier than this.
-   * @type {String}
-   */
-  $scope.minDate = '2009-01-01';
-
-  /**
-   * The string formatting representation of the dates.
-   * @type {String} 
-   */
-  $scope.format = 'yyyy-MM-dd';
+  $scope.datePicker = DATE_PICKER;
 
   /* Invokes the variablesService getAll method. */
   variables.getAll().then(function(result){
@@ -96,8 +69,8 @@ angular.module('pragmaApp')
   });
 
   /**
-   * Defines the scope state propery with a json object containing the initial state of 
-   * the map carousel slide show. 
+   * Defines the scope state propery with a json object containing the initial state of
+   * the map carousel slide show.
    * @type {Object}
    */
   $scope.state = {
@@ -105,29 +78,29 @@ angular.module('pragmaApp')
   };
 
   /**
-   * Generates the maps slide show carousel content. It defines the scope slides property 
+   * Generates the maps slide show carousel content. It defines the scope slides property
    * with an array of map image paths.
    */
   $scope.generateSlideShow = function () {
 
     /**
-     * Define startDateWithoutTimeZone using scope startDate property value with scope format  
+     * Define startDateWithoutTimeZone using scope startDate property value with scope format
      * @type {Object}
      */
-    var startDateWithoutTimeZone = dateFilter($scope.startDate.value,$scope.format);
-    
+    var startDateWithoutTimeZone = dateFilter($scope.startDate.value,$scope.datePicker.format);
+
 
     /**
-     * Define endDateWithoutTimeZone using scope endDate property value with scope format  
+     * Define endDateWithoutTimeZone using scope endDate property value with scope format
      * @type {Object}
      */
-    var endDateWithoutTimeZone = dateFilter($scope.endDate.value,$scope.format);
-    
+    var endDateWithoutTimeZone = dateFilter($scope.endDate.value,$scope.datePicker.format);
+
     if(new Date(endDateWithoutTimeZone) >= new Date(startDateWithoutTimeZone)){
 
       /**
        * Invokes the variablesService getMapsFor method to populate $scope.slides array
-       * with map images paths. 
+       * with map images paths.
        */
       variables.getMapsFor($scope.variable.variableName, startDateWithoutTimeZone, endDateWithoutTimeZone)
       .then(function (result){
@@ -136,4 +109,4 @@ angular.module('pragmaApp')
     }
   };
 
-}]);
+});

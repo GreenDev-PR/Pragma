@@ -22,8 +22,8 @@
               <div class="form-group">
                 <label for="start-date">From:</label>
                 <div class="input-group">
-                  <input class="form-control" id="start-date" type="text" datepicker-popup="{{ format }}"
-                  ng-model="startDate.value" is-open="startDate.opened" min="minDate" max="maxDate" datepicker-options="dateOptions" ng-required="true" placeholder="yyyy/mm/dd">
+                  <input class="form-control" id="start-date" type="text" datepicker-popup="{{ datePicker.format }}"
+                  ng-model="startDate.value" is-open="startDate.opened" min="datePicker.minDate" max="maxDate" datepicker-options="datePicker.dateOptions" ng-required="true" placeholder="mm/dd/yyyy">
                   <span class="input-group-btn">
                     <button class="btn btn-default" ng-click="startDate.open($event)"><i class="glyphicon glyphicon-calendar"></i>
                     </button>
@@ -33,7 +33,7 @@
               <div class="form-group">
                 <label for="end-date">To:</label>
                 <div class="input-group">
-                  <input class="form-control" type="text" datepicker-popup="{{format}}" ng-model="endDate.value" is-open="endDate.opened" min="startDate.value" max="maxDate" placeholder="yyyy/mm/dd" datepicker-options="dateOptions"/>
+                  <input class="form-control" type="text" datepicker-popup="{{ datePicker.format }}" ng-model="endDate.value" is-open="endDate.opened" min="startDate.value" max="maxDate" placeholder="mm/dd/yyyy" datepicker-options="datePicker.dateOptions"/>
                   <span class="input-group-btn">
                     <button class="btn btn-default" ng-click="endDate.open($event)">
                       <i class="glyphicon glyphicon-calendar"></i>

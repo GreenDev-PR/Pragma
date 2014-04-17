@@ -31,7 +31,7 @@
             <div class="form-group">
               <label for="startdate">Start Date</label>
               <div class="input-group">
-                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="startDate.value" is-open="startDate.opened" min="minDate" max="maxDate" datepicker-options="dateOptions"/>
+                <input type="text" class="form-control" datepicker-popup="{{ datePicker.format }}" ng-model="startDate.value" is-open="startDate.opened" min="datePicker.minDate" max="maxDate" datepicker-options="datePicker.dateOptions"/>
                 <span class="input-group-btn">
                   <button class="btn btn-default" ng-click="startDate.open($event)">
                     <i class="glyphicon glyphicon-calendar"></i>
@@ -42,7 +42,7 @@
             <div class="form-group">
               <label for="enddate">End Date</label>
               <div class="input-group">
-                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="endDate.value" is-open="endDate.opened" min="startDate.value" max="maxDate" datepicker-options="dateOptions"/>
+                <input type="text" class="form-control" datepicker-popup="{{ datePicker.format }}" ng-model="endDate.value" is-open="endDate.opened" min="startDate.value" max="maxDate" datepicker-options="datePicker.dateOptions"/>
                 <span class="input-group-btn">
                   <button class="btn btn-default" ng-click="endDate.open($event)">
                     <i class="glyphicon glyphicon-calendar"></i>

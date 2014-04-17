@@ -8,16 +8,20 @@ describe('Controller: PlotsResearcherCtrl', function(){
 	var variables;
 	var scope;
 	var $q;
+	var DATE_PICKER;
 
 	var variableNames = ['rainfall', 'actual_ET'];
 	var variableData = [{dataDate: new Date(), dataValue: 1}, {dataDate: new Date(), dataValue: 2}];
 	var today = new Date().setHours(0,0,0,0);
 
-	beforeEach(inject(function (_$q_, $controller, $rootScope, $injector){
+
+	beforeEach(inject(function (_$q_, $controller, $rootScope, $injector, _DATE_PICKER_){
 
 		variables = $injector.get('variables');
 
 		$q = _$q_;
+
+		DATE_PICKER = _DATE_PICKER_;
 
 		spyOn(variables, 'getAll').and.callFake(function(){
 			return $q.when(variableNames);
@@ -78,10 +82,11 @@ describe('Controller: PlotsResearcherCtrl', function(){
 		});
 	});
 
-	describe('Dates', function(){
-		it('should have a minimun date', function(){
-			expect(scope.minDate).toBe('2009-01-01');
-		});
+	describe('Dates', function() {
+
+		it('should have a datePicker property equal to the DATE_PICKER constant', function() {
+      expect(scope.datePicker).toBe(DATE_PICKER);
+    });
 
 		it('should have a maximum date of today', function(){
 				var actualDate = scope.maxDate.setHours(0,0,0,0);

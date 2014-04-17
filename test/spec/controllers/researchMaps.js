@@ -16,11 +16,14 @@ describe('Controller: ResearchMapsCtrl', function () {
 
   var ResearchMapsCtrl, q, scope;
   var variableService;
+  var DATE_PICKER;
 
-  beforeEach(inject(function ($controller, $injector, _$q_) {
+  beforeEach(inject(function ($controller, $injector, _$q_, _DATE_PICKER_) {
     scope = $injector.get('$rootScope').$new();
 
     q = _$q_;
+
+    DATE_PICKER = _DATE_PICKER_;
 
     variableService = $injector.get('variables');
 
@@ -42,12 +45,8 @@ describe('Controller: ResearchMapsCtrl', function () {
 
   describe('initial state', function (){
 
-    it('should have a minDate set', function (){
-      expect(scope.minDate).toBeDefined();
-    });
-
-    it('should have a scopeFormat set', function (){
-      expect(scope.format).toBeDefined();
+    it('should have a datePicker property equal to the DATE_PICKER constant', function() {
+      expect(scope.datePicker).toBe(DATE_PICKER);
     });
 
     it('should have a startDate set', function (){
@@ -60,10 +59,6 @@ describe('Controller: ResearchMapsCtrl', function () {
 
     it('should have an interval set at 3000', function(){
       expect(scope.state.interval).toEqual(3000);
-    });
-
-    it('should have date options set', function(){
-      expect(scope.dateOptions).toBeDefined();
     });
 
     it('should have startDate set to currentDate', function(){
