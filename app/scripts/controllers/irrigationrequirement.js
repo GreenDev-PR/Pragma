@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('pragmaApp')
-.controller('IrrigationrequirementCtrl', function ($scope, cropSession, DATE_PICKER) {
+.controller('IrrigationrequirementCtrl', function ($scope, cropSession, CropSessions, DATE_PICKER) {
   $scope.cropSession = cropSession;
   $scope.irrigationVolume = 0;
   $scope.lastIrrigation = {
@@ -25,5 +25,17 @@ angular.module('pragmaApp')
         $scope.irrigationVolume = response.result;
       });
     }
+  };
+
+  $scope.save = function() {
+    var irrigationEvent = {
+      cropSessionId: cropSession.id,
+      irrigationDate: $scope.lastIrrigation.value,
+      irrigationVolume: $scope.irrigationVolume
+    };
+
+    CropSessions.createIrrigationEvent(cropSession.id, irrigationEvent).then(function() {
+      console.log('saved');
+    });
   };
 });
