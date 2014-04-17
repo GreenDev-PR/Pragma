@@ -14,7 +14,7 @@
         <label for="lastIrrigationDate" class="col-lg-4 control-label">Last Irrigated Date?</label>
         <div class="col-lg-8">
           <div class="input-group">
-            <input type="text" class="form-control" id="lastIrrigationDate" datepicker-popup="{{ format }}" show-weeks="false" ng-model="lastIrrigation.value" is-open="lastIrrigation.opened" min="cropSession.startDate" datepicker-options="dateOptions" placeholder="yyyy/mm/dd">
+            <input type="text" class="form-control" id="lastIrrigationDate" datepicker-popup="{{ datePicker.format }}" show-weeks="false" ng-model="lastIrrigation.value" is-open="lastIrrigation.opened" min="cropSession.startDate" datepicker-options="datePicker.dateOptions" placeholder="mm/dd/yyyy">
             <span class="input-group-btn">
               <button class="btn btn-default" ng-click="lastIrrigation.open($event)">
                 <i class="glyphicon glyphicon-calendar"></i>
@@ -25,10 +25,12 @@
       </div>
       <div class="form-group">
         <div class="col-lg-offset-4 col-lg-6">
-          <button type="submit" class="btn btn-default">Calculate</button>
-          <span>Volume to irrigate {{ irrigationVolume }} in gallons</span>
+          <button class="btn btn-default">Calculate</button>
+          <button class="btn btn-success">Save</button>
         </div>
       </div>
     </form>
+    <p class="pull-right">Volume to irrigate {{ irrigationVolume }} in gallons</p>
+
   </div>
 </div>

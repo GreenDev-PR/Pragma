@@ -54,15 +54,8 @@ angular.module('pragmaApp')
     var modalInstance = $modal.open({
       templateUrl: 'partials/addCropSessionModal.html',
       scope: $scope,
-      controller: function($scope, $modalInstance) {
-        $scope.format = 'yyyy/MM/dd';
-
-        $scope.dateOptions = {
-          'date-format': '\'dd-MMMM-yyyy\'',
-          'starting-day': 1,
-          'datepicker-append-to-body': false,
-          'show-button-bar': false
-        };
+      controller: function($scope, $modalInstance, DATE_PICKER) {
+        $scope.datePicker = DATE_PICKER;
 
         $scope.maxDate = new Date();
         $scope.startDate = {
