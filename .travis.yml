@@ -6,11 +6,6 @@ before_script:
   - 'npm install -g bower grunt-cli'
   - 'bower install --config.interactive=false'
 
-cache:
-  directories:
-    - node_modules
-    - 'app/bower_components'
-
 notifications:
   email:
     - victor.reventos1@gmail.com
