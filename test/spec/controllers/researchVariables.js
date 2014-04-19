@@ -6,37 +6,30 @@ describe('Controller: ResearchVariablesCtrl', function () {
   beforeEach(module('pragmaApp'));
 
   var ResearchVariablesCtrl, scope, q, variableService;
-  var variables = [{variableName: 'rainfall', description: 'a desc'}];
+  var variables;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, _$q_, $injector){
+    variables = [{variableName: 'rainfall', description: 'a desc'}];
+
     scope = $injector.get('$rootScope').$new();
 
     q = _$q_;
 
     variableService = $injector.get('variables');
 
-    spyOn(variableService,'getAll').and.callFake(function(){
-      return q.when(variables);
-    });
-
     ResearchVariablesCtrl = $controller('ResearchVariablesCtrl', {
-      $scope: scope
+      $scope: scope,
+      resolvedVariables: variables
     });
 
     scope.$digest();
   }));
 
-  describe('getVariablesList', function(){
+  describe('initial state', function(){
 
-    var expectedVariables = [{variableName:'rainfall', description:'a desc'}];
-
-    it('should have been called', function() {
-      expect(variableService.getAll).toHaveBeenCalled();
-    });
-
-    it('should return an array of variables', function(){
-      expect(scope.variables).toEqual(expectedVariables);
+    it('should have a variables property equal to the resolvedVariables', function(){
+      expect(scope.variables).toEqual(variables);
     });
 
   });

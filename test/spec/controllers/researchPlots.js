@@ -10,12 +10,16 @@ describe('Controller: PlotsResearcherCtrl', function(){
 	var $q;
 	var DATE_PICKER;
 
-	var variableNames = ['rainfall', 'actual_ET'];
-	var variableData = [{dataDate: new Date(), dataValue: 1}, {dataDate: new Date(), dataValue: 2}];
+	var variableNames;
+	// var variableData
+	var	variableData = [{dataDate: new Date(), dataValue: 1}, {dataDate: new Date(), dataValue: 2}];
+
 	var today = new Date().setHours(0,0,0,0);
 
 
 	beforeEach(inject(function (_$q_, $controller, $rootScope, $injector, _DATE_PICKER_){
+
+		variableNames = ['rainfall', 'actual_ET'];
 
 		variables = $injector.get('variables');
 
@@ -34,7 +38,8 @@ describe('Controller: PlotsResearcherCtrl', function(){
 		scope = $rootScope.$new();
 
 		PlotsResearcherCtrl = $controller('PlotsResearcherCtrl', {
-			$scope: scope
+			$scope: scope,
+			resolvedVariables: variables
 		});
 
 		scope.$digest();
@@ -74,11 +79,8 @@ describe('Controller: PlotsResearcherCtrl', function(){
 	});
 
 	describe('Variable List', function(){
-		it('should call getAll on the variables service', function(){
-			expect(variables.getAll).toHaveBeenCalled();
-		});
-		it('should return the list of GOES-PRWEB variables', function(){
-			expect(scope.variables).toEqual(variableNames);
+		it('should have a variables property equal to the resolvedVariables', function() {
+			expect(scope.variables).toEqual(variables);
 		});
 	});
 
@@ -106,7 +108,6 @@ describe('Controller: PlotsResearcherCtrl', function(){
 				expect(actualDate).toEqual(today);
 			});
 		});
-
 	});
 
 	describe('Timeseries', function(){
@@ -136,7 +137,7 @@ describe('Controller: PlotsResearcherCtrl', function(){
 			});
 
 			describe('getting data for the given variable', function(){
-
+				console.log('the variables data', variableData);
 				var expectedVariableData = variableData.map(function(datum) {
           return [new Date(datum.dataValue), datum.dataValue];
         });
@@ -156,11 +157,7 @@ describe('Controller: PlotsResearcherCtrl', function(){
 					scope.$apply(); //trigger button click
 					expect(scope.timeseriesConfig.series).toEqual(expectedVariableData);
 				});
-
 			});
-
 		});
-
 	});
-
 });
