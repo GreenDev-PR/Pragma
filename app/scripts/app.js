@@ -73,25 +73,30 @@ angular.module('pragmaApp', [
     templateUrl: 'partials/farmerOverview.html',
     controller: 'FarmerOverviewCtrl'
   })
-  .state('dashboard.researchMaps', {
-    url: '/research-maps',
-    templateUrl: 'partials/researchMaps.html',
-    controller: 'ResearchMapsCtrl'
-  })
-  .state('dashboard.researchVariables', {
-    url: '/research-variables',
-    templateUrl: 'partials/researchVariablesTable.html',
-    controller: 'ResearchVariablesCtrl'
-  })
-  .state('dashboard.researchPlots', {
-    url:'/plots-researcher',
-    templateUrl: 'partials/plotsResearcher.html',
-    controller: 'PlotsResearcherCtrl',
+  .state('dashboard.research', {
+    url: '/research',
+    abstract: true,
+    template: '<div ui-view=""></div>',
     resolve: {
       resolvedVariables: function(variables) {
         return variables.getAll();
       }
     }
+  })
+  .state('dashboard.research.maps', {
+    url: '/maps',
+    templateUrl: 'partials/researchMaps.html',
+    controller: 'ResearchMapsCtrl'
+  })
+  .state('dashboard.research.variables', {
+    url: '/variables',
+    templateUrl: 'partials/researchVariablesTable.html',
+    controller: 'ResearchVariablesCtrl'
+  })
+  .state('dashboard.research.plots', {
+    url:'/plots',
+    templateUrl: 'partials/plotsResearcher.html',
+    controller: 'PlotsResearcherCtrl'
   })
   .state('dashboard.cropSession', {
     url: '/cropSession',
