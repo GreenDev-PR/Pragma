@@ -4,21 +4,28 @@ describe('Controller: ResearchMapsCtrl', function () {
 
   beforeEach(module('pragmaApp'));
 
-  var variables = [{variableName: 'rainfall', description: 'a desc'}];
-  var today = new Date().setHours(0,0,0,0);
-  var maps = [{
-    variablename: 'rainfall',
-    imagepath: 'http://academic.uprm.edu/hdc/GOES-PRWEB_RESULTS/rainfall/rainfall20140101.jpg',
-    datadate: '2014-01-01 00:00:00-04',
-    createdat: '2014-04-01 18:30:23-04',
-    updatedat:'2014-04-01 18:30:23-04'
-  }];
+  var variables;
+  var today;
+  var maps;
 
   var ResearchMapsCtrl, q, scope;
   var variableService;
   var DATE_PICKER;
 
   beforeEach(inject(function ($controller, $injector, _$q_, _DATE_PICKER_) {
+
+    variables = [{variableName: 'rainfall', description: 'a desc'}];
+
+    maps = [{
+      variablename: 'rainfall',
+      imagepath: 'http://academic.uprm.edu/hdc/GOES-PRWEB_RESULTS/rainfall/rainfall20140101.jpg',
+      datadate: '2014-01-01 00:00:00-04',
+      createdat: '2014-04-01 18:30:23-04',
+      updatedat:'2014-04-01 18:30:23-04'
+    }];
+
+    today = new Date().setHours(0,0,0,0);
+
     scope = $injector.get('$rootScope').$new();
 
     q = _$q_;
@@ -36,7 +43,8 @@ describe('Controller: ResearchMapsCtrl', function () {
     });
 
     ResearchMapsCtrl = $controller('ResearchMapsCtrl', {
-      $scope: scope
+      $scope: scope,
+      resolvedVariables: variables
     });
 
     scope.$digest();
@@ -75,14 +83,8 @@ describe('Controller: ResearchMapsCtrl', function () {
 
   describe('getVariablesArray', function(){
 
-    var expectedVariables = [{variableName:'rainfall', description:'a desc'}];
-
-    it('should have been called', function() {
-      expect(variableService.getAll).toHaveBeenCalled();
-    });
-
     it('should return an array of variables', function(){
-      expect(scope.variables).toEqual(expectedVariables);
+      expect(scope.variables).toEqual(variables);
     });
 
   });

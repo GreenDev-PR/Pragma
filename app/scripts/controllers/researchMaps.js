@@ -9,7 +9,7 @@
  * the maps view.
  */
 angular.module('pragmaApp')
-.controller('ResearchMapsCtrl', function ($scope, $filter, variables, DATE_PICKER) {
+.controller('ResearchMapsCtrl', function ($scope, $filter, variables, resolvedVariables, DATE_PICKER) {
 
   /**
    * Define the default time interval for carousel slide show movement.
@@ -63,10 +63,7 @@ angular.module('pragmaApp')
 
   $scope.datePicker = DATE_PICKER;
 
-  /* Invokes the variablesService getAll method. */
-  variables.getAll().then(function(result){
-    $scope.variables = result;
-  });
+  $scope.variables = resolvedVariables;
 
   /**
    * Defines the scope state propery with a json object containing the initial state of
