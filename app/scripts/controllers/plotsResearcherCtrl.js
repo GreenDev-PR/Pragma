@@ -8,7 +8,7 @@
 
 // Getting the module for the application and adding the controller, injects the variables service.
 angular.module('pragmaApp')
-.controller('PlotsResearcherCtrl', ['$scope','$filter','variables', 'DATE_PICKER', function ($scope, $filter, variables, DATE_PICKER) {
+.controller('PlotsResearcherCtrl', function ($scope, $filter, variables, resolvedVariables, DATE_PICKER) {
 
   // Helper used to limit the coordinates to 8 decimal places
   /**
@@ -68,15 +68,7 @@ angular.module('pragmaApp')
     }
   };
 
-  // Using the variables service to get a list of all variables
-
-  /**
-   * Using the injected variables service to get the list of all variables to populate the dropdown
-   * @param  {Object} result list of variables returned by the get all function when resolved
-   */
-  variables.getAll().then(function(result){
-    $scope.variables = result;
-  });
+  $scope.variables = resolvedVariables;
 
   // Properties of the start datepicker
 
@@ -191,4 +183,4 @@ angular.module('pragmaApp')
     }
   };
 
-}]);
+});

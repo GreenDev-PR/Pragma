@@ -86,7 +86,12 @@ angular.module('pragmaApp', [
   .state('dashboard.researchPlots', {
     url:'/plots-researcher',
     templateUrl: 'partials/plotsResearcher.html',
-    controller: 'PlotsResearcherCtrl'
+    controller: 'PlotsResearcherCtrl',
+    resolve: {
+      resolvedVariables: function(variables) {
+        return variables.getAll();
+      }
+    }
   })
   .state('dashboard.cropSession', {
     url: '/cropSession',
