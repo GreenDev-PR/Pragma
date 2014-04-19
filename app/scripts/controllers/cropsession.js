@@ -2,5 +2,6 @@
 
 angular.module('pragmaApp')
 .controller('CropSessionCtrl', function ($scope) {
-  $scope.data = $scope.data || {};
+  // inherit data to resolve the crop session and be able to use the name in the template.
+  $scope.data = {};
 });

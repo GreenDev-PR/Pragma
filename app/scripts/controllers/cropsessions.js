@@ -15,14 +15,14 @@ angular.module('pragmaApp')
    * Invoke the Crop session getAll method in order to collect all cropSessions of
    * the currently logged in user.
    */
-  CropSessions.getAll().then(function(cropSessions){
+  CropSessions.getAll().then(function(data){
 
     /**
      * Define a scope cropSessions property with an crop session array containing the user's currently
      * ongoing crop sesssions.
      * @type {{Object}}
      */
-    $scope.data.cropSessions = cropSessions;
+    $scope.data = data;
 	});
 
   CropTypes.getAllWithCropData().then(function(cropTypes) {
@@ -41,16 +41,12 @@ angular.module('pragmaApp')
      */
     var temp = $scope.data.cropSessions[index];
 
-    CropSessions.remove(temp.id).then(function(){
-      $scope.data.cropSessions.splice(index,1);
-    });
-
+    CropSessions.remove(temp.id);
   };
 
   $scope.newCropSession = {};
 
   $scope.openModal = function () {
-    var outerScope = $scope;
     var modalInstance = $modal.open({
       templateUrl: 'partials/addCropSessionModal.html',
       scope: $scope,
@@ -74,12 +70,11 @@ angular.module('pragmaApp')
           angular.extend($scope.newCropSession, $scope.selectedCropType.cropData);
           $scope.newCropSession.startDate = $scope.startDate.value;
 
-          var created = CropSessions.create($scope.newCropSession).then(function(newCropSession) {
-            outerScope.data.cropSessions.push(newCropSession);
+          var createdPromise = CropSessions.create($scope.newCropSession).then(function() {
             $scope.newCropSession = {};
           });
 
-          created.finally(function() {
+          createdPromise.finally(function() {
             $modalInstance.close();
           });
         };

@@ -2,7 +2,6 @@
 
 angular.module('pragmaApp')
 .controller('SignupCtrl', function ($scope, Auth, $state, User) {
-  User.register();
   $scope.user = {userType: 'researcher'};
   $scope.errors = {};
 

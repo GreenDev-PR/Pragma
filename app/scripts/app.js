@@ -121,9 +121,8 @@ angular.module('pragmaApp', [
         templateUrl: 'partials/cropSession-irrigationHistory.html',
         controller: 'IrrigationhistoryCtrl',
         resolve: {
-          irrigationEvents: function(cropSession) {
-            console.log('nest cropasdfdsfdsa', cropSession);
-            return cropSession.getList('irrigationEvents');
+          irrigationEventsData: function (CropSessions, cropSession) {
+            return CropSessions.getAllIrrigationEvents(cropSession.id);
           }
         }
       }

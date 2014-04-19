@@ -5,72 +5,83 @@ describe('Service: CropSessions', function () {
   // load the service's module
   beforeEach(module('pragmaApp'));
 
-  var cropSessions = [
-    { userId: 1,
-      cropName: 'CropName1',
-      cropTypeId: 1,
-      area: 10,
-      startDate: 'Wed Apr 02 2014 15:55:01 GMT-0400',
-      initialStageLength: 1,
-      developmentStageLength: 10,
-      midStageLength: 4,
-      lateStageLength: 4,
-      kcInitial: 2,
-      kcMid: 0,
-      kcEnd: 1
-    },
-    { userId: 2,
-      cropName: 'CropName2',
-      cropTypeId: 2,
-      area: 0,
-      startDate: 'Wed Apr 02 2014 15:55:01 GMT-0400',
-      initialStageLength: 3,
-      developmentStageLength: 7,
-      midStageLength: 1,
-      lateStageLength: 6,
-      kcInitial: 2,
-      kcMid: 0,
-      kcEnd: 2
-    },
-    { userId: 3,
-      cropName: 'CropName3',
-      cropTypeId: 3,
-      area: 4,
-      startDate: 'Wed Apr 02 2014 15:55:01 GMT-0400',
-      initialStageLength: 0,
-      developmentStageLength: 7,
-      midStageLength: 2,
-      lateStageLength: 5,
-      kcInitial: 2,
-      kcMid: 0,
-      kcEnd: 0
-    },
-    { userId: 4,
-      cropName: 'CropName4',
-      cropTypeId: 4,
-      area: 0,
-      startDate: 'Wed Apr 02 2014 15:55:01 GMT-0400',
-      initialStageLength: 8,
-      developmentStageLength: 10,
-      midStageLength: 7,
-      lateStageLength: 9,
-      kcInitial: 0,
-      kcMid: 0,
-      kcEnd: 1
-    }
-  ];
-
+  var cropSessions;
   var cropSessionEndpoint = '/api/users/me/cropSessions';
 
   // instantiate service
   var CropSessions;
   var httpBackend;
   beforeEach(inject(function (_CropSessions_, $httpBackend) {
+    cropSessions = [
+      {
+        id: 1,
+        userId: 1,
+        cropName: 'CropName1',
+        cropTypeId: 1,
+        area: 10,
+        startDate: 'Wed Apr 02 2014 15:55:01 GMT-0400',
+        initialStageLength: 1,
+        developmentStageLength: 10,
+        midStageLength: 4,
+        lateStageLength: 4,
+        kcInitial: 2,
+        kcMid: 0,
+        kcEnd: 1
+      },
+      {
+        id: 2,
+        userId: 2,
+        cropName: 'CropName2',
+        cropTypeId: 2,
+        area: 0,
+        startDate: 'Wed Apr 02 2014 15:55:01 GMT-0400',
+        initialStageLength: 3,
+        developmentStageLength: 7,
+        midStageLength: 1,
+        lateStageLength: 6,
+        kcInitial: 2,
+        kcMid: 0,
+        kcEnd: 2
+      },
+      {
+        id: 3,
+        userId: 3,
+        cropName: 'CropName3',
+        cropTypeId: 3,
+        area: 4,
+        startDate: 'Wed Apr 02 2014 15:55:01 GMT-0400',
+        initialStageLength: 0,
+        developmentStageLength: 7,
+        midStageLength: 2,
+        lateStageLength: 5,
+        kcInitial: 2,
+        kcMid: 0,
+        kcEnd: 0
+      },
+      {
+        id: 4,
+        userId: 4,
+        cropName: 'CropName4',
+        cropTypeId: 4,
+        area: 0,
+        startDate: 'Wed Apr 02 2014 15:55:01 GMT-0400',
+        initialStageLength: 8,
+        developmentStageLength: 10,
+        midStageLength: 7,
+        lateStageLength: 9,
+        kcInitial: 0,
+        kcMid: 0,
+        kcEnd: 1
+      }
+    ];
+
     CropSessions = _CropSessions_;
     httpBackend = $httpBackend;
 
     httpBackend.whenGET(cropSessionEndpoint)
     .respond(cropSessions);
+
+
   }));
 
   describe('getAll', function() {
@@ -120,5 +131,44 @@ describe('Service: CropSessions', function () {
       CropSessions.remove(3);
       httpBackend.flush();
     });
+  });
+
+  describe('maintaining the state', function() {
+    var fetchedData;
+    beforeEach(function() {
+      CropSessions.getAll().then(function(data) {
+        fetchedData = data;
+      });
+
+      httpBackend.flush();
+    });
+
+    it('should remove a crop session with id 1 and update the data object', function() {
+      httpBackend.expectDELETE(cropSessionEndpoint + '/1')
+      .respond({});
+      var expected = fetchedData.cropSessions.slice(1);
+      CropSessions.remove(1).then(function() {
+        expect(fetchedData.cropSessions).toEqual(expected);
+      });
+
+      httpBackend.flush();
+    });
+
+    it('should create a new crop session and update the data object', function() {
+      var newCropSession = angular.copy(cropSessions[0]);
+      newCropSession.cropName = 'New crop session';
+
+      httpBackend.expectPOST(cropSessionEndpoint, newCropSession)
+      .respond(newCropSession);
+
+      var expectedLength = fetchedData.cropSessions.length + 1;
+      CropSessions.create(newCropSession).then(function(createdCropSession) {
+        var cropSessions = fetchedData.cropSessions;
+        expect(cropSessions[cropSessions.length - 1]).toEqual(createdCropSession);
+        expect(cropSessions.length).toBe(expectedLength);
+      });
+      httpBackend.flush();
+    });
+
   });
 });
