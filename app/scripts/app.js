@@ -144,6 +144,14 @@ angular.module('pragmaApp', [
     controller: 'CropSessionsCtrl',
     data: {
       authorizedRoles: [USER_ROLES.farmer]
+    },
+    resolve: {
+      cropSessionsData: function(CropSessions) {
+        return CropSessions.getAll();
+      },
+      cropTypes: function(CropTypes) {
+        return CropTypes.getAllWithCropData();
+      }
     }
   })
   .state('dashboard.profile', {

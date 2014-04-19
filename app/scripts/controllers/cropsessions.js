@@ -9,25 +9,17 @@
  * to provide cropSession deletion capabilities.
  */
 angular.module('pragmaApp')
-  .controller('CropSessionsCtrl', function($scope, CropSessions, CropTypes, $modal) {
+  .controller('CropSessionsCtrl', function($scope, CropSessions, cropSessionsData, cropTypes, $modal) {
 
-	/**
-   * Invoke the Crop session getAll method in order to collect all cropSessions of
-   * the currently logged in user.
+
+  /**
+   * Define a scope cropSessions property with an crop session array containing the user's currently
+   * ongoing crop sesssions.
+   * @type {{Object}}
    */
-  CropSessions.getAll().then(function(data){
+  $scope.data = cropSessionsData;
 
-    /**
-     * Define a scope cropSessions property with an crop session array containing the user's currently
-     * ongoing crop sesssions.
-     * @type {{Object}}
-     */
-    $scope.data = data;
-	});
-
-  CropTypes.getAllWithCropData().then(function(cropTypes) {
-    $scope.cropTypeList = cropTypes;
-  });
+  $scope.cropTypes = cropTypes;
 
   /**
    * Delete a crop session from the view.
@@ -65,7 +57,7 @@ angular.module('pragmaApp')
           }
         };
 
-        $scope.selectedCropType = $scope.cropTypeList[0];
+        $scope.selectedCropType = $scope.cropTypes[0];
         $scope.save = function() {
           angular.extend($scope.newCropSession, $scope.selectedCropType.cropData);
           $scope.newCropSession.startDate = $scope.startDate.value;
