@@ -8,7 +8,6 @@ angular.module('pragmaApp')
     // value: new Date(),
     opened: false,
     open: function($event) {
-      console.log('dfadlshfdklsfhdsfksdhflk');
       $event.preventDefault();
       $event.stopPropagation();
 

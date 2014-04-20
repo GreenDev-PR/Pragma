@@ -37,9 +37,7 @@ angular.module('pragmaApp').controller('SignupFarmerCtrl',['$scope', 'User', '$s
   $scope.address = 'Bayamon, PR';
 
   $scope.register = function(form) {
-    console.log(form);
     if(form.$valid && $scope.selectedItsLocation) {
-      console.log(User);
       User.register($scope.user).then(function() {
         $state.go('login');
       })

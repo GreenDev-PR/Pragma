@@ -3,7 +3,6 @@
 angular.module('pragmaApp')
 .controller('IrrigationhistoryCtrl', function ($scope, irrigationEventsData, $filter) {
   $scope.data = irrigationEventsData;
-  console.log('the irrigation evetns', irrigationEventsData);
   var getDataFromIrrigationEvents = function() {
     var data = $filter('orderBy')($scope.data.irrigationEvents, 'irrigationDate');
     return data.map(function(irrigationEvent) {
@@ -40,7 +39,6 @@ angular.module('pragmaApp')
   };
 
   $scope.$watch('data.irrigationEvents', function() {
-    console.log('the data changed');
     $scope.chartConfig.series = [{data: getDataFromIrrigationEvents()}];
   });
 });
