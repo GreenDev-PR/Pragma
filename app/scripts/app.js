@@ -10,6 +10,7 @@ angular.module('pragmaApp', [
   'geolocation',
   'restangular',
   'ui.bootstrap',
+  'ui.jq',
   'highcharts-ng'
 ])
 .config(function($stateProvider, $urlRouterProvider, $locationProvider, USER_ROLES) {
