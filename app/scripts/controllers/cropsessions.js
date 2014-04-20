@@ -21,6 +21,18 @@ angular.module('pragmaApp')
 
   $scope.cropTypes = cropTypes;
 
+  $scope.getCropTypeName = function(cropTypeId) {
+
+    var cropTypes = $scope.cropTypes;
+    for(var i=0; i < cropTypes.length; i++) {
+      if(cropTypes[i].id === cropTypeId) {
+        return cropTypes[i].cropType;
+      }
+    }
+
+    return '-';
+  };
+
   /**
    * Delete a crop session from the view.
    * @param {Integer} index The location of the cropssion inside the crop sessions array.
@@ -36,7 +48,7 @@ angular.module('pragmaApp')
     CropSessions.remove(temp.id);
   };
 
-  $scope.newCropSession = {};
+  $scope.sharedModal = {selectedCropType: $scope.cropTypes[0]};
 
   $scope.openModal = function () {
     var modalInstance = $modal.open({
@@ -57,14 +69,13 @@ angular.module('pragmaApp')
           }
         };
 
-        $scope.selectedCropType = $scope.cropTypes[0];
+        $scope.newCropSession = {};
+
         $scope.save = function() {
-          angular.extend($scope.newCropSession, $scope.selectedCropType.cropData);
+          angular.extend($scope.newCropSession, $scope.sharedModal.selectedCropType.cropData);
           $scope.newCropSession.startDate = $scope.startDate.value;
 
-          var createdPromise = CropSessions.create($scope.newCropSession).then(function() {
-            $scope.newCropSession = {};
-          });
+          var createdPromise = CropSessions.create($scope.newCropSession);
 
           createdPromise.finally(function() {
             $modalInstance.close();
@@ -72,7 +83,6 @@ angular.module('pragmaApp')
         };
 
         $scope.cancel = function () {
-          $scope.newCropSession = {};
           $modalInstance.dismiss('cancel');
         };
       }
@@ -81,5 +91,6 @@ angular.module('pragmaApp')
     modalInstance.result.then(function(newCropSession) {
       console.log(newCropSession);
     });
+
   };
 });
