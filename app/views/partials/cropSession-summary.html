@@ -5,15 +5,19 @@
   <table class="table table-bordered">
     <tr>
       <td>Crop Type</td>
-      <td>{{ data.cropSession.cropTypeId }}</td>
+      <td>{{ getCropTypeName() }}</td>
     </tr>
     <tr>
       <td>Start Date</td>
-      <td>{{ data.cropSession.startDate | date:'medium'}}</td>
+      <td>{{ data.cropSession.startDate | date:'short'}}</td>
     </tr>
     <tr>
-      <td>Area</td>
+      <td>Area (acre)</td>
       <td>{{ data.cropSession.area }}</td>
+    </tr>
+    <tr>
+      <td>Session Length (days)</td>
+      <td>{{ getCropSessionLength() }}</td>
     </tr>
   </table>
 </div>

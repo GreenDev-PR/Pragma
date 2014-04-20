@@ -112,6 +112,9 @@ angular.module('pragmaApp', [
     resolve: {
       cropSession: function($stateParams, CropSessions) {
         return CropSessions.get($stateParams.cropSessionId);
+      },
+      cropTypes: function(CropTypes) {
+        return CropTypes.getAllWithCropData();
       }
     },
     views: {
