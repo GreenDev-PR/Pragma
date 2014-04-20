@@ -9,7 +9,7 @@
  * to provide cropSession deletion capabilities.
  */
 angular.module('pragmaApp')
-  .controller('CropSessionsCtrl', function($scope, CropSessions, cropSessionsData, cropTypes, $modal) {
+  .controller('CropSessionsCtrl', function($scope, CropSessions, CropTypes, cropSessionsData, cropTypes, $modal) {
 
 
   /**
@@ -22,15 +22,8 @@ angular.module('pragmaApp')
   $scope.cropTypes = cropTypes;
 
   $scope.getCropTypeName = function(cropTypeId) {
-
-    var cropTypes = $scope.cropTypes;
-    for(var i=0; i < cropTypes.length; i++) {
-      if(cropTypes[i].id === cropTypeId) {
-        return cropTypes[i].cropType;
-      }
-    }
-
-    return '-';
+    var cropType = CropTypes.getCropType(cropTypeId, cropTypes);
+    return cropType ? cropType.cropType : '-';
   };
 
   /**
