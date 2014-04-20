@@ -40,12 +40,22 @@ angular.module('pragmaApp')
     options: {
       chart: {
         type: 'line'
+      },
+      title: {
+        text: 'Crop Coefficient'
+      },
+      xAxis: {
+        title: {
+          text: 'Day in Crop Session'
+        }
+      },
+      yAxis: {
+        title: {
+          text: 'Crop Coefficient (Kc)'
+        }
       }
     },
-    series: generateSeries($scope.tempCropSession),
-    title: {
-      text: 'Crop Coefficient'
-    }
+    series: generateSeries($scope.tempCropSession)
   };
 
   $scope.updateChart = function() {
