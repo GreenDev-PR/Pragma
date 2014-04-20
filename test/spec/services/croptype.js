@@ -7,16 +7,18 @@ describe('Service: CropType', function () {
 
   var cropTypeEndpoint = '/api/cropTypes';
 
-  var cropTypes = [
-    {id:1, 'cropType':'Avocado'},
-    {id:2, 'cropType':'Broccoli'},
-    {id:3, 'cropType':'Cabbage'}
-  ];
+  var cropTypes;
 
   // instantiate service
   var CropTypes;
   var httpBackend;
   beforeEach(inject(function (_CropTypes_, $httpBackend) {
+    cropTypes = [
+      {id:1, 'cropType':'Avocado'},
+      {id:2, 'cropType':'Broccoli'},
+      {id:3, 'cropType':'Cabbage'}
+    ];
+
     CropTypes = _CropTypes_;
     httpBackend = $httpBackend;
 
@@ -54,6 +56,16 @@ describe('Service: CropType', function () {
         CropTypes.getCropData(2);
         httpBackend.flush();
       });
+    });
+  });
+
+  describe('getCropType', function() {
+    it('should be return the cropType', function() {
+      expect(CropTypes.getCropType(2, cropTypes)).toEqual(cropTypes[1]);
+    });
+
+    it('should return null if the id is not found', function() {
+      expect(CropTypes.getCropType(3000, cropTypes)).toBe(null);
     });
   });
 });

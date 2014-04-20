@@ -33,4 +33,14 @@ angular.module('pragmaApp')
       return cropTypesPromise;
     });
   };
+
+  this.getCropType = function(cropTypeId, cropTypes) {
+    for(var i=0; i < cropTypes.length; i++) {
+      if(cropTypes[i].id === cropTypeId) {
+        return cropTypes[i];
+      }
+    }
+
+    return null;
+  };
 });
