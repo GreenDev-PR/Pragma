@@ -1,11 +1,12 @@
 'use strict';
 
 angular.module('pragmaApp')
-.controller('IrrigationhistoryCtrl', function ($scope, irrigationEventsData) {
+.controller('IrrigationhistoryCtrl', function ($scope, irrigationEventsData, $filter) {
   $scope.data = irrigationEventsData;
-  console.log('the irrigation events', irrigationEventsData);
+  console.log('the irrigation evetns', irrigationEventsData);
   var getDataFromIrrigationEvents = function() {
-    return $scope.data.irrigationEvents.map(function(irrigationEvent) {
+    var data = $filter('orderBy')($scope.data.irrigationEvents, 'irrigationDate');
+    return data.map(function(irrigationEvent) {
       return [Date.parse(irrigationEvent.irrigationDate), irrigationEvent.irrigationVolume];
     });
   };
@@ -20,14 +21,22 @@ angular.module('pragmaApp')
       },
       title: {
         text: 'Irrigated Volume'
+      },
+      xAxis: {
+        type: 'datetime',
+        title: {
+          text: 'Date'
+        }
+      },
+      yAxis: {
+        title: {
+          text: 'Irrigated Volume(gallons)'
+        }
       }
     },
     series: [{
       data: getDataFromIrrigationEvents()
-    }],
-    xAxis: {
-      type: 'datetime'
-    }
+    }]
   };
 
   $scope.$watch('data.irrigationEvents', function() {
