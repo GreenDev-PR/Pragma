@@ -209,5 +209,14 @@ angular.module('pragmaApp', [
     $rootScope.bodyClass = current.bodyClass || 'pragma';
   });
 
+})
+.run(function($window) {
+  $($window).bind('load resize', function() {
+    var width = ($window.innerWidth > 0) ? $window.innerWidth : $window.screen.width;
+    if (width < 768) {
+      $('div.sidebar-collapse').addClass('collapse');
+    } else {
+      $('div.sidebar-collapse').removeClass('collapse');
+    }
+  });
 });
-// .controller('paginationCtrl', angular.noop);
