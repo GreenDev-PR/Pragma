@@ -5,8 +5,8 @@ describe('Controller: DashboardCtrl', function () {
   // load the controller's module
   beforeEach(module('pragmaApp'));
 
-  var farmerCredentials = {email: 'f@f.com', password: 'ff'};
-  var researcherCredentials = {email: 'r@r.com', password: 'rr'};
+  var farmerCredentials;
+  var researcherCredentials;
 
   var DashboardCtrl;
   var scope;
@@ -18,6 +18,8 @@ describe('Controller: DashboardCtrl', function () {
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function (_$httpBackend_, $controller, $rootScope, _Auth_, _CropSessions_, $q, $state) {
+    farmerCredentials = {email: 'f@f.com', password: 'ff'};
+    researcherCredentials = {email: 'r@r.com', password: 'rr'};
     $httpBackend = _$httpBackend_;
     Auth = _Auth_;
 
@@ -41,6 +43,11 @@ describe('Controller: DashboardCtrl', function () {
     DashboardCtrl = $controller('DashboardCtrl', {
       $scope: scope
     });
+  }));
+
+  afterEach(inject(function($sessionStorage) {
+    // ********Weird fix for the session storage and the rest of the tests that use it.
+    delete $sessionStorage.user;
   }));
 
   it('should say that the user is a farmer', function () {

@@ -25,12 +25,14 @@ describe('Service: Auth', function () {
     });
 
     spyOn(Session, 'logout').and.callFake(function() {
+      Session.user = {};
       return $q.when({});
     });
   };
 
   var mockSessionInvalid = function() {
     spyOn(Session, 'login').and.callFake(function() {
+      Session.user = {};
       return $q.reject('An error');
     });
   };

@@ -26,6 +26,7 @@ module.exports = function(config) {
       'app/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'app/bower_components/highcharts-ng/dist/highcharts-ng.js',
       'app/bower_components/angular-ui-utils/jq.js',
+      'app/bower_components/ngstorage/ngStorage.js',
       'app/scripts/*.js',
       'app/scripts/**/*.js',
       // 'test/mock/**/*.js',

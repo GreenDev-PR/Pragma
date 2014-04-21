@@ -11,7 +11,8 @@ angular.module('pragmaApp', [
   'restangular',
   'ui.bootstrap',
   'ui.jq',
-  'highcharts-ng'
+  'highcharts-ng',
+  'ngStorage'
 ])
 .config(function($stateProvider, $urlRouterProvider, $locationProvider, USER_ROLES) {
   $locationProvider.html5Mode(true);
