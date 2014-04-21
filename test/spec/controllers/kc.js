@@ -35,6 +35,7 @@ describe('Controller: KcCtrl', function () {
     cropSession = Restangular.restangularizeElement(null, cropSession, '');
 
     scope = $rootScope.$new();
+    scope.data = {};
     KcCtrl = $controller('KcCtrl', {
       $scope: scope,
       cropSession: cropSession,
