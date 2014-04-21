@@ -132,7 +132,10 @@ angular.module('pragmaApp', [
     url: '/cropSession',
     abstract: true,
     templateUrl: 'partials/cropSession.html',
-    controller: 'CropSessionCtrl'
+    controller: function($scope) {
+      // shared data
+      $scope.data = {};
+    }
   })
   .state('dashboard.cropSessions.cropSession.detail', {
     url:'/detail/:cropSessionId',

@@ -65,7 +65,7 @@ angular.module('pragmaApp')
   $scope.save = function() {
     $scope.tempCropSession.put().then(function(updatedCropSession) {
       $scope.tempCropSession = Restangular.copy(updatedCropSession);
-      cropSession = updatedCropSession;
+      $scope.data.cropSession = updatedCropSession;
     });
   };
 
