@@ -12,7 +12,9 @@ angular.module('pragmaApp', [
   'ui.bootstrap',
   'ui.jq',
   'highcharts-ng',
-  'ngStorage'
+  'ngStorage',
+  'chieffancypants.loadingBar',
+  'ngAnimate'
 ])
 .config(function($stateProvider, $urlRouterProvider, $locationProvider, USER_ROLES) {
   $locationProvider.html5Mode(true);
