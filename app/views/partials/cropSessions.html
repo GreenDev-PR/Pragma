@@ -22,7 +22,7 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="cropSession in data.cropSessions">
-					<td><p><a ui-sref="dashboard.cropSession.detail({cropSessionId: cropSession.id})">{{ cropSession.cropName }}</a></p></td>
+					<td><p><a ui-sref="dashboard.cropSessions.cropSession.detail({cropSessionId: cropSession.id})">{{ cropSession.cropName }}</a></p></td>
 					<td><p>{{ getCropTypeName(cropSession.cropTypeId) }}</p></td>
 					<td><p>{{ cropSession.startDate | date: 'yyyy-MMMM-dd' }}</p></td>
 					<td><button class="btn btn-danger" ng-click="deleteCropSession($index)">Delete</button></td>

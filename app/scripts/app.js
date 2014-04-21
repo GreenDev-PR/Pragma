@@ -63,6 +63,7 @@ angular.module('pragmaApp', [
       authorizedRoles: all
     }
   })
+  // dashboard
   .state('dashboard', {
     url: '/dashboard',
     abstract: true,
@@ -77,6 +78,7 @@ angular.module('pragmaApp', [
     templateUrl: 'partials/farmerOverview.html',
     controller: 'FarmerOverviewCtrl'
   })
+  // Research
   .state('dashboard.research', {
     url: '/research',
     abstract: true,
@@ -102,23 +104,41 @@ angular.module('pragmaApp', [
     templateUrl: 'partials/plotsResearcher.html',
     controller: 'PlotsResearcherCtrl'
   })
-  .state('dashboard.cropSession', {
+  // Crop sessions
+  .state('dashboard.cropSessions', {
+    abstract: true,
+    url: '/cropSessions',
+    template: '<div ui-view=""></div>',
+    resolve: {
+      cropTypes: function(CropTypes) {
+        return CropTypes.getAllWithCropData();
+      }
+    },
+    data: {
+      authorizedRoles: [USER_ROLES.farmer]
+    },
+  })
+  .state('dashboard.cropSessions.manage', {
+    url: '/manage',
+    templateUrl: 'partials/cropSessions.html',
+    controller: 'CropSessionsCtrl',
+    resolve: {
+      cropSessionsData: function(CropSessions) {
+        return CropSessions.getAll();
+      }
+    }
+  })
+  .state('dashboard.cropSessions.cropSession', {
     url: '/cropSession',
     abstract: true,
     templateUrl: 'partials/cropSession.html',
-    controller: 'CropSessionCtrl',
-    data: {
-      authorizedRoles: [USER_ROLES.farmer]
-    }
+    controller: 'CropSessionCtrl'
   })
-  .state('dashboard.cropSession.detail', {
+  .state('dashboard.cropSessions.cropSession.detail', {
     url:'/detail/:cropSessionId',
     resolve: {
       cropSession: function($stateParams, CropSessions) {
         return CropSessions.get($stateParams.cropSessionId);
-      },
-      cropTypes: function(CropTypes) {
-        return CropTypes.getAllWithCropData();
       }
     },
     views: {
@@ -142,22 +162,6 @@ angular.module('pragmaApp', [
             return CropSessions.getAllIrrigationEvents(cropSession.id);
           }
         }
-      }
-    }
-  })
-  .state('dashboard.cropSessions', {
-    url: '/cropSessions',
-    templateUrl: 'partials/cropSessions.html',
-    controller: 'CropSessionsCtrl',
-    data: {
-      authorizedRoles: [USER_ROLES.farmer]
-    },
-    resolve: {
-      cropSessionsData: function(CropSessions) {
-        return CropSessions.getAll();
-      },
-      cropTypes: function(CropTypes) {
-        return CropTypes.getAllWithCropData();
       }
     }
   })

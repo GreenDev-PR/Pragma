@@ -33,10 +33,11 @@
           <a ui-sref="dashboard.overview"><i class="fa fa-globe fa-fw"></i>Overview</a>
         </li>
         <li ng-if="isFarmer()">
-          <a ui-sref="dashboard.cropSessions"><i class="fa fa-leaf fa-fw"></i> Crop Sessions<span class="fa arrow"></span></a>
+          <a><i class="fa fa-leaf fa-fw"></i> Crop Sessions<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level">
+            <li><a ui-sref="dashboard.cropSessions.manage">Manage Crop Sessions</a></li>
             <li ng-repeat="cropSession in data.cropSessions">
-              <a ui-sref="dashboard.cropSession.detail({cropSessionId: cropSession.id})">{{ cropSession.cropName }}</a>
+              <a ui-sref="dashboard.cropSessions.cropSession.detail({cropSessionId: cropSession.id})">{{ cropSession.cropName }}</a>
             </li>
           </ul>
         </li>

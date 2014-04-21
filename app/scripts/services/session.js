@@ -11,7 +11,6 @@ angular.module('pragmaApp')
    * @type {Object}
    */
   this.user = $sessionStorage.user || {};
-  console.log('the session user', this.user);
 
   /**
    * Authenticates the user
