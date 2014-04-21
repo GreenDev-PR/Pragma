@@ -38,7 +38,9 @@ angular.module('pragmaApp')
     }]
   };
 
-  $scope.$watch('data.irrigationEvents', function() {
-    $scope.chartConfig.series = [{data: getDataFromIrrigationEvents()}];
+  $scope.$watch('data.irrigationEvents.length', function(newVal, oldVal) {
+    if(newVal !== oldVal) {
+      $scope.chartConfig.series[0].data = getDataFromIrrigationEvents();
+    }
   });
 });
