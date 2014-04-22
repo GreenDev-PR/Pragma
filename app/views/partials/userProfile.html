@@ -21,7 +21,7 @@
               <div class="form-group">
                 <input class="form-control" placeholder="Organization" name="organization" ng-model="tempUser.organization" required>
               </div>
-              <div class="form-group">
+              <div class="form-group" ng-show="isFarmer()">
                 <label for="address">Where is your farm located?</label>
                 <div style="position: relative">
                   <div class="map-panel">
