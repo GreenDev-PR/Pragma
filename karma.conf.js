@@ -11,7 +11,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'http://maps.googleapis.com/maps/api/js?sensor=false&libraries=weather,visualization',
+      'https://maps.googleapis.com/maps/api/js?sensor=false&libraries=weather,visualization',
       'app/bower_components/jquery/dist/jquery.js',
       'app/bower_components/underscore/underscore.js',
       'app/bower_components/angular/angular.js',

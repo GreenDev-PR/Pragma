@@ -66,10 +66,10 @@ describe('Controller: SignupFarmerCtrl', function () {
         geometry :{
           location: {
             lat: function() {
-              return 1;
+              return 18.229351;
             },
             lng: function() {
-              return 2;
+              return -66.453767;
             }
           }
         }

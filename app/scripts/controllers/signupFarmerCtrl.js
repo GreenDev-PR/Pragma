@@ -1,10 +1,24 @@
 'use strict';
 
 angular.module('pragmaApp').controller('SignupFarmerCtrl',['$scope', 'User', '$state', 'Geocoder', function($scope, User, $state, Geocoder){
+  var bounds = new google.maps.LatLngBounds(
+    new google.maps.LatLng(17.80072, -67.3),
+    new google.maps.LatLng(18.7, -65.4205)
+    );
+
   $scope.selectedItsLocation = false;
   var setFarmerLocation = function(location) {
     $scope.user.farmLatitude = location.lat();
     $scope.user.farmLongitude = location.lng();
+  };
+
+  var checkMarkerLocation = function(marker) {
+    if(!bounds.contains(marker.getPosition())) {
+      marker.setPosition(bounds.getCenter());
+      return false;
+    }
+
+    return true;
   };
 
 	$scope.map = {
@@ -13,8 +27,16 @@ angular.module('pragmaApp').controller('SignupFarmerCtrl',['$scope', 'User', '$s
 			longitude: -66.453767
 		},
     control: {},
-    zoom: 8
+    zoom: 8,
+    events: {
+      'dragend': function(map) {
+        if(!bounds.contains(map.getCenter())) {
+          map.fitBounds(bounds);
+        }
+      }
+    }
   };
+
 
   $scope.marker = {
     coords: {
@@ -26,7 +48,10 @@ angular.module('pragmaApp').controller('SignupFarmerCtrl',['$scope', 'User', '$s
       visible: true
     },
     events: {
-      dragend: function(marker) {
+      'dragend': function(marker) {
+        if(!checkMarkerLocation(marker)) {
+          return;
+        }
         $scope.selectedItsLocation = true;
         setFarmerLocation(marker.getPosition());
       }
@@ -49,9 +74,12 @@ angular.module('pragmaApp').controller('SignupFarmerCtrl',['$scope', 'User', '$s
 
   $scope.searchAddress = function() {
     Geocoder.geocode({ 'address': $scope.address}).then(function(results) {
-      $scope.selectedItsLocation = true;
 
       var location = results[0].geometry.location;
+      if(!bounds.contains(location)) {
+        return;
+      }
+      $scope.selectedItsLocation = true;
       $scope.map.control.getGMap().setCenter(location);
       $scope.map.zoom = 13;
       $scope.marker.coords.latitude = location.lat();

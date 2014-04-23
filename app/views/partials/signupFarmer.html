@@ -24,7 +24,7 @@
                     <input type="text" id="address" ng-model="address">
                     <a class="btn btn-primary" ng-click="searchAddress()">Search</a>
                   </div>
-                  <google-map center='map.center' zoom='map.zoom' control="map.control" draggable="true" id="signup-map" class='form-group'>
+                  <google-map center="map.center" zoom="map.zoom" control="map.control" bounds="map.bounds" draggable="true" id="signup-map" events="map.events">
                     <marker coords='marker.coords' options='marker.options' events="marker.events"></marker>
                   </google-map>
                 </div>
