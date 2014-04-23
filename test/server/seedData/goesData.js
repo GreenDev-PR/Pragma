@@ -37,17 +37,18 @@ function createData(variableName, dataDate) {
 function createDataFor(variableName, startMoment, endMoment) {
   var tempMoment = moment(startMoment);
 
-  var monthData = [];
+  var createdData = [];
   while(!tempMoment.isAfter(endMoment)) {
-    monthData.push.apply(monthData, createData(variableName, tempMoment.toISOString()));
-    console.log('pushed');
+    createdData.push.apply(createdData, createData(variableName, tempMoment.toISOString()));
     tempMoment.add('days', 1);
   }
 
-  return monthData;
+  return createdData;
 }
 
-exports.goesData = createDataFor('rainfall', startMoment, endMoment);
+var rainfall = createDataFor('rainfall', startMoment, endMoment);
+var referenceEt = createDataFor('reference_ET_PenmanMonteith', startMoment, endMoment);
+exports.goesData = rainfall.concat(referenceEt);
 
 exports.goesDataOptions = {
   startMoment: startMoment,
