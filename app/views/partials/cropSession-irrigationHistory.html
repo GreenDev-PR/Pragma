@@ -16,7 +16,7 @@
             <tbody>
               <tr ng-repeat="irrigationEvent in data.irrigationEvents">
                 <td>{{ irrigationEvent.irrigationDate | date }}</td>
-                <td>{{ irrigationEvent.irrigationVolume }}</td>
+                <td>{{ irrigationEvent.irrigationVolume | number:'2'}}</td>
               </tr>
             </tbody>
           </table>
