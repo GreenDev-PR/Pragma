@@ -2,10 +2,10 @@
 
 /**
  * Update profile controller module.
- * Controls the functionality to display, validate and update the user profile data. 
+ * Controls the functionality to display, validate and update the user profile data.
  * Uses the 'User' service to request the current user and update profile
  */
-angular.module('pragmaApp').controller('UserProfileCtrl',['$scope', '$state', 'Geocoder', 'user', 'Restangular', function($scope, $state, Geocoder, user, Restangular) {
+angular.module('pragmaApp').controller('UserProfileCtrl', function($scope, $state, Geocoder, user, Restangular) {
 
   /**
    * Defining the map object and configuring initial properties
@@ -52,7 +52,7 @@ angular.module('pragmaApp').controller('UserProfileCtrl',['$scope', '$state', 'G
 
   /**
    * Function triggered by the Get Address button. Updates the currently selected location to
-   * the address returned by the search. 
+   * the address returned by the search.
    */
   $scope.searchAddress = function() {
     Geocoder.geocode({'address': $scope.address}).then(function(results) {
@@ -94,7 +94,7 @@ angular.module('pragmaApp').controller('UserProfileCtrl',['$scope', '$state', 'G
    * @type {Object}
    */
   $scope.marker.coords.longitude = $scope.tempUser.farmLongitude;
-  
+
   /**
    * Helper method to update the location of the temp user.
    * @param {Object} location location object with new latitude and longitude
@@ -109,12 +109,11 @@ angular.module('pragmaApp').controller('UserProfileCtrl',['$scope', '$state', 'G
    */
   $scope.saveChanges = function(form) {
     console.log(form);
-    //Allows updating the profile only if the form is valid. 
+    //Allows updating the profile only if the form is valid.
     if(form.$valid) {
       $scope.tempUser.put().then(function(modifiedUser) {
         $scope.tempUser = Restangular.copy(modifiedUser);
-        delete $scope.tempUser.password;
       });
     }
   };
-}]);
+});
