@@ -8,8 +8,15 @@ angular.module('pragmaApp')
       getAll: function() {
         return Restangular.all('research/variables').getList();
       },
-      getDataFor: function(variableName) {
-        return Restangular.one('research/variables', variableName).getList('data');
+      getDataFor: function(variableName, timeRange, coordinates) {
+        coordinates = coordinates || {};
+        timeRange = timeRange || {};
+        return Restangular.one('research/variables', variableName).getList('data', {
+          latitude: coordinates.latitude,
+          longitude: coordinates.longitude,
+          startDate: timeRange.startDate,
+          endDate: timeRange.endDate
+        });
       },
       getMapsFor: function(variableName, startDate, endDate) {
         var queryParams;

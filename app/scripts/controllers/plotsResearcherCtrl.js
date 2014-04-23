@@ -158,7 +158,11 @@ angular.module('pragmaApp')
       //Allows getting data only for start date before end date
       if(startDate <= endDate){
         //Using the variables service to gather the data for the given variable and date range
-        variables.getDataFor($scope.variable.variableName, startDate, endDate).then(function(result){
+        variables.getDataFor($scope.variable.variableName, {
+          startDate: startDate.toString(),
+          endDate: endDate.toString()
+        }, $scope.marker.coords)
+        .then(function(result){
 
           /**
            * Maps a function to each element of the result returned by the getDataFor method
