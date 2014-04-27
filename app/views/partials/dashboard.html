@@ -35,22 +35,22 @@
         <li ng-if="isFarmer()">
           <a><i class="fa fa-leaf fa-fw"></i> Crop Sessions<span class="fa arrow"></span></a>
           <ul class="nav nav-second-level">
-            <li><a ui-sref="dashboard.cropSessions.manage">Manage Crop Sessions</a></li>
+            <li><a ui-sref="dashboard.cropSessions.manage"><i class="fa fa-pencil-square-o"></i> Manage Crop Sessions</a></li>
             <li ng-repeat="cropSession in data.cropSessions">
-              <a ui-sref="dashboard.cropSessions.cropSession.detail({cropSessionId: cropSession.id})">{{ cropSession.cropName }}</a>
+              <a ui-sref="dashboard.cropSessions.cropSession.detail({cropSessionId: cropSession.id})"><i class="fa fa-pencil"></i> {{ cropSession.cropName }}</a>
             </li>
           </ul>
         </li>
       </ul>
       <ul class="nav">
         <li>
-          <a ui-sref="dashboard.research.variables"><i class="fa fa-flask fa-fw"></i>Research</a>
+          <a ui-sref="dashboard.research.variables"><i class="fa fa-flask fa-fw"></i> Research</a>
           <ul class="nav nav-second-level">
             <li>
-              <a ui-sref="dashboard.research.plots">Plots</a>
+              <a ui-sref="dashboard.research.plots"><i class="fa fa-bar-chart-o"></i> Plots</a>
             </li>
             <li>
-              <a ui-sref="dashboard.research.maps">Maps</a>
+              <a ui-sref="dashboard.research.maps"><i class="fa fa-map-marker"></i> Maps</a>
             </li>
           </ul>
         </li>
