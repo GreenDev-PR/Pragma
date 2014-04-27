@@ -24,7 +24,7 @@ angular.module('pragmaApp', [
 
   $stateProvider
   .state('showcase', {
-    url: '/',
+    url: '/showcase',
     templateUrl: 'partials/projectPages.html',
     controller: 'ProjectPagesCtrl',
     data: {
@@ -32,7 +32,7 @@ angular.module('pragmaApp', [
     }
   })
   .state('landingPage', {
-    url: '/landing',
+    url: '/',
     templateUrl: 'partials/landing.html',
     bodyClass: 'landing-page',
     data: {
