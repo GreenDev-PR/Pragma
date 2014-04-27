@@ -136,7 +136,8 @@ angular.module('pragmaApp')
       }
     },
     xAxis: {
-      type: 'datetime'
+      type: 'datetime',
+      tickInterval: 24 * 3600 * 1000
     }
   };
 
@@ -171,7 +172,11 @@ angular.module('pragmaApp')
            * @return {Object|Array.<Number>} array of data values received from the variables.getDataFor call
            */
           var newData = result.map(function(datum) {
-            return [new Date(datum.dataValue), datum.dataValue];
+            console.log('the parsed data', new Date(datum.dataDate));
+            var d = new Date(datum.dataDate);
+            d.setHours(0, 0, 0, 0);
+            d.setMilliseconds(0);
+            return [d.valueOf(), datum.dataValue];
           });
 
           /**
