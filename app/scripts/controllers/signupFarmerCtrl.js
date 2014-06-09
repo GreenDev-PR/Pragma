@@ -60,9 +60,15 @@ angular.module('pragmaApp').controller('SignupFarmerCtrl',['$scope', 'User', '$s
 
   $scope.user = {userType: 'farmer'};
   $scope.address = 'Bayamon, PR';
-
+  $scope.confirmedPassword = null;
   $scope.register = function(form) {
     if(form.$valid && $scope.selectedItsLocation) {
+      if($scope.user.password !== $scope.confirmedPassword) {
+        // TODO: improve error messaging.
+        alert('Passwords need to be equal');
+        return;
+      }
+
       User.register($scope.user).then(function() {
         $state.go('login');
       })
